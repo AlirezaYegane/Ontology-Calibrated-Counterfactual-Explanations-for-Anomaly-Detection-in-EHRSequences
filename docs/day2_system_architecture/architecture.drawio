@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.4.0">
+  <diagram id="0c77bb5f7141445bbaaccd73bbca29a3" name="Day2 Architecture">
+    <mxGraphModel dx="1678" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#bfdbfe;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Raw EHR Data Sources&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• MIMIC-III / MIMIC-IV / eICU tables&lt;br/&gt;• Diagnoses, procedures, meds, encounters&lt;br/&gt;• Demographics (age, sex)" vertex="1">
+          <mxGeometry height="150" width="300" x="40" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Preprocessing &amp; Mapping&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Extract per-encounter event sequences&lt;br/&gt;• Normalize: ICD → SNOMED, Drug/NDC → RxNorm&lt;br/&gt;• Build splits + vocab + audit logs" vertex="1">
+          <mxGeometry height="150" width="260" x="60" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Normalized Record Store&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Record = {events, demographics, raw_codes}&lt;br/&gt;• Canonical tokens used by all modules&lt;br/&gt;• Keeps traceability for debugging" vertex="1">
+          <mxGeometry height="150" width="260" x="60" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Baseline Anomaly Detector&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Sequence model (GRU / Transformer)&lt;br/&gt;• Outputs detection score: S_det(X)&lt;br/&gt;• Optional: token-level surprise" vertex="1">
+          <mxGeometry height="150" width="260" x="400" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Diffusion Generative Model&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Ontology-regularized generative prior&lt;br/&gt;• Outputs generative score: S_gen(X)&lt;br/&gt;• Optional: denoised / recon candidates" vertex="1">
+          <mxGeometry height="150" width="260" x="420" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Ontology Engine&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Mappings + concept graph (SNOMED/RxNorm)&lt;br/&gt;• Rule checks → violations[]&lt;br/&gt;• Ontology score: S_ont(X) + labels/relations" vertex="1">
+          <mxGeometry height="150" width="260" x="697" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#bfdbfe;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Score Orchestrator / Calibrator&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Aggregates: S_det, S_gen, S_ont&lt;br/&gt;• S_cal(X) = w1·S_gen + w2·S_ont&lt;br/&gt;• Builds ScorePack + metadata" vertex="1">
+          <mxGeometry height="150" width="260" x="880" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Counterfactual Generator&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Edits: add / remove / replace (ontology-valid)&lt;br/&gt;• Objective: min λ·#edits + S_cal(X′)&lt;br/&gt;• Returns X* + edits[] + before/after scores" vertex="1">
+          <mxGeometry height="150" width="260" x="1330" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#bfdbfe;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Explanation Interface&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Human-readable summary (why flagged)&lt;br/&gt;• Violations + top contributors&lt;br/&gt;• Minimal fix (X*) + score reduction" vertex="1">
+          <mxGeometry height="150" width="260" x="1330" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#111827;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Deliverables&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;• Explanation report (text + structure)&lt;br/&gt;• Counterfactual record + edit log" vertex="1">
+          <mxGeometry height="110" width="260" x="1330" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="100" edge="1" parent="1" source="2" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="3" value="raw tables → ETL">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="101" edge="1" parent="1" source="3" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="4" value="normalized Record">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="102" edge="1" parent="1" source="4" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="5" value="Record.events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="103" edge="1" parent="1" source="4" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="6" value="Record.events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="104" edge="1" parent="1" source="4" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="7" value="Record + demo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="105" edge="1" parent="1" source="5" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="8" value="S_det">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="106" edge="1" parent="1" source="6" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="8" value="S_gen">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="107" edge="1" parent="1" source="7" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="8" value="S_ont + violations">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="108" edge="1" parent="1" source="8" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="9" value="ScorePack (S_cal)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="109" edge="1" parent="1" source="9" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="10" value="X* + edits + Δscore">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="110" edge="1" parent="1" source="10" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;" target="11" value="report + artifacts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="111" edge="1" parent="1" source="7" style="endArrow=block;html=1;rounded=0;strokeColor=#374151;fontColor=#6b7280;dashed=1;" target="10" value="labels / relations">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2000" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=20;fontStyle=1;fontColor=#1f2937;" value="Day 2 — System Architecture (EHR Anomaly Detection + Ontology + Counterfactuals)" vertex="1">
+          <mxGeometry height="40" width="1200" x="60" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="2001" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#6b7280;" value="modules, data flow, and intermediate representations" vertex="1">
+          <mxGeometry height="30" width="1200" x="60" y="55" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
