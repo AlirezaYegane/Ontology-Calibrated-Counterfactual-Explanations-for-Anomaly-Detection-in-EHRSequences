@@ -88,7 +88,7 @@ Extract per-encounter event sequences from raw EHR tables
 
 Normalize codes into SNOMED/RxNorm via mapping dictionaries (e.g., UMLS-derived)
 
-Create consistent train/val/test splits and vocabularies
+Create train/val/test splits and vocabularies
 
 Input
 
@@ -117,24 +117,20 @@ Output
 
 S_det(record) (float)
 
-Optional: per-token surprise/attribution scores
+Optional: token-level surprise/attribution
 
 Model options
 
 GRU / LSTM / Transformer encoder
 
-Score can be negative log-likelihood or anomaly probability
-
 4.3 Ontology Engine (Mappings + Graph + Rules)
 Responsibilities
-
-Clinical-structure constraints and reasoning utilities:
 
 Mappings (ICD→SNOMED, NDC/drug→RxNorm)
 
 Graph traversal and neighborhood queries
 
-Rule-based checks (demographic incompatibility, contraindications, contradictions, etc.)
+Rule-based checks (contraindications, contradictions, demographic incompatibility, etc.)
 
 Human-readable labels for codes
 
@@ -144,24 +140,14 @@ Record (events + demographics)
 
 Output
 
-violations[] (rule hits)
-
-S_ont(record) (float), typically a weighted sum of violations
-
-Key data structures
-
-concept_graph: adjacency list / parent-child relations
-
-concept_lookup: code → label, type, neighbors
-
-rule_registry: rule_id → function(record) → violations
+violations[] and S_ont(record) (float)
 
 4.4 Diffusion-Based Generative Model (Ontology-Regularized)
 Responsibilities
 
 Model distribution of plausible EHR event sequences
 
-Produce generative anomaly score and provide repair suggestions
+Output generative anomaly score and “repair suggestions”
 
 Input
 
@@ -171,11 +157,7 @@ Output
 
 S_gen(record) (float)
 
-Optional: reconstructed/denoised candidate sequences
-
-Notes
-
-MVP may use a lighter generative proxy, but keep the interface stable
+Optional: reconstructed/denoised candidates
 
 4.5 Score Orchestrator & Calibration
 Responsibilities
@@ -188,15 +170,11 @@ S_det, S_gen, S_ont, and violations
 
 Output
 
-S_cal(record) and a full ScorePack
+ScorePack with S_cal(record)
 
 Calibration (MVP)
 
-S_cal(X) = w1 * S_gen(X) + w2 * S_ont(X)
-
-Default: w2 > w1 (ontology violations are often more actionable)
-
-S_det remains useful for ranking/triage but can be excluded from S_cal in MVP
+S_cal(X) = w1 * S_gen(X) + w2 * S_ont(X) with default w2 > w1
 
 4.6 Counterfactual Generator (Ontology-Constrained Minimal Edits)
 Responsibilities
@@ -205,90 +183,35 @@ Find minimally modified record X* that reduces anomaly score and resolves key vi
 
 Allowed edit operations
 
-add(code)
-
-remove(code)
-
-replace(code_a → code_b) (e.g., within ontology neighborhood)
+add / remove / replace (ontology-valid neighborhood)
 
 Objective
-Minimize:
 
-J(X') = λ * (#edits) + S_cal(X')
-
-Subject to:
-
-Edits must be ontology-valid
-
-Optional MVP constraints: max edits K = 1 or 2, must reduce S_cal by at least Δ
-
-Candidate generation
-
-Ontology neighbors (graph)
-
-Diffusion suggestions (denoised candidates)
-
-Rule resolvers (edits targeting triggered violations)
-
-Search strategy (MVP)
-
-Best-first search (priority by lowest J(X'))
-
-Early stopping when S_cal below threshold or violations resolved
+Minimize J(X') = λ * (#edits) + S_cal(X') subject to ontology validity and optional constraints.
 
 4.7 Explanation Interface
 Responsibilities
 
-Produce concise human-readable explanation:
+Human-readable summary: why flagged + what minimal edit fixes it + score changes.
 
-why flagged (violations + top contributors)
-
-what minimal change fixes it (counterfactual edits)
-
-how score changes (before/after)
-
-Output example
-
-{
-  "summary": "This encounter is flagged due to ...",
-  "violations": ["..."],
-  "top_contributors": ["..."],
-  "counterfactual": { "edits": ["..."], "score_delta": 0.0 }
-}
 5. End-to-End Data Flow
-Raw EHR tables → Preprocessing
-
-Preprocessing → normalized Records (SNOMED/RxNorm events)
-
-Record → Baseline Detector → S_det
-
-Record → Diffusion Model → S_gen
-
-Record → Ontology Engine → violations + S_ont
-
+Raw EHR → Preprocessing → Record
+Record → Detector (S_det)
+Record → Diffusion (S_gen)
+Record → Ontology (S_ont, violations)
 Orchestrator → ScorePack with S_cal
+Counterfactual search → X*
+Explanation → report + artifacts
 
-Counterfactual generator → X* with minimal edits
+6. Feasibility & Alignment Check
+Feasible for MVP due to stable I/O contracts (Record, ScorePack, CounterfactualOutput) and bounded counterfactual search.
 
-Explanation interface → report (why + what-to-change)
+Open decisions:
 
-6. Feasibility & Alignment Check (Day 2 Checkpoint)
-Feasible for MVP because:
+Encounter granularity
 
-Clear I/O contracts (Record, ScorePack, CounterfactualOutput)
+Sequence representation (bucketed vs flat)
 
-Counterfactual search is bounded (K edits + best-first)
+Initial ruleset for MVP
 
-Ontology engine provides constraints + explainability
-
-Models can be swapped without breaking interfaces
-
-Open decisions (lock before implementation):
-
-Encounter granularity: admission-level vs ICU-stay-level
-
-Sequence representation: timestamped buckets vs flattened sequence
-
-Initial ruleset categories for MVP
-
-Weights (w1,w2) and thresholds (cutoff, Δ)
+Weights/thresholds (w1, w2, cutoff, Δ)
