@@ -1,0 +1,23 @@
+﻿# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Large/derived data (keep folder structure via .gitkeep)
+ontology_cf_anomaly\data/**
+!ontology_cf_anomaly\data/**/.gitkeep
+ontology_cf_anomaly\ontologies/**
+!ontology_cf_anomaly\ontologies/**/.gitkeep
+
+# Your local research folders (optional but recommended)
+Datasets/
+PapersPDF/
+Literature/
+
+# Backups
+*.bak_*
