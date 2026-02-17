@@ -7,4 +7,7 @@ Main code & assets live under: ontology_cf_anomaly/
 - Scaffold folders created
 - Python venv + core deps installed
 - Torch/CUDA check script added
-rn## Docsrn- Day 2 System Architecture: docs/day2_system_architecture/
+
+## Docs
+- Day 2 System Architecture: docs/day2_system_architecture/
+
