@@ -21,3 +21,6 @@ Literature/
 
 # Backups
 *.bak_*
+# Local-only stuff
+_local/
+one_pagers/
