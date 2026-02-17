@@ -1,44 +1,21 @@
-﻿\# Day 2 — System Architecture Diagram (Mermaid)
-
-
+﻿# Day 2 — System Architecture Diagram (Mermaid)
 
 ```mermaid
-
 flowchart LR
+  A[Raw EHR Tables<br/>(MIMIC/eICU)] --> B[Preprocessing & Mapping<br/>Extract events + demographics<br/>ICD->SNOMED, Drug/NDC->RxNorm]
+  B --> C[Normalized Record Store<br/>Record{events, demographics, raw_codes}]
 
-&nbsp; A\[Raw EHR Tables\\n(MIMIC/eICU)] --> B\[Preprocessing \& Mapping\\nExtract events + demographics\\nICD->SNOMED, Drug/NDC->RxNorm]
+  C --> D[Baseline Anomaly Detector<br/>(GRU/Transformer)]
+  D -->|S_det + optional token surprise| F[Score Orchestrator / Calibrator]
 
-&nbsp; B --> C\[Normalized Record Store\\nRecord{events, demographics, raw\_codes}]
+  C --> E[Diffusion-based Generative Model<br/>(ontology-regularized)]
+  E -->|S_gen + candidate reconstructions| F
 
+  C --> G[Ontology Engine<br/>Mappings + Graph + Rules]
+  G -->|violations + S_ont| F
 
+  F -->|ScorePack<br/>{S_det,S_gen,S_ont,S_cal,violations}| H[Counterfactual Generator<br/>Ontology-constrained edits<br/>min lambda·#edits + S_cal(X')]
+  H -->|X* + edits + scores_before/after| I[Explanation Interface<br/>Human-readable report]
+  G -->|labels + relations| I
 
-&nbsp; C --> D\[Baseline Anomaly Detector\\n(GRU/Transformer)]
-
-&nbsp; D -->|S\_det + optional token surprise| F\[Score Orchestrator / Calibrator]
-
-
-
-&nbsp; C --> E\[Diffusion-based Generative Model\\n(ontology-regularized)]
-
-&nbsp; E -->|S\_gen + candidate reconstructions| F
-
-
-
-&nbsp; C --> G\[Ontology Engine\\nMappings + Graph + Rules]
-
-&nbsp; G -->|violations + S\_ont| F
-
-
-
-&nbsp; F -->|ScorePack\\n{S\_det,S\_gen,S\_ont,S\_cal,violations}| H\[Counterfactual Generator\\nOntology-constrained edits\\nmin λ·#edits + S\_cal(X')]
-
-&nbsp; H -->|X\* + edits + scores\_before/after| I\[Explanation Interface\\nHuman-readable report]
-
-&nbsp; G -->|labels + relations| I
-
-
-
-&nbsp; I --> J\[Output\\nExplanation + Counterfactual]
-
-
-
+  I --> J[Output<br/>Explanation + Counterfactual]
