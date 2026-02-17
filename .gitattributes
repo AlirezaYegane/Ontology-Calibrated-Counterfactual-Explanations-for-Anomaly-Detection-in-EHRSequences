@@ -1,0 +1,11 @@
+﻿* text=auto
+
+# Keep docs/code consistent on GitHub
+*.md  text eol=lf
+*.mmd text eol=lf
+*.py  text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# PowerShell on Windows
+*.ps1 text eol=crlf
