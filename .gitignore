@@ -24,3 +24,7 @@ Literature/
 # Local-only stuff
 _local/
 one_pagers/
+
+# Ignore sibling project folders
+RiNALMo/
+
