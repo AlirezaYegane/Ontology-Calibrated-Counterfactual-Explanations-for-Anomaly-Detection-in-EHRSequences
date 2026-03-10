@@ -1,0 +1,135 @@
+{
+  "dataset_kind": "mimiciv",
+  "input_root": "D:\\Article\\_local\\Datasets\\physionet.org\\files\\mimiciv\\3.1\\hosp",
+  "split_level": "patient",
+  "split_unit_column": "subject_id",
+  "random_seed": 42,
+  "ratios": {
+    "train": 0.7,
+    "val": 0.1,
+    "test": 0.2
+  },
+  "split_counts": {
+    "train_groups": 156377,
+    "val_groups": 22339,
+    "test_groups": 44681
+  },
+  "summaries": {
+    "overall": {
+      "split": "overall",
+      "num_records": 545825,
+      "avg_sequence_length": 50.41314157468053,
+      "median_sequence_length": 36.0,
+      "p95_sequence_length": 147.0,
+      "avg_diagnosis_codes_per_record": 11.66030870700316,
+      "avg_procedure_codes_per_record": 1.5749645032748592,
+      "avg_medication_codes_per_record": 37.17786836440251,
+      "avg_other_codes_per_record": 0.0,
+      "global_code_type_counts": {
+        "diagnosis": 6364488,
+        "medication": 20292610,
+        "procedure": 859655
+      },
+      "num_unique_patients": 223397,
+      "num_unique_admissions": 545825,
+      "gender_distribution": {
+        "F": 283980,
+        "M": 261845
+      },
+      "age_group_distribution": {
+        "45-64": 194965,
+        "65-79": 134849,
+        "30-44": 86327,
+        "80+": 70563,
+        "18-29": 59121
+      }
+    },
+    "train": {
+      "split": "train",
+      "num_records": 380922,
+      "avg_sequence_length": 50.450470174996454,
+      "median_sequence_length": 36.0,
+      "p95_sequence_length": 147.0,
+      "avg_diagnosis_codes_per_record": 11.650287985466841,
+      "avg_procedure_codes_per_record": 1.5761651991746342,
+      "avg_medication_codes_per_record": 37.22401699035498,
+      "avg_other_codes_per_record": 0.0,
+      "global_code_type_counts": {
+        "diagnosis": 4437851,
+        "medication": 14179447,
+        "procedure": 600396
+      },
+      "num_unique_patients": 156377,
+      "num_unique_admissions": 380922,
+      "gender_distribution": {
+        "F": 198988,
+        "M": 181934
+      },
+      "age_group_distribution": {
+        "45-64": 135786,
+        "65-79": 93943,
+        "30-44": 60253,
+        "80+": 49339,
+        "18-29": 41601
+      }
+    },
+    "val": {
+      "split": "val",
+      "num_records": 55061,
+      "avg_sequence_length": 50.59570294763989,
+      "median_sequence_length": 36.0,
+      "p95_sequence_length": 147.0,
+      "avg_diagnosis_codes_per_record": 11.684186629374693,
+      "avg_procedure_codes_per_record": 1.5814641942572782,
+      "avg_medication_codes_per_record": 37.33005212400792,
+      "avg_other_codes_per_record": 0.0,
+      "global_code_type_counts": {
+        "diagnosis": 643343,
+        "medication": 2055430,
+        "procedure": 87077
+      },
+      "num_unique_patients": 22339,
+      "num_unique_admissions": 55061,
+      "gender_distribution": {
+        "F": 28393,
+        "M": 26668
+      },
+      "age_group_distribution": {
+        "45-64": 19926,
+        "65-79": 14037,
+        "30-44": 8367,
+        "80+": 7064,
+        "18-29": 5667
+      }
+    },
+    "test": {
+      "split": "test",
+      "num_records": 109842,
+      "avg_sequence_length": 50.19217603466798,
+      "median_sequence_length": 36.0,
+      "p95_sequence_length": 147.0,
+      "avg_diagnosis_codes_per_record": 11.683090256914477,
+      "avg_procedure_codes_per_record": 1.5675424700934069,
+      "avg_medication_codes_per_record": 36.94154330766009,
+      "avg_other_codes_per_record": 0.0,
+      "global_code_type_counts": {
+        "diagnosis": 1283294,
+        "procedure": 172182,
+        "medication": 4057733
+      },
+      "num_unique_patients": 44681,
+      "num_unique_admissions": 109842,
+      "gender_distribution": {
+        "F": 56599,
+        "M": 53243
+      },
+      "age_group_distribution": {
+        "45-64": 39253,
+        "65-79": 26869,
+        "30-44": 17707,
+        "80+": 14160,
+        "18-29": 11853
+      }
+    }
+  }
+}
