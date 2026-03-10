@@ -28,3 +28,9 @@ one_pagers/
 # Ignore sibling project folders
 RiNALMo/
 
+# generated data / local artifacts
+data/processed/
+*.parquet
+*.pkl
+dataset_roots.env
+mimiciii_header_report.json
