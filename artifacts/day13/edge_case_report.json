@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-03-14T08:34:56+00:00",
+  "dataset_scope": "data/processed",
+  "edge_case_counts": {
+    "unknown_namespace_tokens": 62767,
+    "duplicate_tokens_within_record": 106931,
+    "malformed_tokens": 3925
+  },
+  "critical_issues": [],
+  "warnings": [],
+  "top_unmapped": {
+    "diagnosis": {},
+    "procedure": {},
+    "medication": {},
+    "other": {}
+  },
+  "milestone1_ready": true
+}
