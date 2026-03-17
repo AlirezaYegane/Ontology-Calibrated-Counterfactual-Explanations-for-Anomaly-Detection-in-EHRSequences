@@ -1,4 +1,7 @@
-﻿from __future__ import annotations
+"""
+Run the Day 13 mapping end-to-end dataset audit against generated datasets.
+"""
+from __future__ import annotations
 
 import argparse
 import sys
@@ -12,6 +15,7 @@ from _day13_audit_lib import build_audit_report, render_markdown, write_json, wr
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse CLI options for the audit pipeline script."""
     parser = argparse.ArgumentParser(description="Day 13 end-to-end pipeline and mapping audit")
     parser.add_argument(
         "--processed-dir",
@@ -43,6 +47,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """Orchestrate the end-to-end pipeline audit action and export artifacts to disk."""
     args = parse_args()
 
     processed_dir = Path(args.processed_dir)

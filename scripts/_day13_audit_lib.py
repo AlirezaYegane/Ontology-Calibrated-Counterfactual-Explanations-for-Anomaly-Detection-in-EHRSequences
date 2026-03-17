@@ -1,10 +1,12 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import ast
 import csv
+import itertools
 import json
 import re
 from collections import Counter
+from collections.abc import Iterable, Iterator
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -85,6 +87,16 @@ METADATA_KEYS = {
     "age_group",
 }
 
+SINGLE_TOKEN_KEYS = {
+    "token",
+    "tokens",
+    "sequence",
+    "sequences",
+    "event_codes",
+    "concept",
+    "concepts",
+}
+
 TOKEN_LIKE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$")
 LOWERCASE_NAMESPACE_RE = re.compile(r"^[a-z]+[:_]")
 
@@ -147,14 +159,15 @@ def namespace_from_token(token: str) -> str:
     return "OTHER"
 
 
+
 def is_unmapped_token(token: str) -> bool:
+    """Check if a token indicates an unmapped or unknown concept."""
     up = token.upper()
     return (
         up.startswith(("UNMAPPED", "UNKNOWN", "UNK", "RAW_", "RAW-", "NO_MAP"))
         or ":UNMAPPED" in up
         or up.startswith("RAW_DRUG")
     )
-
 
 def is_multi_mapped_like(token: str) -> bool:
     return "|" in token or ";" in token
@@ -219,24 +232,6 @@ def parse_list_like_string(text: str) -> list[str] | None:
 
 
 
-def parse_list_like_string(text: str) -> list[str] | None:
-    text = text.strip()
-    if not (text.startswith("[") and text.endswith("]")):
-        return None
-
-    if text == "[]":
-        return []
-
-    for loader in (json.loads, ast.literal_eval):
-        try:
-            obj = loader(text)
-            if isinstance(obj, list):
-                return [normalize_text(item) for item in obj]
-        except Exception:
-            continue
-
-    return None
-
 
 def collect_observations(
     value: Any,
@@ -264,10 +259,11 @@ def collect_observations(
             if key_l in redundant_keys:
                 continue
 
-            next_category = infer_category_from_key(key_s) or category
+            inferred_cat = infer_category_from_key(key_s)
+            next_category = inferred_cat or category
             next_allow = (
                 allow_scalars
-                or (infer_category_from_key(key_s) is not None)
+                or (inferred_cat is not None)
                 or (key_l in VALUE_KEYS)
             )
             observations.extend(
@@ -310,16 +306,7 @@ def collect_observations(
             )
 
         preserve_as_single_token = (
-            category == "sequence"
-            or key_l in {
-                "token",
-                "tokens",
-                "sequence",
-                "sequences",
-                "event_codes",
-                "concept",
-                "concepts",
-            }
+            category == "sequence" or key_l in SINGLE_TOKEN_KEYS
         )
         parts = [text] if preserve_as_single_token else maybe_split_string(text)
         resolved_category = category or infer_category_from_key(current_key) or "other"
@@ -339,87 +326,61 @@ def collect_observations(
 
     return observations
 
-def iter_records(path: Path, max_records: int | None = None):
+def extract_items(obj: Any) -> Iterator[Any]:
+    """Helper to extract iterables from common metadata-wrapped dictionary structures."""
+    if isinstance(obj, list):
+        yield from obj
+    elif isinstance(obj, dict):
+        for container_key in ("records", "rows", "data", "items", "examples"):
+            maybe_items = obj.get(container_key)
+            if isinstance(maybe_items, list):
+                yield from maybe_items
+                return
+        yield obj
+    else:
+        yield obj
+
+
+def iter_records(path: Path, max_records: int | None = None) -> Iterator[Any]:
+    """Yield records iteratively from standard data artifacts up to max_records."""
     suffix = path.suffix.lower()
 
+    def _limit(iterable: Iterable[Any]) -> Iterator[Any]:
+        if max_records is None:
+            yield from iterable
+        else:
+            yield from itertools.islice(iterable, max_records)
+
     try:
-        yielded = 0
-
-        def _maybe_yield(item):
-            nonlocal yielded
-            if max_records is not None and yielded >= max_records:
-                return False
-            yield item
-            yielded += 1
-            return True
-
         if suffix == ".jsonl":
             with path.open("r", encoding="utf-8", errors="ignore") as fh:
-                for line in fh:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    if max_records is not None and yielded >= max_records:
-                        break
-                    yield json.loads(line)
-                    yielded += 1
+                def _gen() -> Any:
+                    for line in fh:
+                        line = line.strip()
+                        if line:
+                            yield json.loads(line)
+                yield from _limit(_gen())
 
         elif suffix == ".json":
             obj = json.loads(path.read_text(encoding="utf-8", errors="ignore"))
-            if isinstance(obj, list):
-                items = obj if max_records is None else obj[:max_records]
-                for item in items:
-                    yield item
-            elif isinstance(obj, dict):
-                for container_key in ("records", "rows", "data", "items", "examples"):
-                    maybe_items = obj.get(container_key)
-                    if isinstance(maybe_items, list):
-                        items = maybe_items if max_records is None else maybe_items[:max_records]
-                        for item in items:
-                            yield item
-                        return
-                yield obj
+            yield from _limit(extract_items(obj))
 
         elif suffix == ".csv":
             with path.open("r", encoding="utf-8", errors="ignore", newline="") as fh:
-                reader = csv.DictReader(fh)
-                for row in reader:
-                    if max_records is not None and yielded >= max_records:
-                        break
-                    yield row
-                    yielded += 1
+                yield from _limit(csv.DictReader(fh))
 
         elif suffix in {".pkl", ".parquet"}:
             import pandas as pd
 
-            if suffix == ".pkl":
-                obj = pd.read_pickle(path)
-            else:
-                obj = pd.read_parquet(path)
-
-            if hasattr(obj, "head") and max_records is not None:
-                obj = obj.head(max_records)
+            obj = pd.read_pickle(path) if suffix == ".pkl" else pd.read_parquet(path)
 
             if hasattr(obj, "to_dict") and hasattr(obj, "columns"):
-                for row in obj.to_dict(orient="records"):
-                    yield row
-            elif isinstance(obj, list):
-                items = obj if max_records is None else obj[:max_records]
-                for item in items:
-                    yield item
-            elif isinstance(obj, dict):
-                for container_key in ("records", "rows", "data", "items", "examples"):
-                    maybe_items = obj.get(container_key)
-                    if isinstance(maybe_items, list):
-                        items = maybe_items if max_records is None else maybe_items[:max_records]
-                        for item in items:
-                            yield item
-                        return
-                yield obj
+                yield from _limit(obj.to_dict(orient="records"))
             else:
-                raise RuntimeError(
-                    f"Unsupported object type from {path.as_posix()}: {type(obj).__name__}"
-                )
+                yield from _limit(extract_items(obj))
+        else:
+            raise RuntimeError(f"Unsupported object type from {path.as_posix()}: {suffix}")
+
     except Exception as exc:
         raise RuntimeError(f"Failed to load {path.as_posix()}: {exc}") from exc
 
@@ -467,6 +428,7 @@ def discover_processed_files(processed_dir: Path) -> list[Path]:
 
 
 def round_rate(mapped: int, total: int) -> float | None:
+    """Calculate the mapping rate precisely, rounded to 4 decimals."""
     if total <= 0:
         return None
     return round(mapped / total, 4)
@@ -476,6 +438,7 @@ def build_audit_report(
     processed_dir: Path,
     max_records_per_file: int | None = 2000,
 ) -> dict[str, Any]:
+    """End-to-end scanner generating the main dict for the Day 13 mapping audit."""
     processed_dir = Path(processed_dir)
     files = discover_processed_files(processed_dir)
 
@@ -483,11 +446,11 @@ def build_audit_report(
     warnings: list[str] = []
     files_checked: list[dict[str, Any]] = []
 
-    mapping_counts: dict[str, Counter[str]] = {
-        "diagnosis": Counter(),
-        "procedure": Counter(),
-        "medication": Counter(),
-        "other": Counter(),
+    mapping_counts: dict[str, dict[str, int]] = {
+        "diagnosis": {"total": 0, "mapped": 0, "unmapped": 0},
+        "procedure": {"total": 0, "mapped": 0, "unmapped": 0},
+        "medication": {"total": 0, "mapped": 0, "unmapped": 0},
+        "other": {"total": 0, "mapped": 0, "unmapped": 0},
     }
     top_unmapped: dict[str, Counter[str]] = {
         "diagnosis": Counter(),
@@ -597,9 +560,9 @@ def build_audit_report(
 
     mapping_summary: dict[str, dict[str, Any]] = {}
     for category, counts in mapping_counts.items():
-        total = int(counts["total"])
-        mapped = int(counts["mapped"])
-        unmapped = int(counts["unmapped"])
+        total = counts["total"]
+        mapped = counts["mapped"]
+        unmapped = counts["unmapped"]
         mapping_summary[category] = {
             "total": total,
             "mapped": mapped,
@@ -633,6 +596,7 @@ def build_audit_report(
 
 
 def build_edge_case_summary(report: dict[str, Any]) -> dict[str, Any]:
+    """Extract a minimal summary restricted to edge cases, critical issues, and unmapped tokens."""
     return {
         "generated_at": report["generated_at"],
         "dataset_scope": report["dataset_scope"],
@@ -645,6 +609,7 @@ def build_edge_case_summary(report: dict[str, Any]) -> dict[str, Any]:
 
 
 def render_markdown(report: dict[str, Any]) -> str:
+    """Render the generated audit report payload into a human-readable Markdown format."""
     lines: list[str] = []
     lines.append("# Day 13 Mapping Audit")
     lines.append("")

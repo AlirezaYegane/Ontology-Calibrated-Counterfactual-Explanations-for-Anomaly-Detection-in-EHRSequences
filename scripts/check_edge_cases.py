@@ -1,4 +1,7 @@
-﻿from __future__ import annotations
+"""
+Day 13 edge-case summary report generation.
+"""
+from __future__ import annotations
 
 import argparse
 import sys
@@ -12,6 +15,7 @@ from _day13_audit_lib import build_audit_report, build_edge_case_summary, write_
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments for edge-case reporting."""
     parser = argparse.ArgumentParser(description="Day 13 edge-case summary report")
     parser.add_argument(
         "--processed-dir",
@@ -38,6 +42,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    """Generate and write the Day 13 edge-case JSON report."""
     args = parse_args()
 
     report = build_audit_report(

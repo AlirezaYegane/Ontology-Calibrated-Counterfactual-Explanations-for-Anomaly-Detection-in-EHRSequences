@@ -1,4 +1,4 @@
-﻿# Day 13 Review and Refinement
+# Day 13 Review and Refinement
 
 ## Goal
 Close Milestone 1 by verifying that the preprocessing + ontology pipeline is operational from raw clinical tables to ontology-aligned experimental sequences.
@@ -39,6 +39,14 @@ Confirmed on the current processed artifacts:
 - top unmapped tokens are visible
 - critical issues are empty
 - `milestone1_ready` is true
+
+## Refinements (Polishing Pass)
+- Deduplicated `parse_list_like_string` utility to reduce code repetition.
+- Streamlined `iter_records` into a much cleaner generator wrapping file-specific ingestion, significantly removing iteration boilerplate.
+- Replaced custom iteration limiters with Python's built-in `itertools.islice` for improved readability and reduced logic duplication.
+- Tightened up types and removed unnecessary nesting around data object loading.
+- Added comprehensive typing (e.g. `Iterator`) and module/function docstrings across all pipeline scripts and tests.
+- Audit logic, CLI behavior, and sampling behaviors remain strictly unchanged.
 
 ## Key Results From First Real Audit Run
 - audit mode: sample-based (`--max-records-per-file 1000`)

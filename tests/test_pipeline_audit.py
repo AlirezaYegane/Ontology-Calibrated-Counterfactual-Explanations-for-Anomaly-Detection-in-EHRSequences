@@ -1,8 +1,12 @@
-﻿from __future__ import annotations
+"""
+Tests for the Day 13 Mapping Audit Pipeline.
+"""
+from __future__ import annotations
 
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -12,13 +16,15 @@ if str(SCRIPTS_DIR) not in sys.path:
 from _day13_audit_lib import build_audit_report, build_edge_case_summary, render_markdown
 
 
-def write_jsonl(path: Path, rows: list[dict]) -> None:
+def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Helper functional to quickly author dummy mock JSONL files."""
     path.parent.mkdir(parents=True, exist_ok=True)
     content = "\n".join(json.dumps(row) for row in rows) + "\n"
     path.write_text(content, encoding="utf-8")
 
 
 def test_build_audit_report_detects_mapping_and_edge_cases(tmp_path: Path) -> None:
+    """Verify that end-to-end extraction tracks mapped vs unmapped namespaces correctly."""
     processed_dir = tmp_path / "data" / "processed"
 
     rows = [
@@ -64,6 +70,7 @@ def test_build_audit_report_detects_mapping_and_edge_cases(tmp_path: Path) -> No
 
 
 def test_edge_case_summary_contains_expected_keys(tmp_path: Path) -> None:
+    """Verify that build_edge_case_summary filters exactly logic-focused edge case mappings."""
     processed_dir = tmp_path / "data" / "processed"
     write_jsonl(
         processed_dir / "test_sequences.jsonl",
@@ -87,6 +94,7 @@ def test_edge_case_summary_contains_expected_keys(tmp_path: Path) -> None:
 
 
 def test_empty_processed_dir_is_not_milestone_ready(tmp_path: Path) -> None:
+    """Validates that a missing or entirely empty processed dir triggers critical issues."""
     processed_dir = tmp_path / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
 
@@ -99,6 +107,8 @@ def test_empty_processed_dir_is_not_milestone_ready(tmp_path: Path) -> None:
 def test_stringified_token_lists_are_parsed_and_sequence_tokens_are_not_double_counted(
     tmp_path: Path,
 ) -> None:
+    """Stringified arrays (often seen in dumped Parquet) are cleanly extracted, 
+    and redundant seq token lists are ignored if they contain duplicates."""
     processed_dir = tmp_path / "data" / "processed"
     write_jsonl(
         processed_dir / "toy_sequences.jsonl",
