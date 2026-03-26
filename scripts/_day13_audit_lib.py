@@ -62,7 +62,6 @@ DEMOGRAPHIC_KEYS = {
     "anchor_year",
 }
 
-
 METADATA_KEYS = {
     "subject_id",
     "hadm_id",
@@ -159,7 +158,6 @@ def namespace_from_token(token: str) -> str:
     return "OTHER"
 
 
-
 def is_unmapped_token(token: str) -> bool:
     """Check if a token indicates an unmapped or unknown concept."""
     up = token.upper()
@@ -168,6 +166,7 @@ def is_unmapped_token(token: str) -> bool:
         or ":UNMAPPED" in up
         or up.startswith("RAW_DRUG")
     )
+
 
 def is_multi_mapped_like(token: str) -> bool:
     return "|" in token or ";" in token
@@ -210,8 +209,6 @@ def maybe_split_string(text: str) -> list[str]:
     return [text]
 
 
-
-
 def parse_list_like_string(text: str) -> list[str] | None:
     text = text.strip()
     if not (text.startswith("[") and text.endswith("]")):
@@ -229,8 +226,6 @@ def parse_list_like_string(text: str) -> list[str] | None:
             continue
 
     return None
-
-
 
 
 def collect_observations(
@@ -261,11 +256,7 @@ def collect_observations(
 
             inferred_cat = infer_category_from_key(key_s)
             next_category = inferred_cat or category
-            next_allow = (
-                allow_scalars
-                or (inferred_cat is not None)
-                or (key_l in VALUE_KEYS)
-            )
+            next_allow = allow_scalars or (inferred_cat is not None) or (key_l in VALUE_KEYS)
             observations.extend(
                 collect_observations(
                     subvalue,
@@ -305,9 +296,7 @@ def collect_observations(
                 allow_scalars=True,
             )
 
-        preserve_as_single_token = (
-            category == "sequence" or key_l in SINGLE_TOKEN_KEYS
-        )
+        preserve_as_single_token = category == "sequence" or key_l in SINGLE_TOKEN_KEYS
         parts = [text] if preserve_as_single_token else maybe_split_string(text)
         resolved_category = category or infer_category_from_key(current_key) or "other"
 
@@ -325,6 +314,7 @@ def collect_observations(
         return observations
 
     return observations
+
 
 def extract_items(obj: Any) -> Iterator[Any]:
     """Helper to extract iterables from common metadata-wrapped dictionary structures."""
@@ -354,11 +344,13 @@ def iter_records(path: Path, max_records: int | None = None) -> Iterator[Any]:
     try:
         if suffix == ".jsonl":
             with path.open("r", encoding="utf-8", errors="ignore") as fh:
+
                 def _gen() -> Any:
                     for line in fh:
                         line = line.strip()
                         if line:
                             yield json.loads(line)
+
                 yield from _limit(_gen())
 
         elif suffix == ".json":
@@ -461,12 +453,21 @@ def build_audit_report(
     namespace_summary: Counter[str] = Counter()
     edge_case_counts: Counter[str] = Counter()
 
+    MAX_EXAMPLES = 25
+
+    unknown_namespace_examples: Counter[str] = Counter()
+    malformed_examples: Counter[str] = Counter()
+    other_examples: Counter[str] = Counter()
+    duplicate_examples: Counter[str] = Counter()
+
     total_records = 0
     total_tokens = 0
     split_like_files: list[str] = []
 
     if not processed_dir.exists():
-        critical_issues.append(f"Processed directory does not exist: {processed_dir.as_posix()}")
+        critical_issues.append(
+            f"Processed directory does not exist: {processed_dir.as_posix()}"
+        )
 
     for path in files:
         file_record_count = 0
@@ -490,15 +491,16 @@ def build_audit_report(
 
                 for obs in observations:
                     token = normalize_text(obs["token"])
+
+                    if is_empty_token(token):
+                        edge_case_counts["empty_tokens"] += 1
+                        continue
+
                     category = obs["category"]
                     if category not in mapping_counts:
                         category = infer_category_from_token(token)
                         if category not in mapping_counts:
                             category = "other"
-
-                    if is_empty_token(token):
-                        edge_case_counts["empty_tokens"] += 1
-                        continue
 
                     total_tokens += 1
                     cleaned_nonempty += 1
@@ -518,12 +520,22 @@ def build_audit_report(
 
                     if namespace == "OTHER":
                         edge_case_counts["unknown_namespace_tokens"] += 1
+                        unknown_namespace_examples[token] += 1
+                        other_examples[token] += 1
+
                     if is_malformed_token(token):
                         edge_case_counts["malformed_tokens"] += 1
+                        malformed_examples[token] += 1
+
                     if has_lowercase_namespace(token):
                         edge_case_counts["lowercase_namespace_tokens"] += 1
+
                     if is_multi_mapped_like(token):
                         edge_case_counts["multi_mapped_like_tokens"] += 1
+
+                for dup_token, dup_count in seen_tokens.items():
+                    if dup_count > 1:
+                        duplicate_examples[dup_token] += dup_count
 
                 edge_case_counts["duplicate_tokens_within_record"] += sum(
                     count - 1 for count in seen_tokens.values() if count > 1
@@ -547,7 +559,9 @@ def build_audit_report(
             split_like_files.append(path.as_posix())
 
     if not files:
-        critical_issues.append(f"No loadable .jsonl/.json/.csv files found under {processed_dir.as_posix()}")
+        critical_issues.append(
+            f"No loadable .jsonl/.json/.csv files found under {processed_dir.as_posix()}"
+        )
 
     if total_records == 0:
         critical_issues.append("No records were loaded from processed artifacts.")
@@ -588,6 +602,16 @@ def build_audit_report(
             category: dict(counter.most_common(20))
             for category, counter in top_unmapped.items()
         },
+        "top_unknown_namespace_examples": dict(
+            unknown_namespace_examples.most_common(MAX_EXAMPLES)
+        ),
+        "top_malformed_examples": dict(
+            malformed_examples.most_common(MAX_EXAMPLES)
+        ),
+        "top_other_examples": dict(other_examples.most_common(MAX_EXAMPLES)),
+        "top_duplicate_examples": dict(
+            duplicate_examples.most_common(MAX_EXAMPLES)
+        ),
         "critical_issues": critical_issues,
         "warnings": warnings,
         "milestone1_ready": milestone1_ready,
@@ -604,6 +628,12 @@ def build_edge_case_summary(report: dict[str, Any]) -> dict[str, Any]:
         "critical_issues": report["critical_issues"],
         "warnings": report["warnings"],
         "top_unmapped": report["top_unmapped"],
+        "top_unknown_namespace_examples": report.get(
+            "top_unknown_namespace_examples", {}
+        ),
+        "top_malformed_examples": report.get("top_malformed_examples", {}),
+        "top_other_examples": report.get("top_other_examples", {}),
+        "top_duplicate_examples": report.get("top_duplicate_examples", {}),
         "milestone1_ready": report["milestone1_ready"],
     }
 
@@ -650,6 +680,35 @@ def render_markdown(report: dict[str, Any]) -> str:
         lines.append("- No edge cases counted.")
     lines.append("")
 
+    lines.append("## Edge Case Examples")
+    lines.append("")
+
+    def _render_example_block(title: str, payload: dict[str, int]) -> None:
+        lines.append(f"### {title}")
+        if payload:
+            for token, count in payload.items():
+                lines.append(f"- `{token}`: {count}")
+        else:
+            lines.append("- None")
+        lines.append("")
+
+    _render_example_block(
+        "Top Unknown Namespace Examples",
+        report.get("top_unknown_namespace_examples", {}),
+    )
+    _render_example_block(
+        "Top Malformed Examples",
+        report.get("top_malformed_examples", {}),
+    )
+    _render_example_block(
+        "Top Other Examples",
+        report.get("top_other_examples", {}),
+    )
+    _render_example_block(
+        "Top Duplicate Examples",
+        report.get("top_duplicate_examples", {}),
+    )
+
     lines.append("## Top Unmapped Tokens")
     lines.append("")
     for category, items in report["top_unmapped"].items():
@@ -684,7 +743,10 @@ def render_markdown(report: dict[str, Any]) -> str:
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
 
 
 def write_text(path: Path, content: str) -> None:
