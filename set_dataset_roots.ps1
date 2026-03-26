@@ -1,0 +1,12 @@
+﻿$env:MIMIC3_ROOT = "D:\Article\_local\Datasets\mimic3-carevue"
+$env:MIMIC4_ROOT = "D:\Article\_local\Datasets\physionet.org\files\mimiciv\3.1"
+$env:MIMIC4_V22_ROOT = "D:\Article\_local\Datasets\physionet.org\files\mimiciv\2.2"
+$env:EICU_ROOT = "D:\Article\_local\Datasets\gossis-1-eicu"
+$env:PROCESSED_DATA_ROOT = "D:\Article\data\processed"
+
+Write-Host "Dataset roots loaded:"
+Write-Host "MIMIC3_ROOT=$env:MIMIC3_ROOT"
+Write-Host "MIMIC4_ROOT=$env:MIMIC4_ROOT"
+Write-Host "MIMIC4_V22_ROOT=$env:MIMIC4_V22_ROOT"
+Write-Host "EICU_ROOT=$env:EICU_ROOT"
+Write-Host "PROCESSED_DATA_ROOT=$env:PROCESSED_DATA_ROOT"
