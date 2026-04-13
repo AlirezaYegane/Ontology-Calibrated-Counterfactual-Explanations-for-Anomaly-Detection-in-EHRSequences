@@ -1,32 +1,142 @@
 # Day 13 Mapping Audit
 
-- Generated at: `2026-03-17T01:02:51+00:00`
+- Generated at: `2026-03-26T04:32:39+00:00`
 - Dataset scope: `data/processed`
-- Total records: **8000**
-- Total tokens: **346799**
+- Total records: **16000**
+- Total tokens: **700303**
 - Milestone 1 ready: **True**
 
 ## Mapping Summary
 
 | Category | Total | Mapped | Unmapped | Mapping Rate |
 |---|---:|---:|---:|---:|
-| diagnosis | 27351 | 27351 | 0 | 1.0000 |
-| procedure | 3001 | 3001 | 0 | 1.0000 |
-| medication | 71034 | 71034 | 0 | 1.0000 |
-| other | 245413 | 245413 | 0 | 1.0000 |
+| diagnosis | 55324 | 55324 | 0 | 1.0000 |
+| procedure | 6118 | 6118 | 0 | 1.0000 |
+| medication | 144244 | 144244 | 0 | 1.0000 |
+| other | 494617 | 494617 | 0 | 1.0000 |
 
 ## Namespace Summary
 
-- `MED`: 250403
-- `OTHER`: 62767
-- `ICD`: 26356
-- `PROC`: 7273
+- `MED`: 507002
+- `OTHER`: 124669
+- `ICD`: 53461
+- `PROC`: 15171
 
 ## Edge Case Counts
 
-- `duplicate_tokens_within_record`: 106931
-- `malformed_tokens`: 3925
-- `unknown_namespace_tokens`: 62767
+- `duplicate_tokens_within_record`: 216498
+- `malformed_tokens`: 7821
+- `unknown_namespace_tokens`: 124669
+
+## Edge Case Examples
+
+### Top Unknown Namespace Examples
+- `DX_9_4019`: 1868
+- `DX_10_E785`: 1733
+- `DX_10_I10`: 1616
+- `EICU_BODYSYS:cardiovascular`: 1459
+- `DX_9_2724`: 1254
+- `DX_10_Z87891`: 1220
+- `DX_10_K219`: 1016
+- `DX_9_53081`: 940
+- `DX_10_I2510`: 812
+- `DX_9_25000`: 770
+- `DX_10_F329`: 705
+- `DX_10_F419`: 693
+- `DX_10_Z20822`: 676
+- `DX_9_311`: 674
+- `DX_9_4280`: 655
+- `DX_9_42731`: 649
+- `DX_9_41401`: 648
+- `EICU_BODYSYS:respiratory`: 612
+- `DX_10_N179`: 606
+- `DX_10_Z794`: 560
+- `DX_9_V1582`: 554
+- `DX_9_5849`: 534
+- `DX_9_2449`: 524
+- `DX_10_Z7901`: 513
+- `DX_10_E119`: 504
+
+### Top Malformed Examples
+- `MED_NAME:SODIUM_CHLORIDE_0.9%_FLUSH`: 4829
+- `MED_NAME:0.9%_SODIUM_CHLORIDE`: 1237
+- `MED_NAME:5%_DEXTROSE`: 962
+- `MED_NAME:SYRINGE_(0.9%_SODIUM_CHLORIDE)`: 152
+- `MED_NAME:DEXTROSE_5%`: 77
+- `MED_NAME:BUPIVACAINE_0.1%`: 73
+- `MED_NAME:PRISMASATE_(B32_K2)`: 73
+- `MED_NAME:MAALOX/DIPHENHYDRAMINE/LIDOCAINE`: 60
+- `MED_NAME:SODIUM_CITRATE_4%`: 54
+- `MED_NAME:PRISMASATE_(B22_K4)`: 50
+- `MED_NAME:INSULIN_PUMP_(SELF_ADMINISTERING_MEDICATION)`: 41
+- `MED_NAME:SYRINGE_(ISO-OSMOTIC_DEXTROSE)`: 40
+- `MED_NAME:0.83%_SODIUM_CHLORIDE`: 38
+- `MED_NAME:SYRINGE_(CHEMO)`: 22
+- `MED_NAME:SYRINGE_(LR)`: 22
+- `MED_NAME:0.9_%_SODIUM_CHLORIDE`: 16
+- `MED_NAME:VANCOMYCIN_–_PHARMACY_TO_DOSE_(ID_CONSULT_ONLY)`: 6
+- `MED_NAME:SYRINGE_(STERILE_WATER)`: 6
+- `MED_NAME:SYRINGE_(SW)`: 6
+- `MED_NAME:MAALOX/LIDOCAINE`: 5
+- `MED_NAME:BUPIVACAINE_0.05%`: 4
+- `MED_NAME:CLICK_CHANGE_<---_TO_CHOOSE_A_BASE_SOLUTION`: 4
+- `MED_NAME:0.9%_SODIUM_CHLORIDE_(EXCEL_BAG)`: 4
+- `MED_NAME:TETRABENAZINE_(XENAZINE)`: 4
+- `MED_NAME:NS_SYRINGE_(INTRAPLEURAL)`: 4
+
+### Top Other Examples
+- `DX_9_4019`: 1868
+- `DX_10_E785`: 1733
+- `DX_10_I10`: 1616
+- `EICU_BODYSYS:cardiovascular`: 1459
+- `DX_9_2724`: 1254
+- `DX_10_Z87891`: 1220
+- `DX_10_K219`: 1016
+- `DX_9_53081`: 940
+- `DX_10_I2510`: 812
+- `DX_9_25000`: 770
+- `DX_10_F329`: 705
+- `DX_10_F419`: 693
+- `DX_10_Z20822`: 676
+- `DX_9_311`: 674
+- `DX_9_4280`: 655
+- `DX_9_42731`: 649
+- `DX_9_41401`: 648
+- `EICU_BODYSYS:respiratory`: 612
+- `DX_10_N179`: 606
+- `DX_10_Z794`: 560
+- `DX_9_V1582`: 554
+- `DX_9_5849`: 534
+- `DX_9_2449`: 524
+- `DX_10_Z7901`: 513
+- `DX_10_E119`: 504
+
+### Top Duplicate Examples
+- `MED_INSULIN`: 15071
+- `MED_0_9_SODIUM_CHLORIDE`: 11578
+- `MED_POTASSIUM_CHLORIDE`: 11412
+- `MED_FUROSEMIDE`: 7513
+- `MED_ACETAMINOPHEN`: 6723
+- `MED_SODIUM_CHLORIDE_0_9_FLUSH`: 6700
+- `MED_MAGNESIUM_SULFATE`: 5545
+- `MED_BAG`: 5353
+- `MED_5_DEXTROSE`: 5149
+- `MED_HYDROMORPHONE_DILAUDID`: 4788
+- `MED_METOPROLOL_TARTRATE`: 4735
+- `MED_ISO_OSMOTIC_DEXTROSE`: 4177
+- `MED_OXYCODONE_IMMEDIATE_RELEASE`: 3780
+- `MED_SODIUM_CHLORIDE_0_9`: 3571
+- `MED_HEPARIN`: 3353
+- `MED_LORAZEPAM`: 3311
+- `MED_SENNA`: 3218
+- `MED_BISACODYL`: 3183
+- `MED_LACTATED_RINGERS`: 3111
+- `MED_VANCOMYCIN`: 3104
+- `MED_WARFARIN`: 3085
+- `MED_NDC:00002751001`: 2729
+- `MED_NAME:SODIUM_CHLORIDE_0.9%_FLUSH`: 2659
+- `MED_DOCUSATE_SODIUM`: 2584
+- `MED_ONDANSETRON`: 2488
 
 ## Top Unmapped Tokens
 

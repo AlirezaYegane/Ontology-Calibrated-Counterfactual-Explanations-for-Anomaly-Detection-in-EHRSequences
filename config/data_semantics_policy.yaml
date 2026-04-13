@@ -1,0 +1,34 @@
+version: 1
+
+known_namespaces:
+  - ICD9
+  - ICD10
+  - SNOMED
+  - RXNORM
+  - PROC
+  - LAB
+  - DEMO
+  - AGE
+  - SEX
+  - APACHE
+
+unknown_namespace_policy:
+  action: quarantine_and_report
+  auto_remap: false
+
+malformed_token_policy:
+  trim_whitespace: true
+  strip_wrapping_quotes: true
+  collapse_internal_spaces: true
+  normalize_colon_spacing: true
+  uppercase_namespace_if_recognized: true
+  drop_empty_after_cleanup: true
+
+duplicate_policy:
+  action: preserve_for_now
+  apply_dedup: false
+  dedup_stage: post_canonicalization_only
+
+outputs:
+  emit_quarantine_report: true
+  emit_before_after_delta: true

@@ -1,0 +1,6 @@
+﻿datasets:
+  mimic3_root: "D:\Article\_local\Datasets\mimic3-carevue"
+  mimic4_root: "D:\Article\_local\Datasets\physionet.org\files\mimiciv\3.1"
+  mimic4_v22_root: "D:\Article\_local\Datasets\physionet.org\files\mimiciv\2.2"
+  eicu_root: "D:\Article\_local\Datasets\gossis-1-eicu"
+  processed_data_root: "D:\Article\data\processed"
