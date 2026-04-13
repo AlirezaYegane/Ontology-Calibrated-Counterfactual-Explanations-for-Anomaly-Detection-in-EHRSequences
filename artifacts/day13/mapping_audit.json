@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-03-17T01:02:51+00:00",
+  "dataset_scope": "data/processed",
+  "files_checked": [
+    {
+      "path": "data/processed/eicu_sequences.parquet",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_experiment_dataset.pkl",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_sequences.parquet",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_sequences.pkl",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_test.pkl",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_train.pkl",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_v22_sequences.parquet",
+      "records_loaded": 1000,
+      "sampled": true
+    },
+    {
+      "path": "data/processed/mimiciv_val.pkl",
+      "records_loaded": 1000,
+      "sampled": true
+    }
+  ],
+  "split_like_files": [
+    "data/processed/mimiciv_test.pkl",
+    "data/processed/mimiciv_train.pkl",
+    "data/processed/mimiciv_val.pkl"
+  ],
+  "total_records": 8000,
+  "total_tokens": 346799,
+  "mapping_summary": {
+    "diagnosis": {
+      "total": 27351,
+      "mapped": 27351,
+      "unmapped": 0,
+      "mapping_rate": 1.0
+    },
+    "procedure": {
+      "total": 3001,
+      "mapped": 3001,
+      "unmapped": 0,
+      "mapping_rate": 1.0
+    },
+    "medication": {
+      "total": 71034,
+      "mapped": 71034,
+      "unmapped": 0,
+      "mapping_rate": 1.0
+    },
+    "other": {
+      "total": 245413,
+      "mapped": 245413,
+      "unmapped": 0,
+      "mapping_rate": 1.0
+    }
+  },
+  "namespace_summary": {
+    "MED": 250403,
+    "OTHER": 62767,
+    "ICD": 26356,
+    "PROC": 7273
+  },
+  "edge_case_counts": {
+    "unknown_namespace_tokens": 62767,
+    "duplicate_tokens_within_record": 106931,
+    "malformed_tokens": 3925
+  },
+  "top_unmapped": {
+    "diagnosis": {},
+    "procedure": {},
+    "medication": {},
+    "other": {}
+  },
+  "critical_issues": [],
+  "warnings": [],
+  "milestone1_ready": true
+}
