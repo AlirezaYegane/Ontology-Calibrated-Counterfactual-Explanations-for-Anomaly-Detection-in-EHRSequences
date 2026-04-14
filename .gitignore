@@ -1,4 +1,4 @@
-﻿# Python
+# Python
 .venv/
 __pycache__/
 *.py[cod]
@@ -9,18 +9,27 @@ dist/
 build/
 
 # Large/derived data (keep folder structure via .gitkeep)
-ontology_cf_anomaly\data/**
-!ontology_cf_anomaly\data/**/.gitkeep
-ontology_cf_anomaly\ontologies/**
-!ontology_cf_anomaly\ontologies/**/.gitkeep
+ontology_cf_anomaly/data/**
+!ontology_cf_anomaly/data/**/.gitkeep
+ontology_cf_anomaly/ontologies/**
+!ontology_cf_anomaly/ontologies/**/.gitkeep
 
-# Your local research folders (optional but recommended)
+# Generated ontology artifacts (large)
+ontologies/processed/*.gpickle
+ontologies/processed/*.csv
+
+# Training outputs
+checkpoints/
+logs/
+
+# Your local research folders
 Datasets/
 PapersPDF/
 Literature/
 
 # Backups
 *.bak_*
+
 # Local-only stuff
 _local/
 one_pagers/
@@ -28,10 +37,12 @@ one_pagers/
 # Ignore sibling project folders
 RiNALMo/
 
-# generated data / local artifacts
+# Generated data / local artifacts
 data/processed/
 *.parquet
 *.pkl
 dataset_roots.env
 mimiciii_header_report.json
+
+# IDE
 .idea/
