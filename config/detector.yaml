@@ -1,0 +1,27 @@
+model:
+  type: gru
+  embed_dim: 128
+  hidden_dim: 128
+  num_layers: 1
+  dropout: 0.2
+
+training:
+  objective: next_token
+  epochs: 30
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  max_seq_len: 256
+  patience: 5
+  seed: 42
+
+data:
+  code_col: codes_ont
+  train_pkl: data/processed/mimiciv_train_ont.pkl
+  val_pkl: data/processed/mimiciv_val_ont.pkl
+  test_pkl: data/processed/mimiciv_test_ont.pkl
+  vocab_path: data/processed/vocab.json
+
+output:
+  checkpoint_dir: checkpoints/detector
+  log_dir: logs/detector
