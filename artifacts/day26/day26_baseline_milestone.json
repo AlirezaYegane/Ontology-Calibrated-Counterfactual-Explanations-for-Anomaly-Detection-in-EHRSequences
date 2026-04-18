@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-18T11:10:03+00:00",
+  "milestone": "Day 26 - Baseline Completion",
+  "objective": "Summarize final baseline detector performance, strengths, limitations, and implications for the generative stage.",
+  "status": "complete",
+  "baseline_ready_for_generative_stage": true,
+  "metrics": {
+    "best_epoch": 5,
+    "roc_auc": 0.8002188893877784,
+    "average_precision": 0.7332429325476619,
+    "threshold": 0.6342756152153015,
+    "precision": 0.9044507962433647,
+    "recall": 0.5388638851721201,
+    "f1": 0.6753563533805931,
+    "predicted_positive_rate": 0.13700124470301944,
+    "hardest_anomaly_type": "missing_diagnosis",
+    "easiest_anomaly_type": "demographic_conflict",
+    "notes": "Day 20 supervised detector enhancement completed successfully on GPU with rich live monitoring."
+  },
+  "operating_profile": "high_precision_moderate_recall",
+  "strengths": [
+    "Detector achieved ROC-AUC=0.8002 on the supervised anomaly evaluation set.",
+    "Average Precision reached 0.7332, indicating meaningful anomaly ranking quality.",
+    "Operational thresholding produced F1=0.6754.",
+    "Strongest anomaly family at this stage: demographic_conflict.",
+    "Current operating point is conservative: precision is stronger than recall."
+  ],
+  "limitations": [
+    "Hardest anomaly family remains: missing_diagnosis.",
+    "Recall is still moderate, so some anomalies are likely being missed.",
+    "This milestone is still pre-diffusion: generative surprise (Sgen) is not yet the main driver of the score.",
+    "Baseline detector behavior is now understood well enough to serve as a stable pre-generative reference."
+  ],
+  "implications_for_generative_stage": [
+    "Freeze this detector behavior as the baseline reference before Day 27 data preparation.",
+    "Prioritize the hardest anomaly family during generative design and later counterfactual repair analysis.",
+    "Carry current threshold and anomaly-type breakdown forward as the benchmark for post-diffusion comparison.",
+    "Use Day 27 to prepare tensors/dataloaders cleanly; do not change baseline evaluation definitions during that transition."
+  ],
+  "supporting_evidence_paths": {
+    "artifact_day20_summary": "D:\\Article\\artifacts\\day20\\day20_supervised_eval_summary.json",
+    "day20_eval_summary": null,
+    "day20_breakdown_csv": null,
+    "day25_scoring_dir": "D:\\Article\\outputs\\scoring\\day25\\run_ref_v2"
+  },
+  "day25_scoring_files_detected": [
+    "by_anomaly_type.csv",
+    "scored_rows.csv",
+    "summary.json",
+    "top_examples_per_type.csv"
+  ],
+  "checkpoint_note": "Day 26 closes Milestone 2. Day 27 should begin from stable, documented baseline behavior rather than ad-hoc memory.",
+  "next_step": "Day 27 - prepare diffusion inputs, masks, batching, and storage artifacts."
+}

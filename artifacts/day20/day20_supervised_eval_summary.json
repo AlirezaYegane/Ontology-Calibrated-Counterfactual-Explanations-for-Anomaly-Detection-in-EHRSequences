@@ -1,0 +1,13 @@
+﻿{
+  "best_epoch": 5,
+  "roc_auc": 0.8002188893877784,
+  "average_precision": 0.7332429325476619,
+  "threshold": 0.6342756152153015,
+  "precision": 0.9044507962433647,
+  "recall": 0.5388638851721201,
+  "f1": 0.6753563533805931,
+  "predicted_positive_rate": 0.13700124470301944,
+  "hardest_anomaly_type": "missing_diagnosis",
+  "easiest_anomaly_type": "demographic_conflict",
+  "notes": "Day 20 supervised detector enhancement completed successfully on GPU with rich live monitoring."
+}
