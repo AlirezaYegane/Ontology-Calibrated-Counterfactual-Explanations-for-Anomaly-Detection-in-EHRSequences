@@ -1,0 +1,22 @@
+{
+  "status": "technical_pass_semantic_partial",
+  "rows_scored": 1500,
+  "mean_sdet": 0.6375111013333333,
+  "mean_sont": 0.010666666666666666,
+  "mean_scal": 0.44768213600000006,
+  "key_findings": {
+    "demographic_conflict": {
+      "mean_sdet": 0.98923345942029,
+      "mean_sont": 0.0
+    },
+    "medication_mismatch": {
+      "mean_sdet": 0.5991439519230769,
+      "mean_sont": 0.0
+    },
+    "missing_diagnosis": {
+      "mean_sdet": 0.2994116062322946,
+      "mean_sont": 0.0226628895184136
+    }
+  },
+  "note": "Ontology-aware scaffold is running end-to-end, but ontology rules have weak semantic coverage and need refinement based on actual token namespaces."
+}

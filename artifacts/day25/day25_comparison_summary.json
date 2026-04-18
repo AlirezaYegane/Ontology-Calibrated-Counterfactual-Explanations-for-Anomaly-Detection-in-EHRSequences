@@ -1,0 +1,62 @@
+{
+  "status": "day25_complete",
+  "run1": [
+    {
+      "anomaly_type": "demographic_conflict",
+      "count": 690,
+      "mean_sdet": 0.98923345942029,
+      "mean_sont": 0.0,
+      "mean_scal": 0.6924634347826087,
+      "mean_violations": 0.0
+    },
+    {
+      "anomaly_type": "medication_mismatch",
+      "count": 104,
+      "mean_sdet": 0.5991439519230769,
+      "mean_sont": 0.0,
+      "mean_scal": 0.4194008269230769,
+      "mean_violations": 0.0
+    },
+    {
+      "anomaly_type": "missing_diagnosis",
+      "count": 706,
+      "mean_sdet": 0.2994116062322946,
+      "mean_sont": 0.0226628895184136,
+      "mean_scal": 0.212614373937677,
+      "mean_violations": 0.018413597733711
+    }
+  ],
+  "run2": [
+    {
+      "anomaly_type": "demographic_conflict",
+      "count": 690,
+      "mean_sdet": 0.98923345942029,
+      "mean_sont": 2.967753623188406,
+      "mean_scal": 0.9734510956521738,
+      "mean_violations": 1.3942028985507249
+    },
+    {
+      "anomaly_type": "medication_mismatch",
+      "count": 104,
+      "mean_sdet": 0.5991439519230769,
+      "mean_sont": 0.9447115384615384,
+      "mean_scal": 0.583480423076923,
+      "mean_violations": 1.0096153846153846
+    },
+    {
+      "anomaly_type": "missing_diagnosis",
+      "count": 706,
+      "mean_sdet": 0.2994116062322946,
+      "mean_sont": 0.3009915014164306,
+      "mean_scal": 0.2633587266288952,
+      "mean_violations": 0.3541076487252124
+    }
+  ],
+  "summary": {
+    "global_mean_sont_run1": 0.010666666666666666,
+    "global_mean_sont_run2": 1.5723333333333334,
+    "global_mean_scal_run1": 0.44768213600000006,
+    "global_mean_scal_run2": 0.6121963206666666
+  },
+  "note": "Run 2 adds evidence-based ontology namespace refinement and materially improves ontology contribution across anomaly families."
+}
