@@ -1,0 +1,48 @@
+{
+  "input_path": ".\\data\\processed\\mimiciv_val.pkl",
+  "out_pt": "artifacts\\day27\\mimiciv_val_diffusion.pt",
+  "sequence_column": "codes",
+  "rows_before_filter": 55061,
+  "rows_after_filter": 55061,
+  "dropped_empty_rows": 0,
+  "vocab_size": 47010,
+  "max_len": 256,
+  "truncate_strategy": "tail",
+  "loader_view": "both",
+  "tensor_shapes": {
+    "input_ids": [
+      55061,
+      256
+    ],
+    "attention_mask": [
+      55061,
+      256
+    ],
+    "lengths": [
+      55061
+    ]
+  },
+  "batch_shapes": {
+    "attention_mask": [
+      32,
+      256
+    ],
+    "lengths": [
+      32
+    ],
+    "input_ids": [
+      32,
+      256
+    ],
+    "multi_hot": [
+      32,
+      47010
+    ]
+  },
+  "sequence_length_stats": {
+    "mean": 50.59570294763989,
+    "median": 36.0,
+    "p95": 147.0,
+    "max": 1265
+  }
+}
