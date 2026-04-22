@@ -1,0 +1,40 @@
+﻿{
+  "day": 28,
+  "title": "Finalize Diffusion Model Design",
+  "status": "complete",
+  "primary_view": "sequence",
+  "kept_for_ablation_only": ["multi_hot", "flat_mlp"],
+  "diffusion_steps": 64,
+  "beta_schedule": "cosine",
+  "denoiser": {
+    "type": "small_transformer_encoder",
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 4,
+    "ff_dim": 512,
+    "dropout": 0.10,
+    "time_embedding": "sinusoidal"
+  },
+  "sgen_definition": "mean_nonpad_denoising_error",
+  "ontology_regularization": {
+    "enabled": true,
+    "lambda_total": 0.10,
+    "components": {
+      "demographic_penalty": 0.04,
+      "medication_indication_penalty": 0.04,
+      "forbidden_pair_penalty": 0.02
+    }
+  },
+  "deferred_items": [
+    "graph_shortest_path_regularization",
+    "temporal_unet_backbone",
+    "full counterfactual repair loop",
+    "flat multi-hot mainline"
+  ],
+  "depends_on": {
+    "day27_artifact": "artifacts/day27/mimiciv_val_diffusion.pt",
+    "day27_summary": "artifacts/day27/mimiciv_val_diffusion_summary.json"
+  },
+  "next_day": 29,
+  "next_target": "Implement DiffusionModel and smoke-test forward pass"
+}

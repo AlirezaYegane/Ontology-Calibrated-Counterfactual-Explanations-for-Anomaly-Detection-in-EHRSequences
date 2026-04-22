@@ -1,0 +1,48 @@
+﻿name: day28_seq_transformer_ddpm_v1
+
+data:
+  artifact_path: artifacts/day27/mimiciv_val_diffusion.pt
+  summary_path: artifacts/day27/mimiciv_val_diffusion_summary.json
+  input_view: sequence
+  max_len: 256
+  pad_idx: 0
+  unk_idx: 1
+
+model:
+  family: ddpm_embedding_sequence
+  prediction_target: epsilon
+  time_embedding: sinusoidal
+  d_model: 128
+  n_heads: 4
+  n_layers: 4
+  ff_dim: 512
+  dropout: 0.10
+
+diffusion:
+  steps: 64
+  beta_schedule: cosine
+  eval_sample_steps: 16
+
+training:
+  batch_size: 32
+  lr: 3.0e-4
+  weight_decay: 1.0e-4
+  grad_clip_norm: 1.0
+  num_workers: 0
+  mixed_precision: true
+  objective: mask_aware_mse_on_noise
+
+sgen:
+  method: mean_nonpad_denoising_error
+
+ontology_regularization:
+  enabled: true
+  lambda_total: 0.10
+  components:
+    demographic_penalty: 0.04
+    medication_indication_penalty: 0.04
+    forbidden_pair_penalty: 0.02
+  deferred:
+    graph_shortest_path_regularization: true
+    temporal_unet_backbone: true
+    flat_multihot_mainline: true
