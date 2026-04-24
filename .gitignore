@@ -46,3 +46,12 @@ mimiciii_header_report.json
 
 # IDE
 .idea/
+
+# Local/generated development files
+.claude/
+outputs/
+
+# Generated tensor/checkpoint artifacts
+*.pt
+*.pth
+*.ckpt

@@ -1,0 +1,39 @@
+{
+  "status": "ok",
+  "artifact_path": "artifacts\\day27\\mimiciv_val_diffusion.pt",
+  "summary_path": "artifacts\\day27\\mimiciv_val_diffusion_summary.json",
+  "device_used": "cpu",
+  "input_shape": [
+    4,
+    256
+  ],
+  "attention_mask_shape": [
+    4,
+    256
+  ],
+  "vocab_size": 47010,
+  "max_len": 256,
+  "model": {
+    "type": "DiffusionModel",
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 4,
+    "ff_dim": 512,
+    "num_diffusion_steps": 64,
+    "prediction_target": "epsilon"
+  },
+  "training_loss": 1.3264427185058594,
+  "surprise_score_shape": [
+    4
+  ],
+  "surprise_score_mean": 1.3278290033340454,
+  "sampled_embeddings_shape": [
+    2,
+    16,
+    128
+  ],
+  "sampled_ids_shape": [
+    2,
+    16
+  ]
+}
