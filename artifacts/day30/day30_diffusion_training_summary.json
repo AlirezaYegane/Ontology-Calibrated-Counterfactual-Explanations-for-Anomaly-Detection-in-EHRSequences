@@ -1,0 +1,19 @@
+{
+  "status": "complete",
+  "day": 30,
+  "title": "Diffusion training loop",
+  "out_dir": "outputs\\diffusion\\day30_smoke",
+  "epochs": 2,
+  "global_steps": 80,
+  "first_epoch_loss": 1.0762004375457763,
+  "last_epoch_loss": 1.0021222203969955,
+  "best_epoch": 2,
+  "best_loss": 1.0021222203969955,
+  "loss_decreased": true,
+  "artifacts": {
+    "metrics_jsonl": "outputs\\diffusion\\day30_smoke\\metrics.jsonl",
+    "best_checkpoint": "outputs\\diffusion\\day30_smoke\\best.pt",
+    "last_checkpoint": "outputs\\diffusion\\day30_smoke\\last.pt",
+    "config_resolved": "outputs\\diffusion\\day30_smoke\\config_resolved.json"
+  }
+}
