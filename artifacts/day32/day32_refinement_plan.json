@@ -1,0 +1,31 @@
+{
+  "day": 32,
+  "title": "Diffusion Training Refinement",
+  "status": "planned",
+  "goal": "Refine the Day 31 full diffusion run into a final baseline diffusion checkpoint and compare generated samples with real data statistics.",
+  "decision": {
+    "architecture_change": false,
+    "reason": "Day 28 architecture is already locked; Day 32 refines training rather than redesigning the model.",
+    "diffusion_steps": 64,
+    "beta_schedule": "cosine",
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 4,
+    "ff_dim": 512,
+    "dropout": 0.10,
+    "lr": 0.0002,
+    "weight_decay": 0.0001,
+    "batch_size": 16,
+    "grad_clip_norm": 1.0
+  },
+  "expected_outputs": [
+    "outputs/diffusion/day32_final_baseline/best.pt",
+    "outputs/diffusion/day32_final_baseline/last.pt",
+    "outputs/diffusion/day32_final_baseline/diffusion.pt",
+    "outputs/diffusion/day32_final_baseline/metrics.jsonl",
+    "artifacts/day32/day32_final_diffusion_report.json",
+    "artifacts/day32/README.txt"
+  ],
+  "next_day": 33,
+  "next_target": "Add ontology regularization to the baseline diffusion model"
+}
