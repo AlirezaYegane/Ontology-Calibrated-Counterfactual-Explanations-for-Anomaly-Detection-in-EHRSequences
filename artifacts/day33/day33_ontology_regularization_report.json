@@ -1,0 +1,288 @@
+{
+  "day": 33,
+  "title": "Ontology-Regularized Diffusion Fine-Tuning",
+  "status": "complete",
+  "goal": "Add lightweight ontology-consistency regularization to the diffusion baseline and monitor generated violation proxies.",
+  "data_path": ".\\artifacts\\day27\\mimiciv_val_diffusion.pt",
+  "summary_path": ".\\artifacts\\day27\\mimiciv_val_diffusion_summary.json",
+  "out_dir": "outputs\\diffusion\\day33_ontology_regularized_fixed",
+  "vocab_path": "outputs\\detector\\day20_supervised\\run_luxury\\vocab.json",
+  "records_used": 12000,
+  "seq_len": 256,
+  "vocab_size": 47010,
+  "ontology_regularization": {
+    "enabled": true,
+    "lambda_total": 0.1,
+    "implemented_proxy_rules": [
+      "medication_without_diagnosis",
+      "procedure_without_diagnosis",
+      "unknown_or_other_token_mass"
+    ],
+    "deferred": [
+      "full SNOMED graph shortest-path regularization",
+      "demographic-specific constraints requiring reliable metadata",
+      "full counterfactual repair sampling loop"
+    ]
+  },
+  "best_epoch": 6,
+  "best_metrics": {
+    "epoch": 6,
+    "train_loss": 0.6738228848576546,
+    "train_diffusion_loss": 0.6733332949876786,
+    "train_ontology_loss": 0.004895911404191793,
+    "val_loss": 0.6129715830087662,
+    "val_diffusion_loss": 0.6125635176897049,
+    "val_ontology_loss": 0.004080582072083417,
+    "val_records": 640,
+    "val_violation_rate": 0.0203125,
+    "val_med_without_diag_rate": 0.0046875,
+    "val_proc_without_diag_rate": 0.0,
+    "val_unknown_or_other_rate": 0.015625,
+    "generated_records": 64,
+    "generated_violation_rate": 0.0,
+    "generated_med_without_diag_rate": 0.0,
+    "generated_proc_without_diag_rate": 0.0,
+    "generated_unknown_or_other_rate": 0.0
+  },
+  "baseline_day32_reference": {
+    "day": 32,
+    "title": "Final baseline diffusion refinement",
+    "status": "complete",
+    "run_dir": "outputs\\diffusion\\day32_final_baseline",
+    "data_path": "artifacts\\day31\\mimiciv_train_diffusion.pt",
+    "summary_path": "artifacts\\day31\\mimiciv_train_diffusion_summary.json",
+    "data_summary": {
+      "input_path": ".\\data\\processed\\mimiciv_train.pkl",
+      "out_pt": "artifacts\\day31\\mimiciv_train_diffusion.pt",
+      "sequence_column": "codes",
+      "rows_before_filter": 380922,
+      "rows_after_filter": 380922,
+      "dropped_empty_rows": 0,
+      "vocab_size": 47010,
+      "max_len": 256,
+      "truncate_strategy": "tail",
+      "loader_view": "both",
+      "tensor_shapes": {
+        "input_ids": [
+          380922,
+          256
+        ],
+        "attention_mask": [
+          380922,
+          256
+        ],
+        "lengths": [
+          380922
+        ]
+      },
+      "batch_shapes": {
+        "attention_mask": [
+          32,
+          256
+        ],
+        "lengths": [
+          32
+        ],
+        "input_ids": [
+          32,
+          256
+        ],
+        "multi_hot": [
+          32,
+          47010
+        ]
+      },
+      "sequence_length_stats": {
+        "mean": 50.450470174996454,
+        "median": 36.0,
+        "p95": 147.0,
+        "max": 2871
+      }
+    },
+    "checkpoints": [
+      {
+        "name": "diffusion.pt",
+        "path": "outputs\\diffusion\\day32_final_baseline\\diffusion.pt",
+        "size_bytes": 83962567
+      },
+      {
+        "name": "best.pt",
+        "path": "outputs\\diffusion\\day32_final_baseline\\best.pt",
+        "size_bytes": 83962567
+      },
+      {
+        "name": "last.pt",
+        "path": "outputs\\diffusion\\day32_final_baseline\\last.pt",
+        "size_bytes": 83962631
+      }
+    ],
+    "training_metrics": {
+      "available": true,
+      "num_rows": 300,
+      "first_row": {
+        "epoch": 1,
+        "step": 1,
+        "global_step": 1,
+        "train_loss": 1.3336676359176636,
+        "batch_size": 16,
+        "nonpad_tokens": 619,
+        "mean_timestep": 32.6875
+      },
+      "last_row": {
+        "epoch": 6,
+        "step": 50,
+        "global_step": 300,
+        "train_loss": 0.8826961517333984,
+        "batch_size": 16,
+        "nonpad_tokens": 769,
+        "mean_timestep": 32.0
+      },
+      "loss_keys_detected": [
+        "train_loss"
+      ],
+      "best_by_val_loss": null
+    },
+    "real_data_statistics": {
+      "rows": 5000,
+      "seq_len_width": 256,
+      "nonpad_length": {
+        "mean": 49.315799713134766,
+        "median": 36.0,
+        "min": 1,
+        "max": 256
+      },
+      "top_token_ids": [
+        {
+          "token_id": 2,
+          "count": 7580
+        },
+        {
+          "token_id": 3,
+          "count": 6295
+        },
+        {
+          "token_id": 5,
+          "count": 6077
+        },
+        {
+          "token_id": 4,
+          "count": 5927
+        },
+        {
+          "token_id": 6,
+          "count": 5258
+        },
+        {
+          "token_id": 7,
+          "count": 4100
+        },
+        {
+          "token_id": 8,
+          "count": 3780
+        },
+        {
+          "token_id": 10,
+          "count": 3390
+        },
+        {
+          "token_id": 9,
+          "count": 3363
+        },
+        {
+          "token_id": 12,
+          "count": 3129
+        },
+        {
+          "token_id": 11,
+          "count": 3126
+        },
+        {
+          "token_id": 13,
+          "count": 3072
+        },
+        {
+          "token_id": 14,
+          "count": 2943
+        },
+        {
+          "token_id": 16,
+          "count": 2822
+        },
+        {
+          "token_id": 17,
+          "count": 2740
+        },
+        {
+          "token_id": 15,
+          "count": 2731
+        },
+        {
+          "token_id": 18,
+          "count": 2508
+        },
+        {
+          "token_id": 20,
+          "count": 2306
+        },
+        {
+          "token_id": 19,
+          "count": 2195
+        },
+        {
+          "token_id": 21,
+          "count": 2133
+        },
+        {
+          "token_id": 23,
+          "count": 2063
+        },
+        {
+          "token_id": 22,
+          "count": 2012
+        },
+        {
+          "token_id": 24,
+          "count": 1675
+        },
+        {
+          "token_id": 25,
+          "count": 1650
+        },
+        {
+          "token_id": 26,
+          "count": 1492
+        },
+        {
+          "token_id": 27,
+          "count": 1481
+        },
+        {
+          "token_id": 29,
+          "count": 1388
+        },
+        {
+          "token_id": 28,
+          "count": 1334
+        },
+        {
+          "token_id": 31,
+          "count": 1323
+        },
+        {
+          "token_id": 30,
+          "count": 1255
+        }
+      ],
+      "unique_nonpad_tokens": 9908
+    },
+    "interpretation": {
+      "what_this_day_confirms": [
+        "The baseline diffusion model can be trained as a final non-ontology baseline.",
+        "The final checkpoint is available for Day 33 ontology regularization.",
+        "Real-data statistics are recorded for generated-sample comparison."
+      ],
+      "next_step": "Day 33 should add ontology regularization and compare violation rates against this baseline."
+    }
+  },
+  "interpretation": "Day 33 introduces a conservative ontology-aware training signal. The reported generated_violation_rate is a proxy metric based on decoded generated sequences, not a final clinical validation metric."
+}

@@ -1,0 +1,46 @@
+name: day33_ontology_regularized_diffusion_fixed_v1
+
+data:
+  artifact_path: artifacts/day27/mimiciv_val_diffusion.pt
+  summary_path: artifacts/day27/mimiciv_val_diffusion_summary.json
+  vocab_path: outputs/detector/day20_supervised/run_luxury/vocab.json
+  max_records: 12000
+
+model:
+  family: ddpm_embedding_sequence
+  denoiser: small_transformer_encoder
+  d_model: 128
+  n_heads: 4
+  n_layers: 4
+  ff_dim: 512
+  dropout: 0.10
+
+diffusion:
+  steps: 64
+  beta_schedule: cosine
+  prediction_target: epsilon
+
+training:
+  epochs: 6
+  batch_size: 32
+  lr: 2.0e-4
+  weight_decay: 1.0e-4
+  grad_clip_norm: 1.0
+  max_steps_per_epoch: 200
+  num_workers: 0
+
+ontology_regularization:
+  enabled: true
+  lambda_total: 0.10
+  proxy_rules:
+    - medication_without_diagnosis
+    - procedure_without_diagnosis
+    - unknown_or_other_token_mass
+  deferred:
+    - full_snomed_graph_shortest_path_loss
+    - demographic_specific_rules_without_metadata
+    - counterfactual_repair_sampling
+
+outputs:
+  out_dir: outputs/diffusion/day33_ontology_regularized_fixed
+  artifact_dir: artifacts/day33_fixed

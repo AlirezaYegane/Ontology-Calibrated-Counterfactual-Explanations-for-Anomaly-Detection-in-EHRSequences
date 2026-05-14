@@ -1,0 +1,129 @@
+{
+  "input_path": ".\\data\\processed\\mimiciv_val.pkl",
+  "sequence_column": "codes",
+  "rows_used": 55061,
+  "vocab_size": 25577,
+  "top_tokens": [
+    {
+      "token": "MED_INSULIN",
+      "count": 86868
+    },
+    {
+      "token": "MED_0_9_SODIUM_CHLORIDE",
+      "count": 74726
+    },
+    {
+      "token": "MED_POTASSIUM_CHLORIDE",
+      "count": 69564
+    },
+    {
+      "token": "MED_SODIUM_CHLORIDE_0_9_FLUSH",
+      "count": 68108
+    },
+    {
+      "token": "MED_ACETAMINOPHEN",
+      "count": 58903
+    },
+    {
+      "token": "MED_FUROSEMIDE",
+      "count": 45094
+    },
+    {
+      "token": "MED_HEPARIN",
+      "count": 40111
+    },
+    {
+      "token": "MED_5_DEXTROSE",
+      "count": 37442
+    },
+    {
+      "token": "MED_MAGNESIUM_SULFATE",
+      "count": 37310
+    },
+    {
+      "token": "MED_BAG",
+      "count": 35960
+    },
+    {
+      "token": "MED_SENNA",
+      "count": 34515
+    },
+    {
+      "token": "MED_DOCUSATE_SODIUM",
+      "count": 33759
+    },
+    {
+      "token": "MED_HYDROMORPHONE_DILAUDID",
+      "count": 32739
+    },
+    {
+      "token": "MED_ISO_OSMOTIC_DEXTROSE",
+      "count": 31276
+    },
+    {
+      "token": "MED_OXYCODONE_IMMEDIATE_RELEASE",
+      "count": 30034
+    },
+    {
+      "token": "MED_METOPROLOL_TARTRATE",
+      "count": 30005
+    },
+    {
+      "token": "MED_ONDANSETRON",
+      "count": 26991
+    },
+    {
+      "token": "MED_LORAZEPAM",
+      "count": 25824
+    },
+    {
+      "token": "MED_LACTATED_RINGERS",
+      "count": 25385
+    },
+    {
+      "token": "MED_VANCOMYCIN",
+      "count": 23110
+    },
+    {
+      "token": "MED_SODIUM_CHLORIDE_0_9",
+      "count": 22912
+    },
+    {
+      "token": "MED_BISACODYL",
+      "count": 22887
+    },
+    {
+      "token": "MED_ASPIRIN",
+      "count": 18242
+    },
+    {
+      "token": "MED_WARFARIN",
+      "count": 17382
+    },
+    {
+      "token": "MED_MORPHINE_SULFATE",
+      "count": 16664
+    },
+    {
+      "token": "MED_CALCIUM_GLUCONATE",
+      "count": 16399
+    },
+    {
+      "token": "MED_DEXTROSE_50",
+      "count": 16368
+    },
+    {
+      "token": "MED_VIAL",
+      "count": 16234
+    },
+    {
+      "token": "MED_PANTOPRAZOLE",
+      "count": 14848
+    },
+    {
+      "token": "MED_GLUCAGON",
+      "count": 14329
+    }
+  ],
+  "out_vocab": "artifacts\\day33\\mimiciv_val_vocab.json"
+}
