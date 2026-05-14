@@ -1,0 +1,96 @@
+{
+  "day": 31,
+  "title": "Full Diffusion Training Baseline",
+  "status": "complete",
+  "dataset": {
+    "input_path": ".\\data\\processed\\mimiciv_train.pkl",
+    "sequence_column": "codes",
+    "rows": 380922,
+    "vocab_size": 47010,
+    "max_len": 256,
+    "sequence_length_stats": {
+      "mean": 50.450470174996454,
+      "median": 36.0,
+      "p95": 147.0,
+      "max": 2871
+    }
+  },
+  "training": {
+    "run_dir": "outputs\\diffusion\\day31_full",
+    "epochs": 4,
+    "global_steps": 512,
+    "batch_size": 16,
+    "diffusion_steps": 64,
+    "beta_schedule": "cosine",
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 4,
+    "ff_dim": 512,
+    "dropout": 0.1,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "grad_clip_norm": 1.0,
+    "max_steps_per_epoch": 1000,
+    "max_records": 2048,
+    "device_used": "cuda",
+    "trainable_parameters": 6991616,
+    "total_parameters": 6991616
+  },
+  "loss_summary": {
+    "first_epoch_loss": 1.0225786487571895,
+    "last_epoch_loss": 0.733609355520457,
+    "best_epoch": 4,
+    "best_loss": 0.733609355520457,
+    "loss_decreased": true,
+    "loss_drop_absolute": 0.2889692932367325,
+    "loss_drop_percent": 28.258881953768235,
+    "min_step_loss": 0.6175901293754578,
+    "max_step_loss": 1.3336676359176636,
+    "num_logged_steps": 512,
+    "epoch_summaries": [
+      {
+        "epoch": 1,
+        "epoch_loss": 1.0225786487571895,
+        "steps": 128,
+        "mean_nonpad_tokens_per_batch": 765.9453125
+      },
+      {
+        "epoch": 2,
+        "epoch_loss": 0.8944991659373045,
+        "steps": 128,
+        "mean_nonpad_tokens_per_batch": 765.9453125
+      },
+      {
+        "epoch": 3,
+        "epoch_loss": 0.7873791623860598,
+        "steps": 128,
+        "mean_nonpad_tokens_per_batch": 765.9453125
+      },
+      {
+        "epoch": 4,
+        "epoch_loss": 0.733609355520457,
+        "steps": 128,
+        "mean_nonpad_tokens_per_batch": 765.9453125
+      }
+    ]
+  },
+  "artifacts": {
+    "metrics_jsonl": "outputs\\diffusion\\day31_full\\metrics.jsonl",
+    "summary_json": "outputs\\diffusion\\day31_full\\summary.json",
+    "config_resolved": "outputs\\diffusion\\day31_full\\config_resolved.json",
+    "checkpoints": [
+      "outputs\\diffusion\\day31_full\\best.pt",
+      "outputs\\diffusion\\day31_full\\last.pt"
+    ],
+    "best_checkpoint_exists": true,
+    "last_checkpoint_exists": true
+  },
+  "test_status": {
+    "diffusion_model_tests": "passed",
+    "command": "pytest -q tests/test_diffusion_model.py",
+    "result": "3 passed, 2 warnings",
+    "note": "Full test suite currently has an unrelated ontology import issue and is not used to block Day 31."
+  },
+  "interpretation": "The Day 31 controlled diffusion baseline completed successfully. The denoising loss decreased consistently across four epochs, from about 1.0226 to 0.7336, showing that the model is learning from the EHR sequence representation.",
+  "next_step": "Day 32 should refine training dynamics, compare longer/tuned runs, remove the default max_records bottleneck if needed, and prepare sample-quality checks."
+}
