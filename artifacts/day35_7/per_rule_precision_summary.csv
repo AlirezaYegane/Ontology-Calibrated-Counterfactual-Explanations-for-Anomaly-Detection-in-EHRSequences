@@ -1,0 +1,7 @@
+rule,count,precision,recall_proxy,anomaly_type_counts
+pregnancy_male_specific_conflict,1044,1.0,0.06349592506994282,"{""demographic_conflict"": 1044}"
+isolated_pregnancy_signal,3982,0.9603214465092919,0.23257511251672547,"{""demographic_conflict"": 3799, ""nan"": 158, ""missing_diagnosis"": 25}"
+diabetes_med_without_diabetes_dx,6625,0.33026415094339623,0.13307383529984187,"{""nan"": 4437, ""medication_mismatch"": 855, ""missing_diagnosis"": 711, ""demographic_conflict"": 622}"
+chemotherapy_without_cancer_dx,111,0.25225225225225223,0.0017029558447877388,"{""nan"": 83, ""missing_diagnosis"": 15, ""demographic_conflict"": 12, ""medication_mismatch"": 1}"
+anticoag_or_antiplatelet_without_cardiovascular_dx,26194,0.23207604794991218,0.369723877873738,"{""nan"": 20115, ""missing_diagnosis"": 2851, ""demographic_conflict"": 2838, ""medication_mismatch"": 390}"
+obstetric_intervention_without_pregnancy_dx,77,0.2077922077922078,0.0009731176255929935,"{""nan"": 61, ""missing_diagnosis"": 14, ""demographic_conflict"": 1, ""medication_mismatch"": 1}"

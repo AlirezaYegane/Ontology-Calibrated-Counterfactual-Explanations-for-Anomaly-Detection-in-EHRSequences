@@ -1,0 +1,434 @@
+{
+  "day": "35.7",
+  "status": "complete",
+  "goal": "Ablate noisy curated rules and identify stricter ontology-score variants.",
+  "input_scores": ".\\artifacts\\day35_6\\val_curated_sont_scores.csv",
+  "modes": [
+    "all",
+    "no_noisy",
+    "strict",
+    "strong_weighted"
+  ],
+  "best_mode": "strong_weighted",
+  "calibration_results": {
+    "all": {
+      "weights": {
+        "w_det": 1.0,
+        "w_ont": 0.0,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.8021388152469646,
+        "average_precision": 0.7355130399450901,
+        "threshold": 0.6939567594771952,
+        "precision": 0.9293293718166383,
+        "recall": 0.5326602603089649,
+        "f1": 0.6771824016082889,
+        "predicted_positive_rate": 0.13180050907666918
+      },
+      "Sont": {
+        "roc_auc": 0.5965903370533225,
+        "average_precision": 0.275255118519256,
+        "threshold": 1.0,
+        "precision": 0.3045440683135102,
+        "recall": 0.6073470380732271,
+        "f1": 0.40567110822229446,
+        "predicted_positive_rate": 0.45858857094906436
+      },
+      "Scal": {
+        "roc_auc": 0.8021388152469646,
+        "average_precision": 0.7355130399450901,
+        "threshold": 0.6939567594771952,
+        "precision": 0.9293293718166383,
+        "recall": 0.5326602603089649,
+        "f1": 0.6771824016082889,
+        "predicted_positive_rate": 0.13180050907666918
+      },
+      "flag_summary": {
+        "flagged_count": 16395,
+        "flagged_rate": 0.45858857094906436,
+        "flagged_precision": 0.3045440683135102,
+        "flagged_recall": 0.6073470380732271,
+        "flagged_anomaly_type_counts": {
+          "": 11402,
+          "demographic_conflict": 2923,
+          "missing_diagnosis": 1603,
+          "medication_mismatch": 467
+        }
+      }
+    },
+    "no_noisy": {
+      "weights": {
+        "w_det": 0.8823529411764706,
+        "w_ont": 0.11764705882352942,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.8021388152469646,
+        "average_precision": 0.7355130399450901,
+        "threshold": 0.6939567594771952,
+        "precision": 0.9293293718166383,
+        "recall": 0.5326602603089649,
+        "f1": 0.6771824016082889,
+        "predicted_positive_rate": 0.13180050907666918
+      },
+      "Sont": {
+        "roc_auc": 0.6272722179468888,
+        "average_precision": 0.4129527703502462,
+        "threshold": 1.0,
+        "precision": 0.9336244541484716,
+        "recall": 0.2600656854397275,
+        "f1": 0.4068119113309866,
+        "predicted_positive_rate": 0.06405415233140331
+      },
+      "Scal": {
+        "roc_auc": 0.8026010814666559,
+        "average_precision": 0.7360075197736519,
+        "threshold": 0.6123147877739957,
+        "precision": 0.9289802840788637,
+        "recall": 0.5330251794185622,
+        "f1": 0.677384448910187,
+        "predicted_positive_rate": 0.131940365304467
+      },
+      "flag_summary": {
+        "flagged_count": 2290,
+        "flagged_rate": 0.06405415233140331,
+        "flagged_precision": 0.9336244541484716,
+        "flagged_recall": 0.2600656854397275,
+        "flagged_anomaly_type_counts": {
+          "demographic_conflict": 2110,
+          "": 152,
+          "missing_diagnosis": 28
+        }
+      }
+    },
+    "strict": {
+      "weights": {
+        "w_det": 0.8823529411764706,
+        "w_ont": 0.11764705882352942,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.8021388152469646,
+        "average_precision": 0.7355130399450901,
+        "threshold": 0.6939567594771952,
+        "precision": 0.9293293718166383,
+        "recall": 0.5326602603089649,
+        "f1": 0.6771824016082889,
+        "predicted_positive_rate": 0.13180050907666918
+      },
+      "Sont": {
+        "roc_auc": 0.6272722179468888,
+        "average_precision": 0.4129527703502462,
+        "threshold": 1.0,
+        "precision": 0.9336244541484716,
+        "recall": 0.2600656854397275,
+        "f1": 0.4068119113309866,
+        "predicted_positive_rate": 0.06405415233140331
+      },
+      "Scal": {
+        "roc_auc": 0.8026010814666559,
+        "average_precision": 0.7360075197736519,
+        "threshold": 0.6123147877739957,
+        "precision": 0.9289802840788637,
+        "recall": 0.5330251794185622,
+        "f1": 0.677384448910187,
+        "predicted_positive_rate": 0.131940365304467
+      },
+      "flag_summary": {
+        "flagged_count": 2290,
+        "flagged_rate": 0.06405415233140331,
+        "flagged_precision": 0.9336244541484716,
+        "flagged_recall": 0.2600656854397275,
+        "flagged_anomaly_type_counts": {
+          "demographic_conflict": 2110,
+          "": 152,
+          "missing_diagnosis": 28
+        }
+      }
+    },
+    "strong_weighted": {
+      "weights": {
+        "w_det": 0.6666666666666666,
+        "w_ont": 0.3333333333333333,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.8021388152469646,
+        "average_precision": 0.7355130399450901,
+        "threshold": 0.6939567594771952,
+        "precision": 0.9293293718166383,
+        "recall": 0.5326602603089649,
+        "f1": 0.6771824016082889,
+        "predicted_positive_rate": 0.13180050907666918
+      },
+      "Sont": {
+        "roc_auc": 0.6271955977473547,
+        "average_precision": 0.4170699882124887,
+        "threshold": 0.2631578947368421,
+        "precision": 0.9336244541484716,
+        "recall": 0.2600656854397275,
+        "f1": 0.4068119113309866,
+        "predicted_positive_rate": 0.06405415233140331
+      },
+      "Scal": {
+        "roc_auc": 0.8026290259019222,
+        "average_precision": 0.7361377485446639,
+        "threshold": 0.46263783965146343,
+        "precision": 0.9290404575301843,
+        "recall": 0.5335117382313587,
+        "f1": 0.6777932313398238,
+        "predicted_positive_rate": 0.13205225028670528
+      },
+      "flag_summary": {
+        "flagged_count": 2290,
+        "flagged_rate": 0.06405415233140331,
+        "flagged_precision": 0.9336244541484716,
+        "flagged_recall": 0.2600656854397275,
+        "flagged_anomaly_type_counts": {
+          "demographic_conflict": 2110,
+          "": 152,
+          "missing_diagnosis": 28
+        }
+      }
+    }
+  },
+  "heldout_results": {
+    "all": {
+      "weights": {
+        "w_det": 1.0,
+        "w_ont": 0.0,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.7983067210749735,
+        "average_precision": 0.730970236126466,
+        "threshold": 0.61397585216719,
+        "precision": 0.9045185033735432,
+        "recall": 0.5381340469529254,
+        "f1": 0.6748017083587553,
+        "predicted_positive_rate": 0.13680353546654733
+      },
+      "Sont": {
+        "roc_auc": 0.5989584405456911,
+        "average_precision": 0.27653620678324226,
+        "threshold": 1.0,
+        "precision": 0.3057016748291916,
+        "recall": 0.6150103393747719,
+        "f1": 0.4084006462035541,
+        "predicted_positive_rate": 0.46260349071380624
+      },
+      "Scal": {
+        "roc_auc": 0.7983067210749735,
+        "average_precision": 0.730970236126466,
+        "threshold": 0.61397585216719,
+        "precision": 0.9045185033735432,
+        "recall": 0.5381340469529254,
+        "f1": 0.6748017083587553,
+        "predicted_positive_rate": 0.13680353546654733
+      },
+      "flag_summary": {
+        "flagged_count": 16539,
+        "flagged_rate": 0.46260349071380624,
+        "flagged_precision": 0.3057016748291916,
+        "flagged_recall": 0.6150103393747719,
+        "flagged_anomaly_type_counts": {
+          "": 11483,
+          "demographic_conflict": 2911,
+          "missing_diagnosis": 1676,
+          "medication_mismatch": 469
+        }
+      }
+    },
+    "no_noisy": {
+      "weights": {
+        "w_det": 0.8823529411764706,
+        "w_ont": 0.11764705882352942,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.7983067210749735,
+        "average_precision": 0.730970236126466,
+        "threshold": 0.61397585216719,
+        "precision": 0.9045185033735432,
+        "recall": 0.5381340469529254,
+        "f1": 0.6748017083587553,
+        "predicted_positive_rate": 0.13680353546654733
+      },
+      "Sont": {
+        "roc_auc": 0.6230085927928173,
+        "average_precision": 0.40665382879860357,
+        "threshold": 1.0,
+        "precision": 0.9327617328519856,
+        "recall": 0.25142926651258973,
+        "f1": 0.39609083069847656,
+        "predicted_positive_rate": 0.0619825464309689
+      },
+      "Scal": {
+        "roc_auc": 0.7982442730867052,
+        "average_precision": 0.7311920252334364,
+        "threshold": 0.54174339897105,
+        "precision": 0.9041598694942904,
+        "recall": 0.5393504439849167,
+        "f1": 0.6756571428571428,
+        "predicted_positive_rate": 0.13716715148802863
+      },
+      "flag_summary": {
+        "flagged_count": 2216,
+        "flagged_rate": 0.0619825464309689,
+        "flagged_precision": 0.9327617328519856,
+        "flagged_recall": 0.25142926651258973,
+        "flagged_anomaly_type_counts": {
+          "demographic_conflict": 2042,
+          "": 149,
+          "missing_diagnosis": 23,
+          "medication_mismatch": 2
+        }
+      }
+    },
+    "strict": {
+      "weights": {
+        "w_det": 0.8823529411764706,
+        "w_ont": 0.11764705882352942,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.7983067210749735,
+        "average_precision": 0.730970236126466,
+        "threshold": 0.61397585216719,
+        "precision": 0.9045185033735432,
+        "recall": 0.5381340469529254,
+        "f1": 0.6748017083587553,
+        "predicted_positive_rate": 0.13680353546654733
+      },
+      "Sont": {
+        "roc_auc": 0.6230085927928173,
+        "average_precision": 0.40665382879860357,
+        "threshold": 1.0,
+        "precision": 0.9327617328519856,
+        "recall": 0.25142926651258973,
+        "f1": 0.39609083069847656,
+        "predicted_positive_rate": 0.0619825464309689
+      },
+      "Scal": {
+        "roc_auc": 0.7982442730867052,
+        "average_precision": 0.7311920252334364,
+        "threshold": 0.54174339897105,
+        "precision": 0.9041598694942904,
+        "recall": 0.5393504439849167,
+        "f1": 0.6756571428571428,
+        "predicted_positive_rate": 0.13716715148802863
+      },
+      "flag_summary": {
+        "flagged_count": 2216,
+        "flagged_rate": 0.0619825464309689,
+        "flagged_precision": 0.9327617328519856,
+        "flagged_recall": 0.25142926651258973,
+        "flagged_anomaly_type_counts": {
+          "demographic_conflict": 2042,
+          "": 149,
+          "missing_diagnosis": 23,
+          "medication_mismatch": 2
+        }
+      }
+    },
+    "strong_weighted": {
+      "weights": {
+        "w_det": 0.6666666666666666,
+        "w_ont": 0.3333333333333333,
+        "w_gen": 0.0
+      },
+      "Sdet": {
+        "roc_auc": 0.7983067210749735,
+        "average_precision": 0.730970236126466,
+        "threshold": 0.61397585216719,
+        "precision": 0.9045185033735432,
+        "recall": 0.5381340469529254,
+        "f1": 0.6748017083587553,
+        "predicted_positive_rate": 0.13680353546654733
+      },
+      "Sont": {
+        "roc_auc": 0.6229439931015429,
+        "average_precision": 0.4108498541426536,
+        "threshold": 0.2631578947368421,
+        "precision": 0.9327617328519856,
+        "recall": 0.25142926651258973,
+        "f1": 0.39609083069847656,
+        "predicted_positive_rate": 0.0619825464309689
+      },
+      "Scal": {
+        "roc_auc": 0.7982410344864928,
+        "average_precision": 0.7312010528421008,
+        "threshold": 0.40931723477812665,
+        "precision": 0.9038500712976166,
+        "recall": 0.5397153630945141,
+        "f1": 0.6758568164508758,
+        "predicted_positive_rate": 0.137307003803983
+      },
+      "flag_summary": {
+        "flagged_count": 2216,
+        "flagged_rate": 0.0619825464309689,
+        "flagged_precision": 0.9327617328519856,
+        "flagged_recall": 0.25142926651258973,
+        "flagged_anomaly_type_counts": {
+          "demographic_conflict": 2042,
+          "": 149,
+          "missing_diagnosis": 23,
+          "medication_mismatch": 2
+        }
+      }
+    }
+  },
+  "per_rule_precision_summary_top": [
+    {
+      "rule": "pregnancy_male_specific_conflict",
+      "count": 1044,
+      "precision": 1.0,
+      "recall_proxy": 0.06349592506994282,
+      "anomaly_type_counts": "{\"demographic_conflict\": 1044}"
+    },
+    {
+      "rule": "isolated_pregnancy_signal",
+      "count": 3982,
+      "precision": 0.9603214465092919,
+      "recall_proxy": 0.23257511251672547,
+      "anomaly_type_counts": "{\"demographic_conflict\": 3799, \"nan\": 158, \"missing_diagnosis\": 25}"
+    },
+    {
+      "rule": "diabetes_med_without_diabetes_dx",
+      "count": 6625,
+      "precision": 0.33026415094339623,
+      "recall_proxy": 0.13307383529984187,
+      "anomaly_type_counts": "{\"nan\": 4437, \"medication_mismatch\": 855, \"missing_diagnosis\": 711, \"demographic_conflict\": 622}"
+    },
+    {
+      "rule": "chemotherapy_without_cancer_dx",
+      "count": 111,
+      "precision": 0.25225225225225223,
+      "recall_proxy": 0.0017029558447877388,
+      "anomaly_type_counts": "{\"nan\": 83, \"missing_diagnosis\": 15, \"demographic_conflict\": 12, \"medication_mismatch\": 1}"
+    },
+    {
+      "rule": "anticoag_or_antiplatelet_without_cardiovascular_dx",
+      "count": 26194,
+      "precision": 0.23207604794991218,
+      "recall_proxy": 0.369723877873738,
+      "anomaly_type_counts": "{\"nan\": 20115, \"missing_diagnosis\": 2851, \"demographic_conflict\": 2838, \"medication_mismatch\": 390}"
+    },
+    {
+      "rule": "obstetric_intervention_without_pregnancy_dx",
+      "count": 77,
+      "precision": 0.2077922077922078,
+      "recall_proxy": 0.0009731176255929935,
+      "anomaly_type_counts": "{\"nan\": 61, \"missing_diagnosis\": 14, \"demographic_conflict\": 1, \"medication_mismatch\": 1}"
+    }
+  ],
+  "interpretation_for_paper": "Use this artifact to separate global ranking performance from high-precision rule-level interpretability. No labels or anomaly types are used during scoring; labels are only used for evaluation.",
+  "outputs": {
+    "scores": "artifacts\\day35_7\\strict_sont_ablation_scores.csv",
+    "paper_ready_metrics": "artifacts\\day35_7\\paper_ready_metrics.csv",
+    "per_rule_precision_summary": "artifacts\\day35_7\\per_rule_precision_summary.csv",
+    "summary": "artifacts\\day35_7\\day35_7_scientific_summary.json",
+    "readme": "artifacts\\day35_7\\README.md"
+  }
+}
