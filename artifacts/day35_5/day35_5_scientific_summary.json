@@ -1,0 +1,138 @@
+{
+  "day": "35.5",
+  "status": "complete",
+  "scientific_goal": "Replace anomaly_type-derived oracle Sont with an independent content-only ontology/rule score.",
+  "no_leakage_policy": {
+    "used_for_rule_learning": [
+      "train records with label=0 only",
+      "sequence_tokens"
+    ],
+    "used_for_validation_scoring": [
+      "sequence_tokens only",
+      "learned rules"
+    ],
+    "not_used_for_validation_scoring": [
+      "label",
+      "source",
+      "anomaly_type"
+    ],
+    "used_only_for_evaluation": [
+      "label",
+      "source",
+      "anomaly_type"
+    ]
+  },
+  "train_rows": 494380,
+  "val_rows": 71503,
+  "calibration_rows": 35751,
+  "heldout_evaluation_rows": 35752,
+  "rule_learning": {
+    "normal_train_rows": 380922,
+    "learned_rule_count": 2628,
+    "min_trigger_support": 50,
+    "min_expected_support": 20,
+    "min_confidence": 0.08,
+    "max_expected_per_trigger": 25
+  },
+  "best_weights_from_calibration": {
+    "w_det": 1.0,
+    "w_ont": 0.0,
+    "w_gen": 0.0
+  },
+  "calibration_metrics": {
+    "Sdet_only": {
+      "roc_auc": 0.8021388152469646,
+      "average_precision": 0.7355130399450901,
+      "threshold": 0.6939567594771952,
+      "precision": 0.9293293718166383,
+      "recall": 0.5326602603089649,
+      "f1": 0.6771824016082889,
+      "predicted_positive_rate": 0.13180050907666918
+    },
+    "Sont_independent_only": {
+      "roc_auc": 0.5080407908781092,
+      "average_precision": 0.23632196928455457,
+      "threshold": 0.0,
+      "precision": 0.22995160974518195,
+      "recall": 1.0,
+      "f1": 0.3739197671245338,
+      "predicted_positive_rate": 1.0
+    },
+    "Scal_independent": {
+      "roc_auc": 0.8021388152469646,
+      "average_precision": 0.7355130399450901,
+      "threshold": 0.6939567594771952,
+      "precision": 0.9293293718166383,
+      "recall": 0.5326602603089649,
+      "f1": 0.6771824016082889,
+      "predicted_positive_rate": 0.13180050907666918
+    },
+    "Sont_oracle_proxy_reference": {
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "threshold": 0.65,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "predicted_positive_rate": 0.22995160974518195
+    }
+  },
+  "heldout_evaluation": {
+    "Sdet_only": {
+      "roc_auc": 0.7983067210749735,
+      "average_precision": 0.730970236126466,
+      "threshold": 0.61397585216719,
+      "precision": 0.9045185033735432,
+      "recall": 0.5381340469529254,
+      "f1": 0.6748017083587553,
+      "predicted_positive_rate": 0.13680353546654733
+    },
+    "Sont_independent_only": {
+      "roc_auc": 0.5081197031351474,
+      "average_precision": 0.23732487981361694,
+      "threshold": 0.0,
+      "precision": 0.22994517789214589,
+      "recall": 1.0,
+      "f1": 0.37391126373001615,
+      "predicted_positive_rate": 1.0
+    },
+    "Scal_independent": {
+      "roc_auc": 0.7983067210749735,
+      "average_precision": 0.730970236126466,
+      "threshold": 0.61397585216719,
+      "precision": 0.9045185033735432,
+      "recall": 0.5381340469529254,
+      "f1": 0.6748017083587553,
+      "predicted_positive_rate": 0.13680353546654733
+    },
+    "Sgen_only": {
+      "roc_auc": 0.5,
+      "average_precision": 0.22994517789214589,
+      "threshold": 0.0,
+      "precision": 0.22994517789214589,
+      "recall": 1.0,
+      "f1": 0.37391126373001615,
+      "predicted_positive_rate": 1.0
+    },
+    "Sont_oracle_proxy_reference": {
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "threshold": 0.65,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "predicted_positive_rate": 0.22994517789214589
+    }
+  },
+  "interpretation_for_paper": "Report detector-only vs Sdet+independent-Sont on the heldout evaluation split. Treat anomaly_type-derived Sont_oracle_proxy_reference only as an upper-bound/sanity-check, not as an independent ontology result. Sgen remains diagnostic because Day 34 found the current diffusion Sgen proxy weak.",
+  "outputs": {
+    "scores": "artifacts\\day35_5\\val_independent_sont_scores.csv",
+    "rules_json": "artifacts\\day35_5\\learned_indication_rules.json",
+    "rules_csv": "artifacts\\day35_5\\learned_indication_rules.csv",
+    "weight_search": "artifacts\\day35_5\\day35_5_weight_search_calibration.csv",
+    "breakdown": "artifacts\\day35_5\\anomaly_type_breakdown_independent_sont.csv",
+    "paper_ready_metrics": "artifacts\\day35_5\\paper_ready_metrics.csv",
+    "summary": "artifacts\\day35_5\\day35_5_scientific_summary.json",
+    "readme": "artifacts\\day35_5\\README.md"
+  }
+}
