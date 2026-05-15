@@ -1,0 +1,7 @@
+rule,count,precision
+anticoag_or_antiplatelet_without_cardiovascular_dx,26194,0.23207604794991218
+diabetes_med_without_diabetes_dx,6625,0.33026415094339623
+isolated_pregnancy_signal,3982,0.9603214465092919
+pregnancy_male_specific_conflict,1044,1.0
+chemotherapy_without_cancer_dx,111,0.25225225225225223
+obstetric_intervention_without_pregnancy_dx,77,0.2077922077922078

@@ -1,0 +1,163 @@
+{
+  "day": "35.6",
+  "status": "complete",
+  "scientific_goal": "Evaluate a curated content-only independent ontology/rule score without anomaly_type leakage.",
+  "no_leakage_policy": {
+    "used_for_scoring": [
+      "sequence_tokens"
+    ],
+    "not_used_for_scoring": [
+      "label",
+      "source",
+      "anomaly_type"
+    ],
+    "used_only_for_evaluation": [
+      "label",
+      "source",
+      "anomaly_type"
+    ]
+  },
+  "val_rows": 71503,
+  "calibration_rows": 35751,
+  "heldout_evaluation_rows": 35752,
+  "best_weights_from_calibration": {
+    "w_det": 0.7142857142857143,
+    "w_ont": 0.28571428571428575,
+    "w_gen": 0.0
+  },
+  "calibration_metrics": {
+    "Sdet_only": {
+      "roc_auc": 0.8021388152469646,
+      "average_precision": 0.7355130399450901,
+      "threshold": 0.6939567594771952,
+      "precision": 0.9293293718166383,
+      "recall": 0.5326602603089649,
+      "f1": 0.6771824016082889,
+      "predicted_positive_rate": 0.13180050907666918
+    },
+    "Sont_curated_only": {
+      "roc_auc": 0.6566179598260248,
+      "average_precision": 0.4767125495987524,
+      "threshold": 0.07317073170731707,
+      "precision": 0.5582039911308204,
+      "recall": 0.3674735433645542,
+      "f1": 0.4431893200322746,
+      "predicted_positive_rate": 0.1513803809683645
+    },
+    "Scal_curated": {
+      "roc_auc": 0.8027241196066897,
+      "average_precision": 0.735951155756885,
+      "threshold": 0.49455137441107294,
+      "precision": 0.9217573221757323,
+      "recall": 0.5359445322953412,
+      "f1": 0.677794015844935,
+      "predicted_positive_rate": 0.1337025537747196
+    },
+    "Sont_oracle_proxy_reference": {
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "threshold": 0.65,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "predicted_positive_rate": 0.22995160974518195
+    }
+  },
+  "heldout_evaluation": {
+    "Sdet_only": {
+      "roc_auc": 0.7983067210749735,
+      "average_precision": 0.730970236126466,
+      "threshold": 0.61397585216719,
+      "precision": 0.9045185033735432,
+      "recall": 0.5381340469529254,
+      "f1": 0.6748017083587553,
+      "predicted_positive_rate": 0.13680353546654733
+    },
+    "Sont_curated_only": {
+      "roc_auc": 0.6590526535024593,
+      "average_precision": 0.4745239271158385,
+      "threshold": 0.07317073170731707,
+      "precision": 0.5639970059880239,
+      "recall": 0.3666220654421603,
+      "f1": 0.44437891632878734,
+      "predicted_positive_rate": 0.14947415529201163
+    },
+    "Scal_curated": {
+      "roc_auc": 0.799264118455607,
+      "average_precision": 0.7314841635621974,
+      "threshold": 0.42826923472524225,
+      "precision": 0.889662027833002,
+      "recall": 0.5443376718160807,
+      "f1": 0.6754207229643046,
+      "predicted_positive_rate": 0.14069142985007832
+    },
+    "Sgen_only": {
+      "roc_auc": 0.5,
+      "average_precision": 0.22994517789214589,
+      "threshold": 0.0,
+      "precision": 0.22994517789214589,
+      "recall": 1.0,
+      "f1": 0.37391126373001615,
+      "predicted_positive_rate": 1.0
+    },
+    "Sont_oracle_proxy_reference": {
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "threshold": 0.65,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "predicted_positive_rate": 0.22994517789214589
+    }
+  },
+  "heldout_flag_metrics": {
+    "flagged_count": 16539,
+    "flagged_rate": 0.46260349071380624,
+    "flagged_precision": 0.3057016748291916,
+    "flagged_recall": 0.6150103393747719,
+    "flagged_anomaly_type_counts": {
+      "": 11483,
+      "demographic_conflict": 2911,
+      "missing_diagnosis": 1676,
+      "medication_mismatch": 469
+    },
+    "rule_hit_counts": {
+      "diabetes_med_without_diabetes_dx": 3315,
+      "anticoag_or_antiplatelet_without_cardiovascular_dx": 13210,
+      "isolated_pregnancy_signal": 1955,
+      "chemotherapy_without_cancer_dx": 54,
+      "obstetric_intervention_without_pregnancy_dx": 37,
+      "pregnancy_male_specific_conflict": 520
+    }
+  },
+  "full_validation_flag_metrics": {
+    "flagged_count": 32934,
+    "flagged_rate": 0.4605960589066193,
+    "flagged_precision": 0.3051254023197911,
+    "flagged_recall": 0.6111786887239995,
+    "flagged_anomaly_type_counts": {
+      "": 22885,
+      "demographic_conflict": 5834,
+      "missing_diagnosis": 3279,
+      "medication_mismatch": 936
+    },
+    "rule_hit_counts": {
+      "anticoag_or_antiplatelet_without_cardiovascular_dx": 26194,
+      "diabetes_med_without_diabetes_dx": 6625,
+      "isolated_pregnancy_signal": 3982,
+      "obstetric_intervention_without_pregnancy_dx": 77,
+      "chemotherapy_without_cancer_dx": 111,
+      "pregnancy_male_specific_conflict": 1044
+    }
+  },
+  "interpretation_for_paper": "Use detector-only vs Sdet+curated-independent-Sont as the publishable comparison. Report oracle proxy only as an upper-bound reference. If global AP does not improve, report curated Sont as a high-precision/low-recall explanatory signal if flag precision is strong.",
+  "outputs": {
+    "scores": "artifacts\\day35_6\\val_curated_sont_scores.csv",
+    "weight_search": "artifacts\\day35_6\\day35_6_weight_search_calibration.csv",
+    "breakdown": "artifacts\\day35_6\\anomaly_type_breakdown_curated_sont.csv",
+    "rule_hit_summary": "artifacts\\day35_6\\curated_rule_hit_summary.csv",
+    "paper_ready_metrics": "artifacts\\day35_6\\paper_ready_metrics.csv",
+    "summary": "artifacts\\day35_6\\day35_6_scientific_summary.json",
+    "readme": "artifacts\\day35_6\\README.md"
+  }
+}
