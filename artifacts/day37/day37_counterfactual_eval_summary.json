@@ -1,0 +1,140 @@
+{
+  "day": 37,
+  "title": "Counterfactual Evaluation",
+  "generated_at": "2026-05-16T05:58:21+00:00",
+  "input_path": "artifacts/day36/counterfactuals.csv",
+  "out_dir": "outputs/counterfactual_eval/day37",
+  "rows": 16442,
+  "columns_detected": {
+    "record_id": null,
+    "anomaly_type": "anomaly_type",
+    "score_before": "original_violation_score",
+    "score_after": "counterfactual_violation_score",
+    "action": "edits_text",
+    "edit_count": "edit_count",
+    "violations_before": "original_violation_score",
+    "violations_after": "counterfactual_violation_score"
+  },
+  "score_reduction": {
+    "valid_rows": 16442,
+    "pct_score_reduced": 0.9998175404452013,
+    "delta_scal": {
+      "mean": 1.7183128573166282,
+      "median": 1.5,
+      "p25": 1.5,
+      "p75": 2.0,
+      "p90": 2.0,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "relative_reduction": {
+      "mean": 0.9977521515327951,
+      "median": 1.0,
+      "p25": 1.0,
+      "p75": 1.0,
+      "p90": 1.0,
+      "min": 0.3333333333333333,
+      "max": 1.0
+    },
+    "score_before": {
+      "mean": 1.7265843571341686,
+      "median": 1.5,
+      "p25": 1.5,
+      "p75": 2.0,
+      "p90": 2.0,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "score_after": {
+      "mean": 0.008271499817540445,
+      "median": 0.0,
+      "p25": 0.0,
+      "p75": 0.0,
+      "p90": 0.0,
+      "min": 0.0,
+      "max": 2.0
+    }
+  },
+  "sparsity": {
+    "valid_rows": 16442,
+    "edit_count": {
+      "mean": 1.0084539593723392,
+      "median": 1.0,
+      "p25": 1.0,
+      "p75": 1.0,
+      "p90": 1.0,
+      "min": 0.0,
+      "max": 2.0
+    },
+    "pct_zero_edit": 0.0001824595547986863,
+    "pct_one_edit": 0.9911811215180635,
+    "pct_two_edits": 0.008636418927137818,
+    "pct_one_or_two_edits": 0.9998175404452013,
+    "pct_more_than_two_edits": 0.0,
+    "action_type_counts": {
+      "add": 8629,
+      "remove": 7755,
+      "mixed": 55,
+      "no_edit": 3
+    }
+  },
+  "ontology_resolution": {
+    "valid_rows": 16442,
+    "mean_violations_before": 1.7265843571341686,
+    "mean_violations_after": 0.008271499817540445,
+    "pct_ontology_improved": 0.9998175404452013,
+    "pct_ontology_fully_resolved": 0.9956817905364311
+  },
+  "success_threshold": null,
+  "threshold_success": {
+    "pct_below_threshold_after": null
+  },
+  "by_anomaly_type": [
+    {
+      "anomaly_type": "demographic_conflict",
+      "count": 7755,
+      "mean_score_before": 2.0317214700193422,
+      "mean_score_after": 0.009284332688588007,
+      "mean_delta_scal": 2.0224371373307544,
+      "median_delta_scal": 2.0,
+      "pct_score_reduced": 1.0,
+      "mean_edit_count": 1.0112185686653772,
+      "pct_one_edit": 0.9887814313346228,
+      "pct_two_edits": 0.011218568665377175,
+      "pct_more_than_two_edits": 0.0,
+      "pct_ontology_improved": 1.0,
+      "pct_ontology_fully_resolved": 0.995357833655706
+    },
+    {
+      "anomaly_type": "medication_mismatch",
+      "count": 1135,
+      "mean_score_before": 1.0458149779735684,
+      "mean_score_after": 0.012334801762114538,
+      "mean_delta_scal": 1.0334801762114538,
+      "median_delta_scal": 1.0,
+      "pct_score_reduced": 1.0,
+      "mean_edit_count": 1.016740088105727,
+      "pct_one_edit": 0.9832599118942731,
+      "pct_two_edits": 0.016740088105726872,
+      "pct_more_than_two_edits": 0.0,
+      "pct_ontology_improved": 1.0,
+      "pct_ontology_fully_resolved": 0.9938325991189427
+    },
+    {
+      "anomaly_type": "missing_diagnosis",
+      "count": 7552,
+      "mean_score_before": 1.5155587923728813,
+      "mean_score_after": 0.0066207627118644065,
+      "mean_delta_scal": 1.5089380296610169,
+      "median_delta_scal": 1.5,
+      "pct_score_reduced": 0.9996027542372882,
+      "mean_edit_count": 1.0043697033898304,
+      "pct_one_edit": 0.9948358050847458,
+      "pct_two_edits": 0.004766949152542373,
+      "pct_more_than_two_edits": 0.0,
+      "pct_ontology_improved": 0.9996027542372882,
+      "pct_ontology_fully_resolved": 0.996292372881356
+    }
+  ],
+  "interpretation": "Counterfactual evaluation reports repair-score reduction, edit sparsity, and ontology-resolution metrics. The result should be interpreted as explanation efficacy, not as a standalone detector-performance claim."
+}
