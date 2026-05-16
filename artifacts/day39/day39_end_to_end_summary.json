@@ -1,0 +1,16 @@
+{
+  "day": 39,
+  "status": "complete",
+  "source_file": "artifacts/day38/real/day38_explanations.csv",
+  "n_source_rows": 50,
+  "n_cases": 10,
+  "anomaly_types": [
+    "demographic_conflict",
+    "medication_mismatch",
+    "missing_diagnosis"
+  ],
+  "mean_delta_scal": 2.05,
+  "median_edit_count": 1.0,
+  "coherence_pass_rate": 1.0,
+  "interpretation": "Day 39 generated representative end-to-end case studies for paper-oriented qualitative review. Sgen is retained as an auxiliary diagnostic field rather than the dominant evidence."
+}

@@ -1,0 +1,280 @@
+{
+  "summary": {
+    "day": 39,
+    "status": "complete",
+    "source_file": "artifacts/day38/real/day38_explanations.csv",
+    "n_source_rows": 50,
+    "n_cases": 10,
+    "anomaly_types": [
+      "demographic_conflict",
+      "medication_mismatch",
+      "missing_diagnosis"
+    ],
+    "mean_delta_scal": 2.05,
+    "median_edit_count": 1.0,
+    "coherence_pass_rate": 1.0,
+    "interpretation": "Day 39 generated representative end-to-end case studies for paper-oriented qualitative review. Sgen is retained as an auxiliary diagnostic field rather than the dominant evidence."
+  },
+  "cases": [
+    {
+      "case_rank": 1,
+      "record_id": "26",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 4.0,
+        "Scal_before": 4.0,
+        "Scal_after": 2.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 185",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 26 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 185. After this edit, the calibrated anomaly score changes from 4.0000 to 2.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 2,
+      "record_id": "49",
+      "label": 1,
+      "anomaly_type": "medication_mismatch",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 3.0,
+        "Scal_before": 3.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 3.0
+      },
+      "edit_count": 2,
+      "action": "remove MED PREGABALIN; add DX 10 E1165",
+      "violations": [
+        "a medication-related event appears without a sufficiently compatible diagnosis or indication context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 49 appears unusual because a medication-related event appears without a sufficiently compatible diagnosis or indication context. The proposed counterfactual is to remove MED PREGABALIN; add DX 10 E1165. After this edit, the calibrated anomaly score changes from 3.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 3,
+      "record_id": "0",
+      "label": 1,
+      "anomaly_type": "missing_diagnosis",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 1.5,
+        "Scal_before": 1.5,
+        "Scal_after": 0.0,
+        "delta_Scal": 1.5
+      },
+      "edit_count": 1,
+      "action": "add DX 9 64421",
+      "violations": [
+        "the sequence appears to be missing a diagnosis or indication that would make the observed clinical events more coherent"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 0 appears unusual because the sequence appears to be missing a diagnosis or indication that would make the observed clinical events more coherent. The proposed counterfactual is to add DX 9 64421. After this edit, the calibrated anomaly score changes from 1.5000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 4,
+      "record_id": "1",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 650",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 1 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 650. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 5,
+      "record_id": "14",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 185",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 14 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 185. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 6,
+      "record_id": "4",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 10 N401",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 4 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 10 N401. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 7,
+      "record_id": "7",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 185",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 7 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 185. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 8,
+      "record_id": "6",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 185",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 6 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 185. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 9,
+      "record_id": "9",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 V220",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 9 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 V220. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    },
+    {
+      "case_rank": 10,
+      "record_id": "15",
+      "label": 1,
+      "anomaly_type": "demographic_conflict",
+      "scores": {
+        "Sdet": 0.0,
+        "Sgen": 0.0,
+        "Sont": 2.0,
+        "Scal_before": 2.0,
+        "Scal_after": 0.0,
+        "delta_Scal": 2.0
+      },
+      "edit_count": 1,
+      "action": "remove DX 9 V220",
+      "violations": [
+        "the sequence contains a code pattern that is inconsistent with the available demographic context"
+      ],
+      "original_codes_preview": [],
+      "counterfactual_codes_preview": [],
+      "explanation": "Record 15 appears unusual because the sequence contains a code pattern that is inconsistent with the available demographic context. The proposed counterfactual is to remove DX 9 V220. After this edit, the calibrated anomaly score changes from 2.0000 to 0.0000. This is a sparse counterfactual explanation because the score improves with only a small number of edits. This should be interpreted as a data-quality and explanation signal, not as a clinical recommendation.",
+      "coherence_check": {
+        "heuristic_pass": true,
+        "notes": "Automatic heuristic only; manual paper review is still required."
+      }
+    }
+  ]
+}
