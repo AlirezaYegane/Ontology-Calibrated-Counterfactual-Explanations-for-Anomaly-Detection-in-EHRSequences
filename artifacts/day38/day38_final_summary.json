@@ -1,0 +1,20 @@
+{
+  "day": 38,
+  "status": "complete",
+  "main_summary_source": "artifacts\\day38\\real\\day38_explanation_summary.json",
+  "n_cases": 50,
+  "mean_delta_scal": 1.8,
+  "median_delta_scal": 2.0,
+  "pct_positive_reduction": 1.0,
+  "pct_one_or_two_edits": 1.0,
+  "driver_counts": {
+    "ontology violation signal": 50
+  },
+  "anomaly_type_counts": {
+    "missing_diagnosis": 16,
+    "demographic_conflict": 30,
+    "medication_mismatch": 4
+  },
+  "sgen_policy": "diagnostic_only",
+  "paper_note": "Day 38 provides reproducible template-based explanation text for counterfactual EHR anomaly cases. The generator uses Day 37 record-level action fields and raw ontology violation scores when available, while keeping Sgen diagnostic-only."
+}

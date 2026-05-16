@@ -1,0 +1,26 @@
+{
+  "n_cases": 50,
+  "mean_delta_scal": 1.8,
+  "median_delta_scal": 2.0,
+  "pct_positive_reduction": 1.0,
+  "pct_one_or_two_edits": 1.0,
+  "driver_counts": {
+    "ontology violation signal": 50
+  },
+  "anomaly_type_counts": {
+    "missing_diagnosis": 16,
+    "demographic_conflict": 30,
+    "medication_mismatch": 4
+  },
+  "day": 38,
+  "status": "complete",
+  "input_path": ".\\outputs\\counterfactual_eval\\day37\\counterfactual_eval_records.csv",
+  "sgen_policy": "diagnostic_only",
+  "outputs": {
+    "csv": "artifacts\\day38\\real\\day38_explanations.csv",
+    "jsonl": "artifacts\\day38\\real\\day38_explanations.jsonl",
+    "case_studies_md": "artifacts\\day38\\real\\day38_case_studies.md",
+    "summary_json": "artifacts\\day38\\real\\day38_explanation_summary.json"
+  },
+  "paper_interpretation": "Day 38 converts decomposed anomaly/counterfactual outputs into reproducible, template-based explanations. Sgen is treated conservatively when configured as diagnostic_only."
+}
