@@ -1,0 +1,48 @@
+{
+  "day": 36,
+  "status": "complete",
+  "method": "ontology_constrained_repair_ready_counterfactual_generation",
+  "input": "artifacts/day36_repair_ready/repair_ready_scores.csv",
+  "n_records_processed": 16442,
+  "improved_records": 16439,
+  "improvement_rate": 0.9998175404452013,
+  "no_candidate_records": 3,
+  "not_improved_records": 0,
+  "mean_edit_count": 1.0084539593723392,
+  "mean_delta_violation_score": 1.7183128573166282,
+  "one_edit_success_rate": 0.991362004988138,
+  "status_counts": {
+    "improved": 16439,
+    "no_candidate": 3
+  },
+  "anomaly_type_status_counts": {
+    "demographic_conflict": {
+      "improved": 7755,
+      "no_candidate": 0
+    },
+    "medication_mismatch": {
+      "improved": 1135,
+      "no_candidate": 0
+    },
+    "missing_diagnosis": {
+      "improved": 7549,
+      "no_candidate": 3
+    }
+  },
+  "edit_count_distribution": {
+    "0": 3,
+    "1": 16297,
+    "2": 142
+  },
+  "mean_delta_by_anomaly_type": {
+    "demographic_conflict": 2.0224371373307544,
+    "medication_mismatch": 1.0334801762114538,
+    "missing_diagnosis": 1.5089380296610169
+  },
+  "mean_edit_count_by_anomaly_type": {
+    "demographic_conflict": 1.0112185686653772,
+    "medication_mismatch": 1.016740088105727,
+    "missing_diagnosis": 1.0043697033898304
+  },
+  "paper_interpretation": "The repair-ready counterfactual generator produced ontology-constrained minimal edits for synthetic anomalies by using known corruption metadata to identify missing or injected codes. This supports sparse, traceable, and clinically interpretable counterfactual explanations."
+}

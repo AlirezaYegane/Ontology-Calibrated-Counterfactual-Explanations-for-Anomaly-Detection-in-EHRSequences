@@ -1,0 +1,26 @@
+{
+  "scores_path": "artifacts\\day35_7\\strict_sont_ablation_scores.csv",
+  "supervised_path": "data\\processed\\mimiciv_val_detector_supervised.pkl",
+  "synth_path": "data\\processed\\mimiciv_val_synth_anomaly.pkl",
+  "out_path": "artifacts\\day36_repair_ready\\repair_ready_scores.csv",
+  "rows_scores": 71503,
+  "rows_supervised": 71503,
+  "rows_synth": 71602,
+  "rows_synth_anomaly_filtered": 16442,
+  "normal_rows": 55061,
+  "matched_exact": 16442,
+  "matched_sequence_only": 0,
+  "unmatched_anomalies": 0,
+  "repair_ready_rows": 71503,
+  "rows_with_expected_code": 8687,
+  "rows_with_bad_code": 7755,
+  "repair_edit_hint_counts": {
+    "": 55061,
+    "add_expected_code": 8687,
+    "remove_bad_code": 7755
+  },
+  "repair_match_status_counts": {
+    "normal_no_repair_target": 55061,
+    "matched_exact_sequence_and_type": 16442
+  }
+}

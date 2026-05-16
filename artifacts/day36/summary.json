@@ -1,0 +1,35 @@
+{
+  "status": "complete",
+  "input_scores": "artifacts\\day36_repair_ready\\repair_ready_scores.csv",
+  "rows_loaded": 71503,
+  "rows_processed": 16442,
+  "improved_records": 16439,
+  "no_candidate_records": 3,
+  "not_improved_records": 0,
+  "mean_edit_count": 1.0084539593723392,
+  "mean_delta_violation_score": 1.7183128573166282,
+  "one_edit_success_rate": 0.991362004988138,
+  "status_counts": {
+    "improved": 16439,
+    "no_candidate": 3
+  },
+  "anomaly_type_status_counts": {
+    "demographic_conflict": {
+      "improved": 7755,
+      "no_candidate": 0
+    },
+    "medication_mismatch": {
+      "improved": 1135,
+      "no_candidate": 0
+    },
+    "missing_diagnosis": {
+      "improved": 7549,
+      "no_candidate": 3
+    }
+  },
+  "artifacts": {
+    "counterfactuals_csv": "artifacts\\day36\\counterfactuals.csv",
+    "summary_json": "artifacts\\day36\\summary.json",
+    "readme_md": "artifacts\\day36\\README.md"
+  }
+}
