@@ -1,0 +1,533 @@
+[
+  {
+    "path": "data\\processed\\mimiciv_train_synth_anomaly.pkl",
+    "shape_if_known": [
+      495119,
+      13
+    ],
+    "matched_columns": [
+      "anomaly_type",
+      "codes",
+      "gender",
+      "is_synthetic_anomaly"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "subject_id",
+      "hadm_id",
+      "gender",
+      "age_group",
+      "codes",
+      "sequence_length",
+      "split",
+      "is_synthetic_anomaly",
+      "anomaly_type",
+      "corruption_note",
+      "source_row_id",
+      "codes_original",
+      "codes_corrupted"
+    ]
+  },
+  {
+    "path": "data\\processed\\mimiciv_val_synth_anomaly.pkl",
+    "shape_if_known": [
+      71602,
+      13
+    ],
+    "matched_columns": [
+      "anomaly_type",
+      "codes",
+      "gender",
+      "is_synthetic_anomaly"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "subject_id",
+      "hadm_id",
+      "gender",
+      "age_group",
+      "codes",
+      "sequence_length",
+      "split",
+      "is_synthetic_anomaly",
+      "anomaly_type",
+      "corruption_note",
+      "source_row_id",
+      "codes_original",
+      "codes_corrupted"
+    ]
+  },
+  {
+    "path": "artifacts\\day35_5\\val_independent_sont_scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type",
+      "label",
+      "sequence_tokens"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "label",
+      "source",
+      "anomaly_type",
+      "sequence_tokens",
+      "Sdet_raw",
+      "Sdet",
+      "Sont_independent_raw",
+      "Sont_independent",
+      "Sont_independent_violation_count",
+      "Sont_independent_violations",
+      "Sgen",
+      "Sont_oracle_proxy_reference",
+      "Scal_independent"
+    ]
+  },
+  {
+    "path": "artifacts\\day35_6\\val_curated_sont_scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type",
+      "label",
+      "sequence_tokens"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "label",
+      "source",
+      "anomaly_type",
+      "sequence_tokens",
+      "Sdet_raw",
+      "Sdet",
+      "Sont_curated_raw",
+      "Sont_curated",
+      "Sont_curated_hits",
+      "Sgen",
+      "Sont_oracle_proxy_reference",
+      "Scal_curated"
+    ]
+  },
+  {
+    "path": "artifacts\\day35_7\\strict_sont_ablation_scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type",
+      "label",
+      "sequence_tokens"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "label",
+      "source",
+      "anomaly_type",
+      "sequence_tokens",
+      "Sdet_raw",
+      "Sdet",
+      "Sont_curated_raw",
+      "Sont_curated",
+      "Sont_curated_hits",
+      "Sgen",
+      "Sont_oracle_proxy_reference",
+      "Scal_curated",
+      "Sont_all_raw",
+      "Sont_all",
+      "Sont_no_noisy_raw",
+      "Sont_no_noisy",
+      "Sont_strict_raw",
+      "Sont_strict",
+      "Sont_strong_weighted_raw",
+      "Sont_strong_weighted"
+    ]
+  },
+  {
+    "path": "data\\processed\\mimiciv_train_detector_supervised.pkl",
+    "shape_if_known": [
+      494380,
+      5
+    ],
+    "matched_columns": [
+      "anomaly_type",
+      "label",
+      "sequence_tokens"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "sequence_tokens",
+      "label",
+      "source",
+      "anomaly_type",
+      "sequence_length"
+    ]
+  },
+  {
+    "path": "data\\processed\\mimiciv_val_detector_supervised.pkl",
+    "shape_if_known": [
+      71503,
+      5
+    ],
+    "matched_columns": [
+      "anomaly_type",
+      "label",
+      "sequence_tokens"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "sequence_tokens",
+      "label",
+      "source",
+      "anomaly_type",
+      "sequence_length"
+    ]
+  },
+  {
+    "path": "artifacts\\day35\\calibrated_scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type",
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "anomaly_type",
+      "label",
+      "prob_anomaly",
+      "Sdet_raw",
+      "Sdet",
+      "Sont_proxy",
+      "Sgen",
+      "Scal"
+    ]
+  },
+  {
+    "path": "data\\processed\\mimiciv_val.pkl",
+    "shape_if_known": [
+      55061,
+      7
+    ],
+    "matched_columns": [
+      "codes",
+      "gender"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "subject_id",
+      "hadm_id",
+      "gender",
+      "age_group",
+      "codes",
+      "sequence_length",
+      "split"
+    ]
+  },
+  {
+    "path": "data\\processed\\mimiciv_val_smoke.pkl",
+    "shape_if_known": [
+      1000,
+      7
+    ],
+    "matched_columns": [
+      "codes",
+      "gender"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "subject_id",
+      "hadm_id",
+      "gender",
+      "age_group",
+      "codes",
+      "sequence_length",
+      "split"
+    ]
+  },
+  {
+    "path": "outputs\\detector_eval\\day20_supervised\\run_luxury\\scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type",
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "anomaly_type",
+      "label",
+      "prob_anomaly"
+    ]
+  },
+  {
+    "path": "artifacts\\day35_5\\anomaly_type_breakdown_independent_sont.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "anomaly_type",
+      "count",
+      "label_rate",
+      "mean_Sdet",
+      "mean_Sont_independent",
+      "mean_Scal_independent",
+      "mean_violation_count"
+    ]
+  },
+  {
+    "path": "artifacts\\day35_6\\anomaly_type_breakdown_curated_sont.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "anomaly_type",
+      "count",
+      "label_rate",
+      "mean_Sdet",
+      "mean_Sont_curated",
+      "mean_Scal_curated",
+      "flagged_rate"
+    ]
+  },
+  {
+    "path": "outputs\\detector_eval\\day20_supervised\\run_luxury\\anomaly_type_breakdown.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "anomaly_type",
+      "count",
+      "anomaly_rate",
+      "mean_score",
+      "median_score"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_generative\\sgen_scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_generative_legacy_aligned\\sgen_scores.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t1.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t12.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t16.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t2.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t24.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t32.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t4.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t40.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t48.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t56.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t63.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\diffusion_eval\\day34_sgen_sweep\\sgen_scores_t8.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "label"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "source",
+      "label",
+      "timestep",
+      "sgen"
+    ]
+  },
+  {
+    "path": "outputs\\scoring\\day25\\run_ref\\by_anomaly_type.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "anomaly_type",
+      "count",
+      "mean_sdet",
+      "mean_sont",
+      "mean_scal",
+      "mean_violations"
+    ]
+  },
+  {
+    "path": "outputs\\scoring\\day25\\run_ref_v2\\by_anomaly_type.csv",
+    "shape_if_known": null,
+    "matched_columns": [
+      "anomaly_type"
+    ],
+    "repair_target_columns": [],
+    "all_columns": [
+      "anomaly_type",
+      "count",
+      "mean_sdet",
+      "mean_sont",
+      "mean_scal",
+      "mean_violations"
+    ]
+  }
+]
