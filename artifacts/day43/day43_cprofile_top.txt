@@ -1,0 +1,48 @@
+         3584903 function calls (3575340 primitive calls) in 2.871 seconds
+
+   Ordered by: cumulative time
+   List reduced from 803 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    2.872    2.872 D:\Article\scripts\profile_day43_pipeline.py:286(run_profile)
+       32    0.001    0.000    1.499    0.047 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\readers.py:349(read_csv)
+       32    0.022    0.001    1.498    0.047 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\readers.py:258(_read)
+       32    0.000    0.000    1.418    0.044 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\readers.py:1931(read)
+       32    1.173    0.037    1.185    0.037 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py:203(read)
+        4    0.000    0.000    0.829    0.207 D:\Article\scripts\profile_day43_pipeline.py:149(time_stage)
+     2007    0.005    0.000    0.725    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\indexing.py:1192(__getitem__)
+     2007    0.007    0.000    0.715    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\indexing.py:1740(_getitem_axis)
+     2010    0.006    0.000    0.684    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\frame.py:4292(_ixs)
+     2000    0.091    0.000    0.642    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\internals\managers.py:1132(fast_xs)
+        5    0.023    0.005    0.479    0.096 D:\Article\scripts\profile_day43_pipeline.py:424(uncached_lookup_stage)
+   121010    0.344    0.000    0.474    0.000 D:\Article\scripts\profile_day43_pipeline.py:412(fake_lookup)
+        5    0.015    0.003    0.454    0.091 D:\Article\scripts\profile_day43_pipeline.py:341(counterfactual_stage)
+        5    0.009    0.002    0.373    0.075 D:\Article\scripts\profile_day43_pipeline.py:370(explanation_stage)
+     2000    0.002    0.000    0.283    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\internals\managers.py:111(interleaved_dtype)
+     2000    0.026    0.000    0.281    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\dtypes\cast.py:1306(find_common_type)
+       32    0.000    0.000    0.232    0.007 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\frame.py:702(__init__)
+       32    0.001    0.000    0.231    0.007 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\internals\construction.py:375(dict_to_mgr)
+    32006    0.039    0.000    0.219    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\internals\blocks.py:1932(iget)
+      468    0.031    0.000    0.214    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\construction.py:531(sanitize_array)
+       32    0.000    0.000    0.206    0.006 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\internals\construction.py:96(arrays_to_mgr)
+       32    0.001    0.000    0.202    0.006 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\internals\construction.py:553(_homogenize)
+     2017    0.020    0.000    0.185    0.000 {built-in method fromkeys}
+      171    0.164    0.001    0.174    0.001 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\arrays\string_arrow.py:194(_from_sequence)
+    32033    0.117    0.000    0.163    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\arrays\arrow\array.py:722(__getitem__)
+  1824128    0.130    0.000    0.130    0.000 {built-in method builtins.ord}
+        1    0.000    0.000    0.124    0.124 D:\Article\scripts\profile_day43_pipeline.py:87(choose_input_csv)
+        1    0.001    0.001    0.124    0.124 D:\Article\scripts\profile_day43_pipeline.py:57(discover_candidate_csvs)
+    32000    0.018    0.000    0.113    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\arrays\string_.py:258(__hash__)
+    62315    0.068    0.000    0.104    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\arrays\string_.py:236(__eq__)
+    32000    0.017    0.000    0.095    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\dtypes\base.py:474(__hash__)
+    32000    0.041    0.000    0.077    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\dtypes\base.py:150(__hash__)
+462095/462091    0.066    0.000    0.077    0.000 {built-in method builtins.isinstance}
+     1067    0.004    0.000    0.057    0.000 {method 'join' of 'str' objects}
+     7000    0.007    0.000    0.054    0.000 D:\Article\scripts\profile_day43_pipeline.py:351(<genexpr>)
+       32    0.000    0.000    0.053    0.002 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\readers.py:1600(__init__)
+       32    0.000    0.000    0.051    0.002 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\readers.py:1871(_make_engine)
+     7000    0.011    0.000    0.049    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\series.py:945(__getitem__)
+       32    0.041    0.001    0.043    0.001 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py:65(__init__)
+    96000    0.018    0.000    0.036    0.000 C:\Users\Asus\miniconda3\envs\article-gpu\Lib\site-packages\pandas\core\dtypes\base.py:153(<genexpr>)
+
+

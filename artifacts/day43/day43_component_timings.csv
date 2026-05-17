@@ -1,0 +1,5 @@
+stage,repeat,total_ms_mean,total_ms_median,total_ms_min,total_ms_max,ms_per_record_mean,records_per_second_mean
+detector_score_loading_and_ranking,5,0.05584,0.0369,0.0326,0.13,5.6e-05,17908310.24774
+calibrated_score_computation,5,0.1654,0.1342,0.1151,0.3136,0.000165,6045949.05367
+counterfactual_candidate_search,5,90.82224,89.9772,87.1033,94.8486,0.090822,11010.519009
+explanation_generation,5,74.64186,74.0359,72.6038,78.421,0.074642,13397.308159

@@ -62,3 +62,6 @@ artifacts/day36_repair_ready/repair_ready_scores.csv
 artifacts/day36_probe/
 artifacts/day36_probe_v2/
 artifacts/day36_probe_v3/
+
+# Profiling binaries
+artifacts/day43/*.prof
