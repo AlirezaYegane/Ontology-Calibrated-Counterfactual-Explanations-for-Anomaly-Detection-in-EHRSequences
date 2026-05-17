@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-05-17T05:22:11+00:00",
+  "input_scores": "artifacts/day36_repair_ready/repair_ready_scores.csv",
+  "out_dir": "artifacts/day40",
+  "rows": 71503,
+  "positive_rows": 16442,
+  "negative_rows": 55061,
+  "column_resolution": {
+    "label_column": "label",
+    "label_source": "direct_label_column",
+    "detector_column": "Sdet",
+    "ontology_column": "Sont_curated_raw",
+    "generative_column": "Sgen",
+    "vae_column": null,
+    "vae_is_true_trained_score": false,
+    "vae_proxy_used": true,
+    "warnings": [
+      "No true VAE score column was found. VAE replacement can only run as a proxy slot."
+    ]
+  },
+  "best_variant_by_average_precision": "no_generative",
+  "best_variant_by_f1": "no_generative",
+  "outputs": {
+    "ablation_results_csv": "artifacts/day40/ablation_results.csv",
+    "variant_scores_csv": "artifacts/day40/variant_scores.csv",
+    "summary_json": "artifacts/day40/day40_ablation_summary.json",
+    "report_md": "artifacts/day40/day40_ablation_report.md"
+  }
+}
