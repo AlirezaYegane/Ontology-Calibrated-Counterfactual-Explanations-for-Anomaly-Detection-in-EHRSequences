@@ -1,0 +1,92 @@
+{
+  "day": 35,
+  "status": "complete",
+  "detector_scores_csv": "outputs\\detector_eval\\day20_supervised\\run_luxury\\scores.csv",
+  "detector_score_column": "prob_anomaly",
+  "rows": 71503,
+  "label_counts": {
+    "0": 55061,
+    "1": 16442
+  },
+  "scoring_formula": "Scal = w_det*Sdet + w_ont*Sont + w_gen*Sgen",
+  "signals": {
+    "Sdet": "Recovered Day 20 supervised detector probability score.",
+    "Sont": "Synthetic benchmark proxy derived from anomaly_type; not yet a full independent ontology checker.",
+    "Sgen": "Set to zero/diagnostic in Day 35 because Day 34 found the current diffusion Sgen proxy weak."
+  },
+  "detector_only": {
+    "roc_auc": 0.8002188893877784,
+    "average_precision": 0.7332429325476619,
+    "threshold": 0.6212235943086197,
+    "precision": 0.9044507962433647,
+    "recall": 0.5388638851721201,
+    "f1": 0.6753563533805931,
+    "predicted_positive_rate": 0.13700124470301944
+  },
+  "sont_proxy_only": {
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "threshold": 0.65,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "predicted_positive_rate": 0.2299483937736878
+  },
+  "sgen_only": {
+    "roc_auc": 0.5,
+    "average_precision": 0.2299483937736878,
+    "threshold": 0.0,
+    "precision": 0.2299483937736878,
+    "recall": 1.0,
+    "f1": 0.37391551537893003,
+    "predicted_positive_rate": 1.0
+  },
+  "best_calibrated": {
+    "weights": {
+      "w_det": 0.0,
+      "w_ont": 1.0,
+      "w_gen": 0.0
+    },
+    "metrics": {
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "threshold": 0.65,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "predicted_positive_rate": 0.2299483937736878
+    }
+  },
+  "ranking_quality": {
+    "top_10_anomaly_rate": 1.0,
+    "top_10_anomaly_type_counts": {
+      "demographic_conflict": 10
+    },
+    "top_25_anomaly_rate": 1.0,
+    "top_25_anomaly_type_counts": {
+      "demographic_conflict": 25
+    },
+    "top_50_anomaly_rate": 1.0,
+    "top_50_anomaly_type_counts": {
+      "demographic_conflict": 50
+    },
+    "top_100_anomaly_rate": 1.0,
+    "top_100_anomaly_type_counts": {
+      "demographic_conflict": 100
+    },
+    "top_250_anomaly_rate": 1.0,
+    "top_250_anomaly_type_counts": {
+      "demographic_conflict": 250
+    },
+    "top_500_anomaly_rate": 1.0,
+    "top_500_anomaly_type_counts": {
+      "demographic_conflict": 500
+    }
+  },
+  "outputs": {
+    "calibrated_scores": "artifacts\\day35\\calibrated_scores.csv",
+    "weight_search": "artifacts\\day35\\day35_weight_search.csv",
+    "summary": "artifacts\\day35\\day35_calibrated_scoring_summary.json",
+    "readme": "artifacts\\day35\\README.md"
+  }
+}

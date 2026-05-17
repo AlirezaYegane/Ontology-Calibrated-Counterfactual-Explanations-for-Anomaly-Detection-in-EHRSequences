@@ -1,0 +1,186 @@
+{
+  "day": 34,
+  "title": "Generative Model Evaluation",
+  "status": "complete",
+  "inputs": {
+    "data_path": ".\\artifacts\\day27\\mimiciv_val_diffusion.pt",
+    "summary_path": ".\\artifacts\\day27\\mimiciv_val_diffusion_summary.json",
+    "checkpoint": "D:\\Article\\outputs\\diffusion\\day33_ontology_regularized_fixed\\last.pt",
+    "vocab_path": ".\\outputs\\detector\\day20_supervised\\run_luxury\\vocab.json",
+    "anomaly_path": "D:\\Article\\data\\processed\\mimiciv_train_synth_anomaly.pkl",
+    "generated_path": null
+  },
+  "dataset_summary": {
+    "input_path": ".\\data\\processed\\mimiciv_val.pkl",
+    "out_pt": "artifacts\\day27\\mimiciv_val_diffusion.pt",
+    "sequence_column": "codes",
+    "rows_before_filter": 55061,
+    "rows_after_filter": 55061,
+    "dropped_empty_rows": 0,
+    "vocab_size": 47010,
+    "max_len": 256,
+    "truncate_strategy": "tail",
+    "loader_view": "both",
+    "tensor_shapes": {
+      "input_ids": [
+        55061,
+        256
+      ],
+      "attention_mask": [
+        55061,
+        256
+      ],
+      "lengths": [
+        55061
+      ]
+    },
+    "batch_shapes": {
+      "attention_mask": [
+        32,
+        256
+      ],
+      "lengths": [
+        32
+      ],
+      "input_ids": [
+        32,
+        256
+      ],
+      "multi_hot": [
+        32,
+        47010
+      ]
+    },
+    "sequence_length_stats": {
+      "mean": 50.59570294763989,
+      "median": 36.0,
+      "p95": 147.0,
+      "max": 1265
+    }
+  },
+  "device_used": "cuda",
+  "model_load_error": null,
+  "generated_source": "model.sample",
+  "sgen_method": "model_midpoint_nonpad_denoising_error",
+  "sgen_error": null,
+  "num_real_records": 1024,
+  "num_generated_records": 32,
+  "distribution_metrics": {
+    "vocab_union_size": 4587,
+    "real_unique_tokens": 4587,
+    "generated_unique_tokens": 127,
+    "marginal_l1_distance": 1.1505332674129018,
+    "marginal_js_divergence": 0.27255308874445805,
+    "marginal_frequency_correlation": 0.6887487824666313,
+    "top_1000_token_jaccard": 0.127,
+    "real_length": {
+      "mean": 47.2060546875,
+      "median": 35.0,
+      "p95": 141.8499999999999,
+      "min": 1.0,
+      "max": 256.0
+    },
+    "generated_length": {
+      "mean": 254.21875,
+      "median": 254.0,
+      "p95": 256.0,
+      "min": 252.0,
+      "max": 256.0
+    },
+    "top_real_tokens": {
+      "MED_SODIUM_CHLORIDE_0_9_FLUSH": 778,
+      "MED_ACETAMINOPHEN": 661,
+      "MED_HEPARIN": 509,
+      "MED_DOCUSATE_SODIUM": 458,
+      "MED_SENNA": 457,
+      "MED_0_9_SODIUM_CHLORIDE": 330,
+      "MED_ONDANSETRON": 325,
+      "MED_OXYCODONE_IMMEDIATE_RELEASE": 291,
+      "MED_POTASSIUM_CHLORIDE": 277,
+      "MED_INSULIN": 259,
+      "MED_ASPIRIN": 257,
+      "MED_MAGNESIUM_SULFATE": 257,
+      "MED_BISACODYL": 239,
+      "MED_GLUCAGON": 235,
+      "MED_ISO_OSMOTIC_DEXTROSE": 233,
+      "MED_DEXTROSE_50": 232,
+      "MED_LORAZEPAM": 223,
+      "MED_BAG": 219,
+      "MED_5_DEXTROSE": 202,
+      "MED_POLYETHYLENE_GLYCOL": 201,
+      "MED_LACTATED_RINGERS": 196,
+      "MED_FUROSEMIDE": 195,
+      "MED_PANTOPRAZOLE": 189,
+      "MED_OMEPRAZOLE": 186,
+      "DX_9_4019": 184,
+      "MED_HYDROMORPHONE_DILAUDID": 181,
+      "MED_INFLUENZA_VACCINE_QUADRIVALENT": 173,
+      "MED_SODIUM_CHLORIDE_0_9": 173,
+      "MED_GLUCOSE_GEL": 171,
+      "MED_ATORVASTATIN": 168
+    },
+    "top_generated_tokens": {
+      "MED_ACETAMINOPHEN": 32,
+      "MED_AMIODARONE": 32,
+      "DX_10_E785": 32,
+      "MED_SIMETHICONE": 32,
+      "MED_OXYCODONE_ACETAMINOPHEN": 32,
+      "MED_METOCLOPRAMIDE": 32,
+      "MED_GLUCAGON": 32,
+      "DX_10_F329": 32,
+      "MED_METOPROLOL_TARTRATE": 31,
+      "MED_CALCIUM_CARBONATE": 31,
+      "MED_PHENYLEPHRINE": 31,
+      "MED_HEPARIN_DWELL_1000_UNITS_ML": 31,
+      "MED_IPRATROPIUM_BROMIDE_NEB": 31,
+      "MED_LISINOPRIL": 31,
+      "MED_MORPHINE_SULFATE": 31,
+      "MED_CEFEPIME": 31,
+      "MED_HYDRALAZINE": 31,
+      "MED_ALBUTEROL_INHALER": 30,
+      "MED_VANCOMYCIN": 30,
+      "MED_AMLODIPINE": 30,
+      "MED_BAG": 30,
+      "MED_BISACODYL": 30,
+      "MED_KETOROLAC": 30,
+      "MED_METRONIDAZOLE_FLAGYL": 30,
+      "MED_ACETAMINOPHEN_IV": 30,
+      "MED_GABAPENTIN": 30,
+      "DX_10_Z87891": 30,
+      "MED_POTASSIUM_CHL_20_MEQ_1000_ML_D5_1_2_NS": 30,
+      "MED_LEVOTHYROXINE_SODIUM": 30,
+      "MED_FOLIC_ACID": 30
+    }
+  },
+  "cooccurrence_metrics": {
+    "top_k_tokens_used": 300,
+    "real_pair_count": 35087,
+    "generated_pair_count": 7626,
+    "pair_jaccard": 0.21041147132169577,
+    "pair_frequency_correlation": 0.3928877047139334
+  },
+  "record_jaccard_metrics": {
+    "paired_record_jaccard_mean": 0.11725878093118486,
+    "paired_record_jaccard_median": 0.11984339190221543,
+    "paired_record_jaccard_p95": 0.20440559440559442
+  },
+  "sgen_separation": {
+    "normal_count": 1024,
+    "anomaly_count": 1023,
+    "dropped_normal_nonfinite": 0,
+    "dropped_anomaly_nonfinite": 1,
+    "normal_mean": 1.3326300482731313,
+    "normal_median": 1.3325246572494507,
+    "anomaly_mean": 1.3301962921696324,
+    "anomaly_median": 1.330853819847107,
+    "mean_gap_anomaly_minus_normal": -0.0024337561034988298,
+    "roc_auc": 0.4748795286534701,
+    "average_precision": 0.4841038476775993
+  },
+  "outputs": {
+    "summary_json": "outputs\\diffusion_eval\\day34_generative\\summary.json",
+    "metrics_table_csv": "outputs\\diffusion_eval\\day34_generative\\metrics_table.csv",
+    "top_token_frequency_comparison_csv": "outputs\\diffusion_eval\\day34_generative\\top_token_frequency_comparison.csv",
+    "sgen_scores_csv": "outputs\\diffusion_eval\\day34_generative\\sgen_scores.csv"
+  }
+}

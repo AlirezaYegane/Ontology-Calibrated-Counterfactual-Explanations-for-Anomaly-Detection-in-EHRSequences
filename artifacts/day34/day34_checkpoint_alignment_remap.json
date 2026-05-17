@@ -1,0 +1,84 @@
+{
+  "source_checkpoint": "D:\\Article\\outputs\\diffusion\\day33_ontology_regularized_fixed\\last.pt",
+  "out_checkpoint": ".\\outputs\\diffusion_eval\\day34_generative\\aligned_last.pt",
+  "constructor_kwargs": {
+    "vocab_size": 47010,
+    "max_len": 256,
+    "pad_idx": 0,
+    "d_model": 128,
+    "n_heads": 4,
+    "n_layers": 4,
+    "ff_dim": 512,
+    "dropout": 0.1
+  },
+  "checkpoint_state_keys": 58,
+  "model_state_keys": 64,
+  "model_trainable_keys": 58,
+  "matched_keys": 51,
+  "unexpected_count": 4,
+  "shape_mismatch_count": 3,
+  "missing_trainable_count": 7,
+  "missing_buffer_count": 6,
+  "trainable_match_ratio": 0.8793103448275862,
+  "missing_trainable": [
+    "output_head.0.bias",
+    "output_head.0.weight",
+    "output_head.1.bias",
+    "output_head.1.weight",
+    "time_embedding.proj.0.bias",
+    "time_embedding.proj.0.weight",
+    "time_embedding.proj.2.weight"
+  ],
+  "missing_buffers_reinitialized_from_constructor": [
+    "alpha_cumprod",
+    "alphas",
+    "betas",
+    "sqrt_alpha_cumprod",
+    "sqrt_one_minus_alpha_cumprod",
+    "sqrt_recip_alphas"
+  ],
+  "unexpected_first_30": [
+    "norm.weight",
+    "norm.bias",
+    "out.weight",
+    "out.bias"
+  ],
+  "shape_mismatch_first_30": [
+    {
+      "old_key": "time_embedding.1.weight",
+      "new_key": "time_embedding.proj.0.weight",
+      "checkpoint_shape": [
+        128,
+        128
+      ],
+      "model_shape": [
+        512,
+        128
+      ]
+    },
+    {
+      "old_key": "time_embedding.1.bias",
+      "new_key": "time_embedding.proj.0.bias",
+      "checkpoint_shape": [
+        128
+      ],
+      "model_shape": [
+        512
+      ]
+    },
+    {
+      "old_key": "time_embedding.3.weight",
+      "new_key": "time_embedding.proj.2.weight",
+      "checkpoint_shape": [
+        128,
+        128
+      ],
+      "model_shape": [
+        128,
+        512
+      ]
+    }
+  ],
+  "passed": false,
+  "note": "Diffusion schedule buffers are re-created by the current constructor. Trainable parameters must match exactly."
+}

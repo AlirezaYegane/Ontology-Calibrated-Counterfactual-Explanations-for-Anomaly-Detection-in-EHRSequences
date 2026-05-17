@@ -1,0 +1,21 @@
+{
+  "day": 34,
+  "status": "diagnostic_complete_but_scientific_checkpoint_failed",
+  "main_findings": {
+    "evaluation_script_ran_successfully": true,
+    "generated_source": "model.sample",
+    "model_checkpoint_loaded_with_mismatch": true,
+    "checkpoint_load_warning": "missing=63 unexpected=57",
+    "real_length_mean": 47.2061,
+    "generated_length_mean": 254.2188,
+    "generated_unique_tokens": 127,
+    "real_unique_tokens": 4587,
+    "marginal_frequency_correlation": 0.6887,
+    "cooccurrence_pair_jaccard": 0.2104,
+    "sgen_roc_auc": 0.4749,
+    "sgen_average_precision": 0.4841,
+    "sgen_mean_gap_anomaly_minus_normal": -0.0024
+  },
+  "interpretation": "The Day 34 evaluation pipeline is operational, but the current checkpoint/evaluation interface is not yet scientifically reliable. Generated sequences are nearly max-length, token diversity is low, and Sgen does not separate injected anomalies from normal records. The checkpoint load mismatch indicates that the evaluation model architecture does not fully match the saved training checkpoint.",
+  "recommended_next_fix": "Inspect the Day 33 checkpoint format and align evaluate_day34_generative.py with the exact DiffusionModel constructor/state_dict used during training. Then rerun Day 34 before using Sgen in Day 35 calibration."
+}
