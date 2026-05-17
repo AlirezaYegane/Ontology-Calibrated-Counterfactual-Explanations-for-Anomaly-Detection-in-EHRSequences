@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Day 41 ablation results using Day 40 variant scores.}
+\label{tab:day41_ablation_day40}
+\begin{tabular}{lrrrrr}
+\toprule
+Variant & ROC-AUC & AP & Precision & Recall & F1 \\
+\midrule
+no\_generative & 0.8010 & 0.7334 & 0.6201 & 0.6201 & 0.6201 \\
+Svae\_norm & 0.8010 & 0.7337 & 0.6208 & 0.6208 & 0.6208 \\
+vae\_replacement\_slot & 0.8010 & 0.7332 & 0.6198 & 0.6198 & 0.6198 \\
+full\_model\_conservative & 0.8010 & 0.7332 & 0.6196 & 0.6196 & 0.6196 \\
+Sdet\_norm & 0.8002 & 0.7332 & 0.6196 & 0.6196 & 0.6196 \\
+no\_ontology & 0.8002 & 0.7332 & 0.6196 & 0.6196 & 0.6196 \\
+detector\_only & 0.8002 & 0.7332 & 0.6196 & 0.6196 & 0.6196 \\
+Sont\_norm & 0.6578 & 0.4756 & 0.3051 & 0.6112 & 0.4070 \\
+ontology\_only & 0.6578 & 0.4756 & 0.3051 & 0.6112 & 0.4070 \\
+\bottomrule
+\end{tabular}
+\end{table}

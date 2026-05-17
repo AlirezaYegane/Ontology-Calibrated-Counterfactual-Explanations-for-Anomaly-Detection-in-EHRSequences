@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-05-17T05:34:40+00:00",
+  "input_scores": "artifacts\\day40\\variant_scores.csv",
+  "rows": 71503,
+  "label_column": "label",
+  "score_columns": [
+    "Sdet_norm",
+    "Sont_norm",
+    "Svae_norm",
+    "full_model_conservative",
+    "no_ontology",
+    "no_generative",
+    "detector_only",
+    "ontology_only",
+    "vae_replacement_slot"
+  ],
+  "best_variant": "no_generative",
+  "best_roc_auc": 0.8010130451440505,
+  "best_average_precision": 0.7333890524530953,
+  "interpretation": [
+    "Full model minus no-ontology ROC-AUC delta: 0.0008.",
+    "Full model minus no-generative ROC-AUC delta: -0.0000.",
+    "The full ontology-calibrated variant is not the top-ranked setting by ROC-AUC; report this as an honest ablation finding."
+  ],
+  "day34_policy_note": "Raw diffusion Sgen should be reported conservatively because Day 34 found weak standalone Sgen separation.",
+  "results": [
+    {
+      "variant": "no_generative",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.24512451734793714,
+      "roc_auc": 0.8010130451440505,
+      "average_precision": 0.7333890524530953,
+      "precision": 0.6201192069091351,
+      "recall": 0.6201192069091351,
+      "f1": 0.6201192069091351
+    },
+    {
+      "variant": "Svae_norm",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.2790676653305847,
+      "roc_auc": 0.8010063579538144,
+      "average_precision": 0.7337149111178207,
+      "precision": 0.6208490451283298,
+      "recall": 0.6208490451283298,
+      "f1": 0.6208490451283298
+    },
+    {
+      "variant": "vae_replacement_slot",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.23992226832712413,
+      "roc_auc": 0.8009840507508386,
+      "average_precision": 0.7332209517967033,
+      "precision": 0.6198151076511373,
+      "recall": 0.6198151076511373,
+      "f1": 0.6198151076511373
+    },
+    {
+      "variant": "full_model_conservative",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.23784043733044172,
+      "roc_auc": 0.800971955486041,
+      "average_precision": 0.7331705614367396,
+      "precision": 0.6195718282447391,
+      "recall": 0.6195718282447391,
+      "f1": 0.6195718282447391
+    },
+    {
+      "variant": "Sdet_norm",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.38320724534350087,
+      "roc_auc": 0.8002188893877784,
+      "average_precision": 0.7332429325476619,
+      "precision": 0.6196326480963387,
+      "recall": 0.6196326480963387,
+      "f1": 0.6196326480963387
+    },
+    {
+      "variant": "no_ontology",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.38320724534350087,
+      "roc_auc": 0.8002188893877784,
+      "average_precision": 0.7332429325476619,
+      "precision": 0.6196326480963387,
+      "recall": 0.6196326480963387,
+      "f1": 0.6196326480963387
+    },
+    {
+      "variant": "detector_only",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.38320724534350087,
+      "roc_auc": 0.8002188893877784,
+      "average_precision": 0.7332429325476619,
+      "precision": 0.6196326480963387,
+      "recall": 0.6196326480963387,
+      "f1": 0.6196326480963387
+    },
+    {
+      "variant": "Sont_norm",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.048780487804878,
+      "roc_auc": 0.6578324121023685,
+      "average_precision": 0.4756130901846937,
+      "precision": 0.3051254023197911,
+      "recall": 0.6111786887239995,
+      "f1": 0.4070398574206092
+    },
+    {
+      "variant": "ontology_only",
+      "n": 71503,
+      "positive_rate": 0.2299483937736878,
+      "threshold": 0.048780487804878,
+      "roc_auc": 0.6578324121023685,
+      "average_precision": 0.4756130901846937,
+      "precision": 0.3051254023197911,
+      "recall": 0.6111786887239995,
+      "f1": 0.4070398574206092
+    }
+  ]
+}
