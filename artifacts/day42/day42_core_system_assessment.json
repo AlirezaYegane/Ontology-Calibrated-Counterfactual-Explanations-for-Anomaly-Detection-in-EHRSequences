@@ -1,0 +1,240 @@
+{
+  "day": 42,
+  "title": "Milestone 3 - Core System Completion",
+  "generated_at": "2026-05-17T05:43:36+00:00",
+  "status": "complete_with_documented_limitations",
+  "purpose": "Review detector, diffusion/generative, ontology scoring, counterfactual, explanation, and ablation modules before moving into formal evaluation and paper-oriented polishing.",
+  "module_completion": {
+    "completed_modules": 7,
+    "total_modules": 7,
+    "completion_rate": 1.0,
+    "rows": [
+      {
+        "module": "data_and_ontology_pipeline",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "artifacts/day13/mapping_audit.json"
+        ]
+      },
+      {
+        "module": "supervised_detector",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "src/models/detector_supervised.py",
+          "artifacts/day20/day20_supervised_eval_summary.json"
+        ]
+      },
+      {
+        "module": "diffusion_generative_model",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "src/models/diffusion.py",
+          "src/training/train_diffusion.py"
+        ]
+      },
+      {
+        "module": "calibrated_scoring",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "artifacts/day35"
+        ]
+      },
+      {
+        "module": "counterfactual_generator",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "artifacts/day36",
+          "artifacts/day37"
+        ]
+      },
+      {
+        "module": "explanation_and_case_studies",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "artifacts/day38",
+          "artifacts/day39"
+        ]
+      },
+      {
+        "module": "ablation_framework_and_results",
+        "status": "complete",
+        "missing_required": [],
+        "present_required": [
+          "artifacts/day40",
+          "artifacts/day41"
+        ]
+      }
+    ]
+  },
+  "key_scientific_position": {
+    "supported_claim": "The current system supports an ontology-calibrated anomaly explanation pipeline with detector and ontology-driven scoring as the strongest empirical signals.",
+    "careful_claim": "The generative component is implemented and evaluated, but the current raw Sgen proxy should be treated as auxiliary/diagnostic rather than the primary discriminative signal.",
+    "do_not_claim": "Do not claim that diffusion Sgen alone meaningfully separates anomalies unless a stronger future Sgen definition is validated."
+  },
+  "known_results": {
+    "day20_supervised_detector": null,
+    "day34_generative_assessment": {
+      "day": 34,
+      "status": "complete_with_negative_sgen_finding",
+      "checkpoint_alignment": {
+        "legacy_checkpoint_strict_load": true,
+        "missing": 0,
+        "unexpected": 0,
+        "conclusion": "Checkpoint/model mismatch was resolved using a legacy-compatible Day 33 diffusion wrapper."
+      },
+      "main_sgen_result": {
+        "best_timestep": 12,
+        "best_roc_auc": 0.508206348372555,
+        "best_average_precision": 0.5050333850181138,
+        "best_mean_gap_anomaly_minus_normal": 0.0005813183939945565
+      },
+      "interpretation": "After exact checkpoint alignment, the current diffusion midpoint/timestep denoising-error Sgen proxy does not meaningfully separate injected anomalies from normal records. The result is close to random across all tested timesteps.",
+      "decision_for_day35": {
+        "use_raw_sgen_as_primary_signal": false,
+        "recommended_use": "Keep Sgen as a diagnostic auxiliary signal only.",
+        "recommended_scoring_strategy": "Use ontology score Sont and detector/supervised anomaly score as the dominant calibrated scoring signals. Assign Sgen a very small weight or exclude it until a stronger generative surprise definition is implemented."
+      },
+      "evidence_files": {
+        "legacy_aligned_summary": "outputs/diffusion_eval/day34_generative_legacy_aligned/summary.json",
+        "sgen_sweep_csv": "outputs/diffusion_eval/day34_sgen_sweep/sgen_timestep_sweep.csv",
+        "sgen_sweep_summary": "outputs/diffusion_eval/day34_sgen_sweep/sgen_timestep_sweep_summary.json"
+      }
+    }
+  },
+  "evidence_artifacts": {
+    "day20": {
+      "json": [
+        "artifacts/day20/day20_supervised_eval_summary.json"
+      ],
+      "csv": []
+    },
+    "day28": {
+      "json": [
+        "artifacts/day28/day28_diffusion_decisions.json"
+      ],
+      "csv": []
+    },
+    "day34_final": {
+      "json": [
+        "artifacts/day34_final/day34_final_assessment.json"
+      ],
+      "csv": []
+    },
+    "day35": {
+      "json": [
+        "artifacts/day35/day35_calibrated_scoring_summary.json"
+      ],
+      "csv": [
+        "artifacts/day35/calibrated_scores.csv",
+        "artifacts/day35/day35_weight_search.csv"
+      ]
+    },
+    "day36": {
+      "json": [
+        "artifacts/day36/paper_ready_summary.json",
+        "artifacts/day36/repair_source_candidates.json",
+        "artifacts/day36/summary.json"
+      ],
+      "csv": [
+        "artifacts/day36/counterfactuals.csv"
+      ]
+    },
+    "day37": {
+      "json": [
+        "artifacts/day37/day37_counterfactual_eval_summary.json"
+      ],
+      "csv": []
+    },
+    "day38": {
+      "json": [
+        "artifacts/day38/day38_final_summary.json",
+        "artifacts/day38/demo/day38_explanation_summary.json",
+        "artifacts/day38/real/day38_explanation_summary.json"
+      ],
+      "csv": [
+        "artifacts/day38/demo/day38_explanations.csv",
+        "artifacts/day38/real/day38_explanations.csv"
+      ]
+    },
+    "day39": {
+      "json": [
+        "artifacts/day39/day39_case_studies.json",
+        "artifacts/day39/day39_end_to_end_summary.json"
+      ],
+      "csv": []
+    },
+    "day40": {
+      "json": [
+        "artifacts/day40/day40_ablation_summary.json"
+      ],
+      "csv": [
+        "artifacts/day40/ablation_results.csv",
+        "artifacts/day40/variant_scores.csv"
+      ]
+    },
+    "day41": {
+      "json": [
+        "artifacts/day41/day41_ablation_summary.json"
+      ],
+      "csv": [
+        "artifacts/day41/day41_ablation_results.csv",
+        "artifacts/day41/day41_variant_scores.csv"
+      ]
+    }
+  },
+  "gap_register": [
+    {
+      "gap_id": "G1",
+      "area": "Generative surprise Sgen",
+      "severity": "high_for_claims_low_for_pipeline",
+      "finding": "Current diffusion denoising-error Sgen is not discriminative enough to be claimed as the main anomaly signal.",
+      "paper_position": "Keep Sgen as auxiliary/diagnostic; emphasize detector + ontology-calibrated scoring as the empirically supported signal.",
+      "next_action": "In future work, test stronger likelihood proxies, conditional diffusion scoring, or reconstruction-calibrated generative objectives."
+    },
+    {
+      "gap_id": "G2",
+      "area": "Counterfactual evaluation",
+      "severity": "medium",
+      "finding": "Counterfactual outputs exist but need broader test-set evaluation and more systematic plausibility review.",
+      "paper_position": "Use current case studies as preliminary qualitative evidence; avoid overclaiming clinical validity.",
+      "next_action": "Day 45-46 should run comprehensive test evaluation and human/plausibility review."
+    },
+    {
+      "gap_id": "G3",
+      "area": "Runtime profiling",
+      "severity": "medium",
+      "finding": "Core functionality is implemented, but component-level latency is not yet profiled.",
+      "paper_position": "Report runtime only after Day 43 profiling.",
+      "next_action": "Measure scoring, ontology checks, counterfactual search, and explanation generation separately."
+    },
+    {
+      "gap_id": "G4",
+      "area": "Clinical validation",
+      "severity": "expected_limitation",
+      "finding": "No clinician-rated validation has been completed yet.",
+      "paper_position": "Frame clinical usefulness as preliminary and future-facing unless expert review is later obtained.",
+      "next_action": "Prepare a curated review sheet for representative explanations."
+    },
+    {
+      "gap_id": "G5",
+      "area": "Cross-dataset robustness",
+      "severity": "future_work",
+      "finding": "Current evidence is strongest on the current MIMIC-derived benchmark and synthetic anomaly setup.",
+      "paper_position": "Claim reproducible benchmark evidence, not universal deployment readiness.",
+      "next_action": "Later evaluate on MIMIC-IV/eICU subsets if time allows."
+    }
+  ],
+  "readiness_for_next_phase": {
+    "ready_for_day43_profiling": true,
+    "ready_for_day44_interface": true,
+    "ready_for_day45_comprehensive_evaluation": true,
+    "ready_for_paper_writing": true,
+    "condition": "Ready as a core research prototype, with limitations explicitly documented and no overclaiming around Sgen."
+  }
+}
