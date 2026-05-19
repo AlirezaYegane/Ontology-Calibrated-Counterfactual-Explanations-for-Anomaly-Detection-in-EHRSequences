@@ -1,0 +1,126 @@
+{
+  "day": 47,
+  "title": "Risk and Failure Mode Analysis",
+  "status": "complete",
+  "artifacts_scanned": 75,
+  "risk_count": 9,
+  "risk_ids": [
+    "FM-01",
+    "FM-02",
+    "FM-03",
+    "FM-04",
+    "FM-05",
+    "FM-06",
+    "FM-07",
+    "FM-08",
+    "FM-09"
+  ],
+  "risks": [
+    {
+      "id": "FM-01",
+      "failure_mode": "Ambiguous or incomplete ontology mappings",
+      "evidence_status": "measured",
+      "evidence": "Found mapping audit: artifacts/day13/mapping_audit.json. edge_case_counts={'unknown_namespace_tokens': 124669, 'duplicate_tokens_within_record': 216498, 'malformed_tokens': 7821}",
+      "severity": "high",
+      "likelihood": "high",
+      "scientific_impact": "Ontology-based scores can be biased if mapping coverage is uneven across diagnoses, procedures, or medications.",
+      "mitigation": "Report mapping coverage; compute Sont only for covered rule families; keep unmapped/ambiguous codes explicit rather than silently repairing them.",
+      "paper_wording": "Ontology-derived conclusions were restricted to code families with available mappings and rules; unmapped or ambiguous concepts were tracked as a coverage limitation."
+    },
+    {
+      "id": "FM-02",
+      "failure_mode": "Uneven anomaly-family separation",
+      "evidence_status": "measured",
+      "evidence": "From artifacts/day35/calibrated_scores.csv, hardest non-empty anomaly family by mean prob_anomaly is missing_diagnosis (mean=0.3476, median=0.2987, n=7552).",
+      "severity": "high",
+      "likelihood": "high",
+      "scientific_impact": "A single headline AUC may hide weaker performance on clinically important anomaly subtypes.",
+      "mitigation": "Report per-family breakdowns; tune thresholds per anomaly family if justified; add targeted rules/examples for weak families such as missing-diagnosis cases.",
+      "paper_wording": "Performance was not uniform across anomaly categories; family-level breakdowns were therefore used to identify the main residual error modes."
+    },
+    {
+      "id": "FM-03",
+      "failure_mode": "Weak diffusion-based generative surprise signal",
+      "evidence_status": "measured",
+      "evidence": "Found artifacts/day34_final/day34_final_assessment.json; best timestep=12, Sgen ROC-AUC=0.5082, AP=0.5050.",
+      "severity": "high",
+      "likelihood": "high",
+      "scientific_impact": "Raw Sgen should not be overclaimed as a standalone anomaly detector.",
+      "mitigation": "Keep Sgen as an auxiliary/diagnostic term; report detector and ontology-calibrated scores separately; use conservative weighting for w_gen.",
+      "paper_wording": "The diffusion-derived surprise proxy was retained as an auxiliary signal because its standalone discrimination was weak in the current benchmark."
+    },
+    {
+      "id": "FM-04",
+      "failure_mode": "Threshold sensitivity and precision-recall trade-off",
+      "evidence_status": "not directly measured in available artifacts",
+      "evidence": "No threshold_sweep CSV was found.",
+      "severity": "medium",
+      "likelihood": "unknown",
+      "scientific_impact": "Cannot justify the selected operating threshold from available evidence.",
+      "mitigation": "Export threshold_sweep.csv for every final evaluation run.",
+      "paper_wording": "Threshold-dependent metrics should be reported alongside threshold-free metrics such as ROC-AUC and average precision."
+    },
+    {
+      "id": "FM-05",
+      "failure_mode": "Unstable or non-minimal counterfactuals",
+      "evidence_status": "measured",
+      "evidence": "Found counterfactual/explanation evidence in artifacts/day36/counterfactuals.csv; rows=16442. mean_edits=1.008; pct_more_than_two_edits=0.000.",
+      "severity": "medium",
+      "likelihood": "medium",
+      "scientific_impact": "Explanations become less interpretable if they require many edits or fail to reduce the calibrated score.",
+      "mitigation": "Prefer one- or two-edit candidates; flag no-improvement cases; report edit-count distribution and score reduction.",
+      "paper_wording": "Counterfactual quality was assessed using both score reduction and sparsity because clinically useful explanations should remain minimal."
+    },
+    {
+      "id": "FM-06",
+      "failure_mode": "Records with multiple simultaneous issues",
+      "evidence_status": "not directly measured in available artifacts",
+      "evidence": "No issue-count or violation-count column was found.",
+      "severity": "medium",
+      "likelihood": "unknown",
+      "scientific_impact": "The current evidence may not distinguish simple anomalies from compound anomalies.",
+      "mitigation": "Add violation_count / issue_count to exported explanation outputs.",
+      "paper_wording": "Future exports should track the number of simultaneous violations so that compound cases can be evaluated separately."
+    },
+    {
+      "id": "FM-07",
+      "failure_mode": "Sensitivity to missing data and rare codes",
+      "evidence_status": "conceptual risk",
+      "evidence": "This risk follows from EHR sparsity, incomplete medication/diagnosis coverage, and rare but valid clinical combinations.",
+      "severity": "medium",
+      "likelihood": "high",
+      "scientific_impact": "The system may flag rare but valid patient trajectories or miss anomalies when required companion codes are absent.",
+      "mitigation": "Separate ontology violations from statistical rarity; report rare-code coverage; avoid treating high Sgen alone as an error.",
+      "paper_wording": "Rare but ontology-consistent records were treated as review candidates rather than automatic errors."
+    },
+    {
+      "id": "FM-08",
+      "failure_mode": "Explanation overclaiming or unclear wording",
+      "evidence_status": "not directly measured in available artifacts",
+      "evidence": "No Day 46 plausibility review CSV with review labels was found.",
+      "severity": "high",
+      "likelihood": "medium",
+      "scientific_impact": "Generated explanations may be misread as clinical advice if not carefully phrased.",
+      "mitigation": "Keep template disclaimers; perform manual review on selected examples; separate documentation/coding suggestions from treatment claims.",
+      "paper_wording": "The interface and paper should explicitly state that counterfactual edits are explanatory, not prescriptive."
+    },
+    {
+      "id": "FM-09",
+      "failure_mode": "Bias or brittleness in demographic rules",
+      "evidence_status": "conceptual risk",
+      "evidence": "Demographic consistency rules can be useful but may become brittle if sex/age metadata or clinical context is incomplete.",
+      "severity": "high",
+      "likelihood": "medium",
+      "scientific_impact": "Incorrect demographic assumptions can create false positives or inappropriate explanations.",
+      "mitigation": "Make demographic rule sets explicit; log demographic attributes used; allow rule disabling and manual review.",
+      "paper_wording": "Demographic rules were implemented transparently and interpreted as data-consistency checks, not judgments about patient identity."
+    }
+  ],
+  "outputs": {
+    "json": "artifacts/day47/failure_mode_analysis.json",
+    "markdown": "artifacts/day47/failure_mode_analysis.md",
+    "mitigation_matrix": "artifacts/day47/mitigation_matrix.csv",
+    "evidence_inventory": "artifacts/day47/evidence_inventory.csv",
+    "docs_copy": "docs/day47_risk_failure_modes.md"
+  }
+}
