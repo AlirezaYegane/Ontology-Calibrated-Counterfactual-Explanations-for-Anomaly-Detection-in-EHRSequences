@@ -1,0 +1,62 @@
+{
+  "record_identifier": "synthetic_anomaly",
+  "source_artifact": "artifacts\\day36_repair_ready\\repair_ready_scores.csv",
+  "row_index": 55318,
+  "label": "1",
+  "anomaly_type": "demographic_conflict",
+  "risk_band": "high",
+  "score_components": {
+    "Sdet": 1.0,
+    "Sont": null,
+    "Sgen": 0.0,
+    "Scal": null
+  },
+  "interpretation": {
+    "primary_score": "No calibrated score was available, so the detector score 1.0000 is used as the visible primary anomaly signal. This places the record in the high band.",
+    "ontology": "No ontology score was available for this row.",
+    "generative": "The generative score is shown as a diagnostic auxiliary signal only; it should not be over-interpreted as the main evidence source.",
+    "counterfactual": "No explicit counterfactual edit list was found in this artifact row."
+  },
+  "stored_explanation_text": {},
+  "counterfactual_or_edit_evidence": {},
+  "record_previews": {
+    "sequence_tokens": [
+      "DX_9_99649",
+      "DX_9_73381",
+      "DX_9_E8788",
+      "DX_9_4019",
+      "DX_9_53081",
+      "DX_9_V4975",
+      "DX_9_V220",
+      "PROC_9_7855",
+      "MED_POTASSIUM_CHL_20_MEQ_1000_ML_D5_1_2_NS",
+      "MED_OXYCODONE_IMMEDIATE_RELEASE",
+      "MED_DOCUSATE_SODIUM",
+      "MED_TRAZODONE",
+      "MED_SENNA",
+      "MED_ENOXAPARIN_SODIUM",
+      "MED_SODIUM_CHLORIDE_0_9_FLUSH",
+      "MED_MICONAZOLE_POWDER_2",
+      "MED_ACETAMINOPHEN",
+      "MED_FUROSEMIDE",
+      "MED_METOPROLOL_SUCCINATE_XL",
+      "MED_OMEPRAZOLE",
+      "MED_LISINOPRIL",
+      "MED_MULTIVITAMINS",
+      "MED_DIAZEPAM",
+      "MED_OXYCODONE_IMMEDIATE_RELEASE",
+      "MED_OXYCODONE_IMMEDIATE_RELEASE",
+      "MED_MORPHINE_SULFATE",
+      "MED_METOPROLOL_TARTRATE",
+      "MED_ISO_OSMOTIC_DEXTROSE",
+      "MED_CEFAZOLIN",
+      "MED_LACTATED_RINGERS",
+      "MED_BAG",
+      "MED_MAGNESIUM_SULFATE",
+      "MED_SODIUM_CHLORIDE_0_9",
+      "MED_POTASSIUM_CHL_20_MEQ_1000_ML_D5_1_2_NS",
+      "MED_LACTATED_RINGERS",
+      "MED_CALCIUM_CARBONATE"
+    ]
+  }
+}
