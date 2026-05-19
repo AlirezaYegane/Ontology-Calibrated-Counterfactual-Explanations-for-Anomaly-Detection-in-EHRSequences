@@ -1,0 +1,51 @@
+{
+  "day": 45,
+  "status": "complete",
+  "task": "Comprehensive Test Set Evaluation",
+  "input_scores": "D:\\Article\\artifacts\\day45\\day45_input_no_ontology.csv",
+  "output_dir": "D:\\Article\\artifacts\\day45\\no_ontology",
+  "n_records": 71503,
+  "n_positive": 16442,
+  "n_negative": 55061,
+  "score_column": "score",
+  "label_source": "y_true",
+  "type_column": null,
+  "id_column": "record_id",
+  "global_metrics": {
+    "roc_auc": 0.8002188893877784,
+    "average_precision": 0.7332429325476619
+  },
+  "threshold_constraints": {
+    "max_fpr": 0.1,
+    "min_precision": 0.8
+  },
+  "threshold_selection_strategy": "conservative_threshold_with_fpr_and_precision_constraints",
+  "selected_threshold": {
+    "threshold": 0.43650000000000005,
+    "tp": 9314,
+    "fp": 2303,
+    "tn": 52758,
+    "fn": 7128,
+    "precision": 0.8017560471722476,
+    "recall": 0.5664760977983214,
+    "f1": 0.6638868099362059,
+    "specificity": 0.9581736619385772,
+    "false_positive_rate": 0.04182633806142279,
+    "false_negative_rate": 0.43352390220167863,
+    "accuracy": 0.8681034362194593,
+    "predicted_positive_rate": 0.16246870760667384
+  },
+  "hardest_anomaly_type_by_recall": null,
+  "artifacts": {
+    "threshold_sensitivity": "D:\\Article\\artifacts\\day45\\no_ontology\\threshold_sensitivity.csv",
+    "error_analysis_by_type": "D:\\Article\\artifacts\\day45\\no_ontology\\error_analysis_by_type.csv",
+    "false_positive_examples": "D:\\Article\\artifacts\\day45\\no_ontology\\false_positive_examples.csv",
+    "false_negative_examples": "D:\\Article\\artifacts\\day45\\no_ontology\\false_negative_examples.csv",
+    "flagged_records_preview": "D:\\Article\\artifacts\\day45\\no_ontology\\flagged_records_preview.csv",
+    "roc_curve_points": "D:\\Article\\artifacts\\day45\\no_ontology\\roc_curve_points.csv",
+    "pr_curve_points": "D:\\Article\\artifacts\\day45\\no_ontology\\pr_curve_points.csv",
+    "roc_curve_png": "D:\\Article\\artifacts\\day45\\no_ontology\\roc_curve.png",
+    "pr_curve_png": "D:\\Article\\artifacts\\day45\\no_ontology\\pr_curve.png"
+  },
+  "paper_note": "Day 45 evaluates the calibrated anomaly score across the held-out/test score artifact, selecting a conservative threshold using false-positive and precision constraints."
+}

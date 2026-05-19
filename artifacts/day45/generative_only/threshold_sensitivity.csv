@@ -1,0 +1,2 @@
+threshold,tp,fp,tn,fn,precision,recall,f1,specificity,false_positive_rate,false_negative_rate,accuracy,predicted_positive_rate
+0.0,16442,55061,0,0,0.2299483937736878,1.0,0.37391551537893003,0.0,1.0,0.0,0.2299483937736878,1.0

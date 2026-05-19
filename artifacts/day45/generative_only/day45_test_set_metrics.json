@@ -1,0 +1,51 @@
+{
+  "day": 45,
+  "status": "complete",
+  "task": "Comprehensive Test Set Evaluation",
+  "input_scores": "D:\\Article\\artifacts\\day45\\day45_input_generative_only.csv",
+  "output_dir": "D:\\Article\\artifacts\\day45\\generative_only",
+  "n_records": 71503,
+  "n_positive": 16442,
+  "n_negative": 55061,
+  "score_column": "score",
+  "label_source": "y_true",
+  "type_column": null,
+  "id_column": "record_id",
+  "global_metrics": {
+    "roc_auc": 0.5,
+    "average_precision": 0.2299483937736878
+  },
+  "threshold_constraints": {
+    "max_fpr": 0.1,
+    "min_precision": 0.8
+  },
+  "threshold_selection_strategy": "fallback_best_f1_threshold_constraints_not_met",
+  "selected_threshold": {
+    "threshold": 0.0,
+    "tp": 16442,
+    "fp": 55061,
+    "tn": 0,
+    "fn": 0,
+    "precision": 0.2299483937736878,
+    "recall": 1.0,
+    "f1": 0.37391551537893003,
+    "specificity": 0.0,
+    "false_positive_rate": 1.0,
+    "false_negative_rate": 0.0,
+    "accuracy": 0.2299483937736878,
+    "predicted_positive_rate": 1.0
+  },
+  "hardest_anomaly_type_by_recall": null,
+  "artifacts": {
+    "threshold_sensitivity": "D:\\Article\\artifacts\\day45\\generative_only\\threshold_sensitivity.csv",
+    "error_analysis_by_type": "D:\\Article\\artifacts\\day45\\generative_only\\error_analysis_by_type.csv",
+    "false_positive_examples": "D:\\Article\\artifacts\\day45\\generative_only\\false_positive_examples.csv",
+    "false_negative_examples": "D:\\Article\\artifacts\\day45\\generative_only\\false_negative_examples.csv",
+    "flagged_records_preview": "D:\\Article\\artifacts\\day45\\generative_only\\flagged_records_preview.csv",
+    "roc_curve_points": "D:\\Article\\artifacts\\day45\\generative_only\\roc_curve_points.csv",
+    "pr_curve_points": "D:\\Article\\artifacts\\day45\\generative_only\\pr_curve_points.csv",
+    "roc_curve_png": "D:\\Article\\artifacts\\day45\\generative_only\\roc_curve.png",
+    "pr_curve_png": "D:\\Article\\artifacts\\day45\\generative_only\\pr_curve.png"
+  },
+  "paper_note": "Day 45 evaluates the calibrated anomaly score across the held-out/test score artifact, selecting a conservative threshold using false-positive and precision constraints."
+}
