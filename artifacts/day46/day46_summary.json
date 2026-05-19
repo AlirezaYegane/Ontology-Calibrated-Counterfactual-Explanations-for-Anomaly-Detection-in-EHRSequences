@@ -1,0 +1,29 @@
+{
+  "day": 46,
+  "title": "Paper-ready ablation evidence pack",
+  "status": "complete",
+  "input_scores_csv": "artifacts\\day41\\day41_variant_scores.csv",
+  "rows": 71503,
+  "label_column": "y_true",
+  "variants": [
+    "detector_only",
+    "generative_only",
+    "no_ontology"
+  ],
+  "n_boot": 200,
+  "seed": 42,
+  "best_variant": "detector_only",
+  "best_roc_auc": 0.8002188893877784,
+  "best_average_precision": 0.7332429325476619,
+  "best_f1": 0.674765280705116,
+  "outputs": {
+    "metrics": "artifacts\\day46\\day46_variant_metrics.csv",
+    "deltas": "artifacts\\day46\\day46_pairwise_deltas.csv",
+    "distribution": "artifacts\\day46\\day46_score_distribution_by_label.csv",
+    "paper_table": "artifacts\\day46\\day46_paper_results_table.md",
+    "interpretation": "artifacts\\day46\\day46_result_interpretation.md",
+    "roc_plot": "artifacts\\day46\\day46_roc_auc_by_variant.png",
+    "ap_plot": "artifacts\\day46\\day46_average_precision_by_variant.png",
+    "f1_plot": "artifacts\\day46\\day46_f1_by_variant.png"
+  }
+}

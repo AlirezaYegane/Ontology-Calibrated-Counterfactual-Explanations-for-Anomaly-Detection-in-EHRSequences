@@ -1,0 +1,4 @@
+reference_variant,comparison_variant,delta_roc_auc_vs_reference,delta_average_precision_vs_reference,delta_f1_vs_reference,delta_recall_vs_reference,delta_precision_vs_reference
+detector_only,detector_only,0.0,0.0,0.0,0.0,0.0
+detector_only,no_ontology,0.0,0.0,0.0,0.0,0.0
+detector_only,generative_only,-0.3002188893877784,-0.5032945387739741,-0.30084976532618596,0.46454202651745524,-0.6820996741844599
