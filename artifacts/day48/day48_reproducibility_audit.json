@@ -1,0 +1,181 @@
+{
+  "audit_timestamp": "2026-05-22T03:45:41.333912+00:00",
+  "audit_script": "scripts/build_day48_reproducibility_audit.py",
+  "git": {
+    "branch": "main",
+    "commit_short": "439e868",
+    "status_short": "?? scripts/build_day48_reproducibility_audit.py",
+    "working_tree_clean": false,
+    "remotes_redacted": [
+      "origin\thttps://***@github.com/AlirezaYegane/Ontology-Calibrated-Counterfactual-Explanations-for-Anomaly-Detection-in-EHRSequences.git (fetch)",
+      "origin\thttps://***@github.com/AlirezaYegane/Ontology-Calibrated-Counterfactual-Explanations-for-Anomaly-Detection-in-EHRSequences.git (push)"
+    ]
+  },
+  "environment": {
+    "python_executable": "C:\\Users\\Asus\\miniconda3\\python.exe",
+    "python_version": "3.13.9",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "packages": {
+      "torch": "2.10.0",
+      "numpy": "2.4.2",
+      "pandas": "3.0.1",
+      "scikit-learn": "1.8.0",
+      "scipy": "1.17.1",
+      "networkx": "3.6.1",
+      "matplotlib": null,
+      "seaborn": null,
+      "tqdm": "4.67.1",
+      "PyYAML": "6.0.3"
+    },
+    "torch_cuda": {
+      "torch_installed": true,
+      "cuda_available": false,
+      "cuda_version": null,
+      "device_count": 0,
+      "device_names": []
+    }
+  },
+  "source_files": {
+    "src/models/diffusion.py": {
+      "exists": true,
+      "size_bytes": 13129
+    },
+    "src/models/diffusion_legacy_day33.py": {
+      "exists": true,
+      "size_bytes": 4316
+    },
+    "src/models/detector_supervised.py": {
+      "exists": true,
+      "size_bytes": 1411
+    },
+    "src/training/train_detector_supervised.py": {
+      "exists": false,
+      "size_bytes": null
+    },
+    "src/training/build_detector_supervised_data.py": {
+      "exists": false,
+      "size_bytes": null
+    },
+    "src/training/detector_supervised_utils.py": {
+      "exists": false,
+      "size_bytes": null
+    },
+    "src/evaluation/evaluate_detector_supervised.py": {
+      "exists": false,
+      "size_bytes": null
+    },
+    "scripts/analyze_day47_failure_modes.py": {
+      "exists": true,
+      "size_bytes": 33439
+    },
+    "scripts/day34_sgen_timestep_sweep.py": {
+      "exists": true,
+      "size_bytes": 7933
+    },
+    "scripts/run_day39_end_to_end_case_studies.py": {
+      "exists": true,
+      "size_bytes": 22651
+    },
+    "scripts/build_day36_repair_ready_scores.py": {
+      "exists": true,
+      "size_bytes": 10797
+    }
+  },
+  "artifact_check": {
+    "key_artifacts": {
+      "artifacts/day20/day20_supervised_eval_summary.json": {
+        "exists": true,
+        "size_bytes": 489
+      },
+      "artifacts/day34_final/day34_final_assessment.json": {
+        "exists": true,
+        "size_bytes": 1478
+      },
+      "artifacts/day40/README.md": {
+        "exists": true,
+        "size_bytes": 1146
+      },
+      "artifacts/day41/README.md": {
+        "exists": true,
+        "size_bytes": 1769
+      },
+      "artifacts/day47/README.md": {
+        "exists": true,
+        "size_bytes": 556
+      }
+    },
+    "day_directories": [
+      "day13",
+      "day20",
+      "day25",
+      "day26",
+      "day27",
+      "day28",
+      "day29",
+      "day30",
+      "day31",
+      "day32",
+      "day33",
+      "day34",
+      "day34_final",
+      "day35",
+      "day35_5",
+      "day35_6",
+      "day35_7",
+      "day36",
+      "day36_probe",
+      "day36_probe_v2",
+      "day36_probe_v3",
+      "day36_repair_ready",
+      "day37",
+      "day38",
+      "day39",
+      "day40",
+      "day41",
+      "day41_smoke",
+      "day42",
+      "day43",
+      "day44",
+      "day45",
+      "day46",
+      "day47"
+    ]
+  },
+  "risky_tracked_files": {
+    "risky_files": [
+      "data/processed/mimiciv_day11_split_stats.csv",
+      "data/processed/mimiciv_day11_summary.json",
+      "data/processed/mimiciv_day11_summary.md",
+      "data/processed/mimiciv_split_manifest.json",
+      "ontologies/processed/.gitkeep",
+      "ontologies/umls_maps/.gitkeep"
+    ],
+    "risky_count": 6
+  },
+  "docs_check": {
+    "README.md": {
+      "exists": true,
+      "size_bytes": 8504
+    },
+    "docs/reproducibility_checklist.md": {
+      "exists": true,
+      "size_bytes": 3008
+    },
+    "docs/run_from_scratch.md": {
+      "exists": true,
+      "size_bytes": 4851
+    },
+    "docs/artifact_manifest.md": {
+      "exists": true,
+      "size_bytes": 2622
+    }
+  },
+  "warnings": [
+    "Working tree is NOT clean — uncommitted changes present.",
+    "6 risky file(s) tracked by git (private data, checkpoints, or large binary artifacts).",
+    "4 key source file(s) missing: src/training/train_detector_supervised.py, src/training/build_detector_supervised_data.py, src/training/detector_supervised_utils.py, src/evaluation/evaluate_detector_supervised.py"
+  ],
+  "warning_count": 3
+}

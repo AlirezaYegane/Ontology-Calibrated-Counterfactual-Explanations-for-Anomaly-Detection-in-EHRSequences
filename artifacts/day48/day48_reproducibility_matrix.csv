@@ -1,0 +1,7 @@
+component,reproducibility_status,evidence,private_data_required,notes
+Repository state,WARNING,"branch=main, commit=439e868, clean=False",No,Working tree should be clean before release.
+Private data boundary,FAIL,6 risky tracked file(s),"Yes — MIMIC-III/eICU access, UMLS/SNOMED/RxNorm",Raw clinical data and ontology resources cannot be redistributed.
+Environment capture,OK,"Python 3.13.9, platform=Windows-11-10.0.26200-SP0",No,Full package versions recorded in audit JSON.
+Core code availability,WARNING,7/11 key files present,No,"All core model, training, and evaluation source files checked."
+Artifact manifest,OK,34 day-level artifact directories,Partial — some artifacts require private data to regenerate,See docs/artifact_manifest.md for full inventory.
+Run-from-scratch instructions,OK,docs/run_from_scratch.md,Yes — dataset and ontology access required for full reproduction,See docs/run_from_scratch.md for step-by-step guide.
