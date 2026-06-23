@@ -1,0 +1,83 @@
+{
+  "phase": 3,
+  "status": "valid_v2_benchmark",
+  "benchmark": {
+    "benchmark": "v2",
+    "circular": false,
+    "dir": "D:\\Article\\data\\processed\\benchmark_v2"
+  },
+  "benchmark_v2_triviality_pass": true,
+  "real_ontology_available": true,
+  "final_paper_evidence_claimable": false,
+  "evidence_level": "smoke_scale_valid_non_circular",
+  "mode": "valid_v2_benchmark",
+  "detector": "unsupervised_next_token_gru (smoke-scale)",
+  "detector_train_normals": 4000,
+  "detector_epochs": 2,
+  "n_val": 3123,
+  "n_test": 6307,
+  "test_anomaly_rate": 0.2182,
+  "variant_metrics": [
+    {
+      "variant": "detector_only",
+      "test_roc_auc": 0.4247,
+      "test_roc_auc_ci": [
+        0.4074,
+        0.4401
+      ],
+      "test_average_precision": 0.1803,
+      "test_ap_ci": [
+        0.1702,
+        0.1918
+      ]
+    },
+    {
+      "variant": "ontology_only_real",
+      "test_roc_auc": 0.7881,
+      "test_roc_auc_ci": [
+        0.7743,
+        0.8016
+      ],
+      "test_average_precision": 0.5422,
+      "test_ap_ci": [
+        0.5178,
+        0.5667
+      ]
+    },
+    {
+      "variant": "combined_real_ontology",
+      "test_roc_auc": 0.6581,
+      "test_roc_auc_ci": [
+        0.6395,
+        0.6758
+      ],
+      "test_average_precision": 0.396,
+      "test_ap_ci": [
+        0.3707,
+        0.4248
+      ],
+      "threshold_selected_on_val": 0.365,
+      "test_precision": 0.38,
+      "test_recall": 0.4658,
+      "test_f1": 0.4185
+    },
+    {
+      "variant": "combined_legacy_ontology",
+      "test_roc_auc": 0.6625,
+      "test_roc_auc_ci": [
+        0.644,
+        0.6791
+      ],
+      "test_average_precision": 0.4464,
+      "test_ap_ci": [
+        0.4177,
+        0.4774
+      ]
+    }
+  ],
+  "threshold_protocol": "selected on val (best-F1), applied to test; no test-set tuning",
+  "scale_note": "SMOKE-SCALE detector (small model, few epochs, capped train). Valid non-circular benchmark; metrics are preliminary, not final paper SOTA.",
+  "warnings": [
+    "Detector is SMOKE-SCALE (small model / few epochs / capped train). Metrics are preliminary non-circular evidence, NOT final paper SOTA; full-scale training is a later experiment phase."
+  ]
+}

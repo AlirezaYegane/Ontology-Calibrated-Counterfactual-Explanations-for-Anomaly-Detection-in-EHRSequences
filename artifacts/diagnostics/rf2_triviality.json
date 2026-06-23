@@ -1,0 +1,961 @@
+{
+  "phase": "1a",
+  "diagnostic": "benchmark_triviality",
+  "input_file": "data\\processed\\mimiciv_val_synth_anomaly.pkl",
+  "n_records": 71602,
+  "n_normal": 55061,
+  "n_anomaly": 16541,
+  "label_column": "is_synthetic_anomaly",
+  "type_column": "anomaly_type",
+  "sequence_column": "codes",
+  "gender_column": "gender",
+  "rare_threshold": 1,
+  "vocab_meta": {
+    "_meta_known_vocab_size": 25578,
+    "_meta_rare_vocab_size": 6056
+  },
+  "detector_reference": {
+    "source": "artifacts\\day45\\detector_only\\day45_test_set_metrics.json",
+    "roc_auc": 0.8002188893877784,
+    "average_precision": 0.7332429325476619,
+    "note": "Reference only; not recomputed here. Detector was trained on this same synthetic scheme."
+  },
+  "overall": {
+    "sequence_length": {
+      "roc_auc": 0.49877365047501476,
+      "average_precision": 0.229902121979091,
+      "discriminative_power": 0.5012263495249852,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 50.59570294763989,
+        "std": 57.99890730556136,
+        "min": 1.0,
+        "p25": 20.0,
+        "median": 36.0,
+        "p75": 60.0,
+        "max": 1265.0
+      },
+      "dist_anomaly": {
+        "mean": 50.00290188017653,
+        "std": 55.388409764151426,
+        "min": 0.0,
+        "p25": 20.0,
+        "median": 36.0,
+        "p75": 60.0,
+        "max": 1234.0
+      }
+    },
+    "diagnosis_token_count": {
+      "roc_auc": 0.49818314020077303,
+      "average_precision": 0.23132751111422495,
+      "discriminative_power": 0.501816859799227,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 11.684186629374693,
+        "std": 7.636769647874397,
+        "min": 0.0,
+        "p25": 6.0,
+        "median": 10.0,
+        "p75": 16.0,
+        "max": 39.0
+      },
+      "dist_anomaly": {
+        "mean": 11.621002357777643,
+        "std": 7.637861234376469,
+        "min": 0.0,
+        "p25": 6.0,
+        "median": 10.0,
+        "p75": 16.0,
+        "max": 40.0
+      }
+    },
+    "procedure_token_count": {
+      "roc_auc": 0.49813195679876243,
+      "average_precision": 0.22934037353598735,
+      "discriminative_power": 0.5018680432012376,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 1.5814641942572782,
+        "std": 2.557089898242104,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 1.0,
+        "p75": 2.0,
+        "max": 41.0
+      },
+      "dist_anomaly": {
+        "mean": 1.5559518771537393,
+        "std": 2.4915001692526095,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 1.0,
+        "p75": 2.0,
+        "max": 32.0
+      }
+    },
+    "medication_token_count": {
+      "roc_auc": 0.49912384547575017,
+      "average_precision": 0.23007901840512868,
+      "discriminative_power": 0.5008761545242498,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 37.33005212400792,
+        "std": 51.577510664094994,
+        "min": 0.0,
+        "p25": 13.0,
+        "median": 24.0,
+        "p75": 43.0,
+        "max": 1214.0
+      },
+      "dist_anomaly": {
+        "mean": 36.82594764524515,
+        "std": 48.96764723759115,
+        "min": 0.0,
+        "p25": 12.0,
+        "median": 24.0,
+        "p75": 43.0,
+        "max": 1171.0
+      }
+    },
+    "rare_token_count": {
+      "roc_auc": 0.45945406004249834,
+      "average_precision": 0.20056583571604986,
+      "discriminative_power": 0.5405459399575017,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 0.11650714661920415,
+        "std": 0.5045264078819865,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 17.0
+      },
+      "dist_anomaly": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 0.0
+      }
+    },
+    "rare_token_presence": {
+      "roc_auc": 0.45945406004249834,
+      "average_precision": 0.20056583571604986,
+      "discriminative_power": 0.5405459399575017,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 0.08109187991500336,
+        "std": 0.27297616549225323,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 1.0
+      },
+      "dist_anomaly": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 0.0
+      }
+    },
+    "unknown_or_unmapped_token_count": {
+      "roc_auc": 0.5,
+      "average_precision": 0.23103619924253727,
+      "discriminative_power": 0.5,
+      "direction": "higher_is_anomalous",
+      "dist_normal": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 0.0
+      },
+      "dist_anomaly": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 0.0
+      }
+    },
+    "token_namespace_entropy": {
+      "roc_auc": 0.49458381260723544,
+      "average_precision": 0.22861874005014163,
+      "discriminative_power": 0.5054161873927645,
+      "direction": "lower_is_anomalous",
+      "dist_normal": {
+        "mean": 0.814105466898181,
+        "std": 0.3745909873866826,
+        "min": -1.4428232973175177e-12,
+        "p25": 0.7175688488926661,
+        "median": 0.911562834956231,
+        "p75": 1.014097655569588,
+        "max": 1.584962500716828
+      },
+      "dist_anomaly": {
+        "mean": 0.8063875970198076,
+        "std": 0.37857133068301285,
+        "min": -1.4428232973175177e-12,
+        "p25": 0.7063700965204266,
+        "median": 0.9046650311714501,
+        "p75": 1.0086232677721347,
+        "max": 1.5821930667308055
+      }
+    },
+    "contains_pregnancy_or_sex_specific_token": {
+      "roc_auc": 0.7023350810941856,
+      "average_precision": 0.4473287462746387,
+      "discriminative_power": 0.7023350810941856,
+      "direction": "higher_is_anomalous",
+      "dist_normal": {
+        "mean": 0.1255879842356659,
+        "std": 0.33138443302498083,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 1.0
+      },
+      "dist_anomaly": {
+        "mean": 0.5302581464240372,
+        "std": 0.4990836047948094,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 1.0,
+        "p75": 1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "by_anomaly_type": {
+    "demographic_conflict": {
+      "sequence_length": {
+        "roc_auc": 0.49321901126692486,
+        "average_precision": 0.11960569292732652,
+        "discriminative_power": 0.5067809887330752,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 50.59570294763989,
+          "std": 57.99890730556136,
+          "min": 1.0,
+          "p25": 20.0,
+          "median": 36.0,
+          "p75": 60.0,
+          "max": 1265.0
+        },
+        "dist_anomaly": {
+          "mean": 48.277498388136685,
+          "std": 51.480684156246355,
+          "min": 2.0,
+          "p25": 20.0,
+          "median": 35.0,
+          "p75": 58.0,
+          "max": 786.0
+        }
+      },
+      "diagnosis_token_count": {
+        "roc_auc": 0.5277798056948995,
+        "average_precision": 0.13343703523878175,
+        "discriminative_power": 0.5277798056948995,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 11.684186629374693,
+          "std": 7.636769647874397,
+          "min": 0.0,
+          "p25": 6.0,
+          "median": 10.0,
+          "p75": 16.0,
+          "max": 39.0
+        },
+        "dist_anomaly": {
+          "mean": 12.261637653127014,
+          "std": 7.431562997663447,
+          "min": 1.0,
+          "p25": 7.0,
+          "median": 11.0,
+          "p75": 16.0,
+          "max": 40.0
+        }
+      },
+      "procedure_token_count": {
+        "roc_auc": 0.49471458716597666,
+        "average_precision": 0.12068762043739886,
+        "discriminative_power": 0.5052854128340234,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 1.5814641942572782,
+          "std": 2.557089898242104,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 1.0,
+          "p75": 2.0,
+          "max": 41.0
+        },
+        "dist_anomaly": {
+          "mean": 1.5119277885235332,
+          "std": 2.415767213294372,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 1.0,
+          "p75": 2.0,
+          "max": 32.0
+        }
+      },
+      "medication_token_count": {
+        "roc_auc": 0.48282802365458083,
+        "average_precision": 0.11743182089117513,
+        "discriminative_power": 0.5171719763454192,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 37.33005212400792,
+          "std": 51.577510664094994,
+          "min": 0.0,
+          "p25": 13.0,
+          "median": 24.0,
+          "p75": 43.0,
+          "max": 1214.0
+        },
+        "dist_anomaly": {
+          "mean": 34.50393294648614,
+          "std": 45.18227662721237,
+          "min": 0.0,
+          "p25": 12.0,
+          "median": 22.0,
+          "p75": 41.0,
+          "max": 723.0
+        }
+      },
+      "rare_token_count": {
+        "roc_auc": 0.45945406004249834,
+        "average_precision": 0.10542456762663382,
+        "discriminative_power": 0.5405459399575017,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.11650714661920415,
+          "std": 0.5045264078819865,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 17.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "rare_token_presence": {
+        "roc_auc": 0.45945406004249834,
+        "average_precision": 0.10542456762663382,
+        "discriminative_power": 0.5405459399575017,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.08109187991500336,
+          "std": 0.27297616549225323,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "unknown_or_unmapped_token_count": {
+        "roc_auc": 0.5,
+        "average_precision": 0.12288671280172497,
+        "discriminative_power": 0.5,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "token_namespace_entropy": {
+        "roc_auc": 0.5202079960293964,
+        "average_precision": 0.13070881446357502,
+        "discriminative_power": 0.5202079960293964,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.814105466898181,
+          "std": 0.3745909873866826,
+          "min": -1.4428232973175177e-12,
+          "p25": 0.7175688488926661,
+          "median": 0.911562834956231,
+          "p75": 1.014097655569588,
+          "max": 1.584962500716828
+        },
+        "dist_anomaly": {
+          "mean": 0.8236683963787211,
+          "std": 0.38959300380250605,
+          "min": -1.4428232973175177e-12,
+          "p25": 0.7450098525647806,
+          "median": 0.9293636260108334,
+          "p75": 1.0432330264522331,
+          "max": 1.5774062828480173
+        }
+      },
+      "contains_pregnancy_or_sex_specific_token": {
+        "roc_auc": 0.937206007882167,
+        "average_precision": 0.5307186988819711,
+        "discriminative_power": 0.937206007882167,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.1255879842356659,
+          "std": 0.33138443302498083,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        },
+        "dist_anomaly": {
+          "mean": 1.0,
+          "std": 0.0,
+          "min": 1.0,
+          "p25": 1.0,
+          "median": 1.0,
+          "p75": 1.0,
+          "max": 1.0
+        }
+      }
+    },
+    "medication_mismatch": {
+      "sequence_length": {
+        "roc_auc": 0.7186639775652907,
+        "average_precision": 0.041917584769643794,
+        "discriminative_power": 0.7186639775652907,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 50.59570294763989,
+          "std": 57.99890730556136,
+          "min": 1.0,
+          "p25": 20.0,
+          "median": 36.0,
+          "p75": 60.0,
+          "max": 1265.0
+        },
+        "dist_anomaly": {
+          "mean": 87.568281938326,
+          "std": 83.76235766886282,
+          "min": 11.0,
+          "p25": 40.0,
+          "median": 59.0,
+          "p75": 104.0,
+          "max": 1234.0
+        }
+      },
+      "diagnosis_token_count": {
+        "roc_auc": 0.6824016647295547,
+        "average_precision": 0.036642176708116994,
+        "discriminative_power": 0.6824016647295547,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 11.684186629374693,
+          "std": 7.636769647874397,
+          "min": 0.0,
+          "p25": 6.0,
+          "median": 10.0,
+          "p75": 16.0,
+          "max": 39.0
+        },
+        "dist_anomaly": {
+          "mean": 16.503083700440527,
+          "std": 8.023299726946062,
+          "min": 1.0,
+          "p25": 11.0,
+          "median": 15.0,
+          "p75": 21.0,
+          "max": 38.0
+        }
+      },
+      "procedure_token_count": {
+        "roc_auc": 0.5694891136758454,
+        "average_precision": 0.029103848134019054,
+        "discriminative_power": 0.5694891136758454,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 1.5814641942572782,
+          "std": 2.557089898242104,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 1.0,
+          "p75": 2.0,
+          "max": 41.0
+        },
+        "dist_anomaly": {
+          "mean": 2.421145374449339,
+          "std": 3.526950050920151,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 1.0,
+          "p75": 3.5,
+          "max": 28.0
+        }
+      },
+      "medication_token_count": {
+        "roc_auc": 0.7137444597889709,
+        "average_precision": 0.04147538946289133,
+        "discriminative_power": 0.7137444597889709,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 37.33005212400792,
+          "std": 51.577510664094994,
+          "min": 0.0,
+          "p25": 13.0,
+          "median": 24.0,
+          "p75": 43.0,
+          "max": 1214.0
+        },
+        "dist_anomaly": {
+          "mean": 68.64405286343613,
+          "std": 76.92646638934737,
+          "min": 8.0,
+          "p25": 27.0,
+          "median": 42.0,
+          "p75": 81.0,
+          "max": 1171.0
+        }
+      },
+      "rare_token_count": {
+        "roc_auc": 0.45945406004249834,
+        "average_precision": 0.017211261480732865,
+        "discriminative_power": 0.5405459399575017,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.11650714661920415,
+          "std": 0.5045264078819865,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 17.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "rare_token_presence": {
+        "roc_auc": 0.45945406004249834,
+        "average_precision": 0.017211261480732865,
+        "discriminative_power": 0.5405459399575017,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.08109187991500336,
+          "std": 0.27297616549225323,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "unknown_or_unmapped_token_count": {
+        "roc_auc": 0.5,
+        "average_precision": 0.020658367092268568,
+        "discriminative_power": 0.5,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "token_namespace_entropy": {
+        "roc_auc": 0.5080496705016071,
+        "average_precision": 0.01931198455995891,
+        "discriminative_power": 0.5080496705016071,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.814105466898181,
+          "std": 0.3745909873866826,
+          "min": -1.4428232973175177e-12,
+          "p25": 0.7175688488926661,
+          "median": 0.911562834956231,
+          "p75": 1.014097655569588,
+          "max": 1.584962500716828
+        },
+        "dist_anomaly": {
+          "mean": 0.891749185950441,
+          "std": 0.20372663781442107,
+          "min": 0.2974722489164043,
+          "p25": 0.763889855576154,
+          "median": 0.9023932827920935,
+          "p75": 0.9979331094785788,
+          "max": 1.5600508789001646
+        }
+      },
+      "contains_pregnancy_or_sex_specific_token": {
+        "roc_auc": 0.5063690034768807,
+        "average_precision": 0.02108384617749852,
+        "discriminative_power": 0.5063690034768807,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.1255879842356659,
+          "std": 0.33138443302498083,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        },
+        "dist_anomaly": {
+          "mean": 0.13832599118942732,
+          "std": 0.3452418157623578,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        }
+      }
+    },
+    "missing_diagnosis": {
+      "sequence_length": {
+        "roc_auc": 0.4717838067697833,
+        "average_precision": 0.11359915788664314,
+        "discriminative_power": 0.5282161932302167,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 50.59570294763989,
+          "std": 57.99890730556136,
+          "min": 1.0,
+          "p25": 20.0,
+          "median": 36.0,
+          "p75": 60.0,
+          "max": 1265.0
+        },
+        "dist_anomaly": {
+          "mean": 46.179061560580315,
+          "std": 51.754008664479585,
+          "min": 0.0,
+          "p25": 18.0,
+          "median": 33.0,
+          "p75": 56.0,
+          "max": 993.0
+        }
+      },
+      "diagnosis_token_count": {
+        "roc_auc": 0.4408559716937651,
+        "average_precision": 0.10624051791502351,
+        "discriminative_power": 0.5591440283062349,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 11.684186629374693,
+          "std": 7.636769647874397,
+          "min": 0.0,
+          "p25": 6.0,
+          "median": 10.0,
+          "p75": 16.0,
+          "max": 39.0
+        },
+        "dist_anomaly": {
+          "mean": 10.247418638086524,
+          "std": 7.399592662755801,
+          "min": 0.0,
+          "p25": 5.0,
+          "median": 9.0,
+          "p75": 14.0,
+          "max": 38.0
+        }
+      },
+      "procedure_token_count": {
+        "roc_auc": 0.49101018558542614,
+        "average_precision": 0.11779890936103682,
+        "discriminative_power": 0.5089898144145739,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 1.5814641942572782,
+          "std": 2.557089898242104,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 1.0,
+          "p75": 2.0,
+          "max": 41.0
+        },
+        "dist_anomaly": {
+          "mean": 1.4722258528296954,
+          "std": 2.3536734802469113,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 1.0,
+          "p75": 2.0,
+          "max": 31.0
+        }
+      },
+      "medication_token_count": {
+        "roc_auc": 0.4838029333044867,
+        "average_precision": 0.11615252972593616,
+        "discriminative_power": 0.5161970666955134,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 37.33005212400792,
+          "std": 51.577510664094994,
+          "min": 0.0,
+          "p25": 13.0,
+          "median": 24.0,
+          "p75": 43.0,
+          "max": 1214.0
+        },
+        "dist_anomaly": {
+          "mean": 34.4594170696641,
+          "std": 45.55939955263249,
+          "min": 0.0,
+          "p25": 11.0,
+          "median": 23.0,
+          "p75": 41.0,
+          "max": 933.0
+        }
+      },
+      "rare_token_count": {
+        "roc_auc": 0.45945406004249834,
+        "average_precision": 0.10489473101602659,
+        "discriminative_power": 0.5405459399575017,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.11650714661920415,
+          "std": 0.5045264078819865,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 17.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "rare_token_presence": {
+        "roc_auc": 0.45945406004249834,
+        "average_precision": 0.10489473101602659,
+        "discriminative_power": 0.5405459399575017,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.08109187991500336,
+          "std": 0.27297616549225323,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "unknown_or_unmapped_token_count": {
+        "roc_auc": 0.5,
+        "average_precision": 0.12253918305964755,
+        "discriminative_power": 0.5,
+        "direction": "higher_is_anomalous",
+        "dist_normal": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        },
+        "dist_anomaly": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 0.0
+        }
+      },
+      "token_namespace_entropy": {
+        "roc_auc": 0.4666137052815303,
+        "average_precision": 0.11323292529127793,
+        "discriminative_power": 0.5333862947184698,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.814105466898181,
+          "std": 0.3745909873866826,
+          "min": -1.4428232973175177e-12,
+          "p25": 0.7175688488926661,
+          "median": 0.911562834956231,
+          "p75": 1.014097655569588,
+          "max": 1.584962500716828
+        },
+        "dist_anomaly": {
+          "mean": 0.7762087965408319,
+          "std": 0.38411423687959145,
+          "min": -1.4428232973175177e-12,
+          "p25": 0.6566439961854177,
+          "median": 0.8767162889965786,
+          "p75": 0.9985090989147469,
+          "max": 1.5821930667308055
+        }
+      },
+      "contains_pregnancy_or_sex_specific_token": {
+        "roc_auc": 0.4933424606334414,
+        "average_precision": 0.11922645606469678,
+        "discriminative_power": 0.5066575393665587,
+        "direction": "lower_is_anomalous",
+        "dist_normal": {
+          "mean": 0.1255879842356659,
+          "std": 0.33138443302498083,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        },
+        "dist_anomaly": {
+          "mean": 0.11227290550254869,
+          "std": 0.3157019166754685,
+          "min": 0.0,
+          "p25": 0.0,
+          "median": 0.0,
+          "p75": 0.0,
+          "max": 1.0
+        }
+      }
+    }
+  },
+  "verdict": {
+    "strongest_trivial_signal": "contains_pregnancy_or_sex_specific_token",
+    "strongest_discriminative_power": 0.7023350810941856,
+    "signal_ranking": [
+      [
+        "contains_pregnancy_or_sex_specific_token",
+        0.7023350810941856
+      ],
+      [
+        "rare_token_count",
+        0.5405459399575017
+      ],
+      [
+        "rare_token_presence",
+        0.5405459399575017
+      ],
+      [
+        "token_namespace_entropy",
+        0.5054161873927645
+      ],
+      [
+        "procedure_token_count",
+        0.5018680432012376
+      ],
+      [
+        "diagnosis_token_count",
+        0.501816859799227
+      ],
+      [
+        "sequence_length",
+        0.5012263495249852
+      ],
+      [
+        "medication_token_count",
+        0.5008761545242498
+      ],
+      [
+        "unknown_or_unmapped_token_count",
+        0.5
+      ]
+    ],
+    "most_suspicious_anomaly_types": [
+      {
+        "anomaly_type": "demographic_conflict",
+        "best_signal": "contains_pregnancy_or_sex_specific_token",
+        "discriminative_power": 0.937206007882167
+      },
+      {
+        "anomaly_type": "medication_mismatch",
+        "best_signal": "sequence_length",
+        "discriminative_power": 0.7186639775652907
+      },
+      {
+        "anomaly_type": "missing_diagnosis",
+        "best_signal": "diagnosis_token_count",
+        "discriminative_power": 0.5591440283062349
+      }
+    ],
+    "detector_reference_roc_auc": 0.8002188893877784,
+    "trivial_rivals_detector": false,
+    "artifact_severity": "high",
+    "labels_likely_artifact_driven": true,
+    "benchmark_redesign_mandatory": true
+  }
+}

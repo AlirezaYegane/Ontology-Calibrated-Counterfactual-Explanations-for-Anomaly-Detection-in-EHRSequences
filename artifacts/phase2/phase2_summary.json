@@ -1,0 +1,62 @@
+{
+  "phase": 2,
+  "title": "Real Ontology Integration (code consolidation + data-blocked coverage)",
+  "status": "closed_status_A_via_phase2b_fix",
+  "summary": "Phase 2 consolidated the ontology subsystem into one canonical, tested surface and fixed the broken imports. Phase 2b parsed real licensed UMLS/SNOMED/RxNorm. Phase 2b-fix enriched the maps (MRMAP + ICD-9->ICD-10 CUI bridge + RxNorm ingredient matching), reaching diagnosis 0.8006 and medication 0.7767 on MIMIC-IV (both targets met). Phase 2 is CLOSED (Status A). See artifacts/phase2b_fix/. (Historical fields below predate Phase 2b/2b-fix.)",
+  "broken_imports_fixed": {
+    "status": "fixed",
+    "details": [
+      "src/ontology/__init__.py now exports the canonical surface (ClinicalRecord, OntologyIndex, OntologyEngine, rule classes, loader, distance) plus legacy fallback.",
+      "engine.py: 'from .rules import OntologyRule' -> 'from .rule_engine import OntologyRule'.",
+      "loader.py: 'from .rules import DemographicRule, MutualExclusionRule, RequiredCodesRule' -> 'from .rule_engine import ...'.",
+      "tests/test_ontology.py now collects and passes (was: ImportError cannot import name 'ClinicalRecord')."
+    ]
+  },
+  "canonical_modules": {
+    "records.py": "ClinicalRecord, OntologyConcept, OntologyViolation, OntologyRuleResult (canonical data model).",
+    "types.py": "backward-compat shim re-exporting from records.py.",
+    "index.py": "OntologyIndex + new get_ancestors/get_descendants/has_concept + crosswalk lookups (map_icd_to_snomed, map_drug_to_rxcui, get_rx_classes).",
+    "rule_engine.py": "OntologyRule base + DemographicRule, RequiredCodesRule, MutualExclusionRule (hierarchy/descendant-aware).",
+    "engine.py": "OntologyEngine.score_violations / ontology_check / get_replacements.",
+    "loader.py": "load_ontology_index / load_ontology_engine; now also loads icd9/icd10_to_snomed + drugname_to_rxcui crosswalks when present.",
+    "distance.py": "shortest_path_distance, ancestor_distance, neighborhood (deterministic, safe for unknown concepts).",
+    "rules.py": "LEGACY ICD-prefix compute_s_ont fallback, untouched and clearly labelled as fallback."
+  },
+  "ontology_assets": {
+    "raw_present": false,
+    "processed_present": false,
+    "searched_dir": "ontologies/processed",
+    "missing_expected_files": [
+      "snomed_hierarchy.json",
+      "snomed_terms.json",
+      "icd9_to_snomed.json",
+      "icd10_to_snomed.json",
+      "drugname_to_rxcui.json"
+    ],
+    "note": "All ontologies/* directories contain only .gitkeep. Parsers exist (scripts/parse_snomed.py, src/preprocessing/build_umls_maps.py, scripts/parse_rxnorm.py, src/preprocessing/build_rxnorm_maps.py) but have never been run because licensed UMLS/SNOMED/RxNorm sources are not present."
+  },
+  "coverage": {
+    "diagnosis": 0.8006,
+    "medication": 0.7767,
+    "targets": {
+      "diagnosis": 0.8,
+      "medication": 0.7
+    },
+    "targets_met": true,
+    "detail": "see artifacts/phase2b_fix/ (MRMAP + ICD-9 bridge + RxNorm ingredient matching)"
+  },
+  "tests": {
+    "fixtures_dir": "tests/fixtures/ontology (clearly synthetic, not licensed data)",
+    "files": [
+      "tests/test_ontology.py (fixed, 9 tests)",
+      "tests/test_phase2_ontology_records.py",
+      "tests/test_phase2_ontology_index.py",
+      "tests/test_phase2_ontology_distance.py",
+      "tests/test_phase2_ontology_loader.py",
+      "tests/test_phase2_coverage_report.py"
+    ]
+  },
+  "safe_to_build_anomaly_v2_with_ontology": true,
+  "reason_anomaly_v2_blocked": "RESOLVED: real ontology maps + engine available; Phase 2 closed (Status A).",
+  "next_step": "Phase 1b \u2014 implement ontology-backed anomaly-v2 injectors using the real engine + maps."
+}

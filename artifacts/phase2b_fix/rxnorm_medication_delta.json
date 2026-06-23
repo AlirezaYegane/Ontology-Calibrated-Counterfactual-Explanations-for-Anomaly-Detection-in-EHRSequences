@@ -1,0 +1,121 @@
+{
+  "old_medication_coverage": 0.54,
+  "new_medication_coverage": 0.7767,
+  "method": "exact drugname_to_rxcui OR longest-span RxNorm IN/PIN ingredient match",
+  "newly_mapped_examples": [
+    {
+      "token": "MED_HEPARIN",
+      "ingredient": "HEPARIN"
+    },
+    {
+      "token": "MED_0_9_SODIUM_CHLORIDE",
+      "ingredient": "SODIUM_CHLORIDE"
+    },
+    {
+      "token": "MED_NOREPINEPHRINE",
+      "ingredient": "NOREPINEPHRINE"
+    },
+    {
+      "token": "MED_DOBUTAMINE",
+      "ingredient": "DOBUTAMINE"
+    },
+    {
+      "token": "MED_TRAMADOL_ULTRAM",
+      "ingredient": "TRAMADOL"
+    },
+    {
+      "token": "MED_ACETAMINOPHEN_IV",
+      "ingredient": "ACETAMINOPHEN"
+    },
+    {
+      "token": "MED_LORAZEPAM",
+      "ingredient": "LORAZEPAM"
+    },
+    {
+      "token": "MED_GLUCAGON",
+      "ingredient": "GLUCAGON"
+    },
+    {
+      "token": "MED_GLUCOSE_GEL",
+      "ingredient": "GLUCOSE"
+    },
+    {
+      "token": "MED_ASPIRIN",
+      "ingredient": "ASPIRIN"
+    },
+    {
+      "token": "MED_BISACODYL",
+      "ingredient": "BISACODYL"
+    },
+    {
+      "token": "MED_QUETIAPINE_FUMARATE",
+      "ingredient": "QUETIAPINE_FUMARATE"
+    }
+  ],
+  "remaining_top_unmapped": [
+    {
+      "token": "MED_INSULIN",
+      "count": 46651,
+      "category": "insulin_class_ambiguous"
+    },
+    {
+      "token": "MED_5_DEXTROSE",
+      "count": 20275,
+      "category": "iv_fluid_electrolyte"
+    },
+    {
+      "token": "MED_BAG",
+      "count": 19418,
+      "category": "iv_fluid_electrolyte"
+    },
+    {
+      "token": "MED_SENNA",
+      "count": 18840,
+      "category": "brand_combo_or_missing_synonym"
+    },
+    {
+      "token": "MED_ISO_OSMOTIC_DEXTROSE",
+      "count": 16759,
+      "category": "iv_fluid_electrolyte"
+    },
+    {
+      "token": "MED_LACTATED_RINGERS",
+      "count": 13953,
+      "category": "iv_fluid_electrolyte"
+    },
+    {
+      "token": "MED_DEXTROSE_50",
+      "count": 8850,
+      "category": "iv_fluid_electrolyte"
+    },
+    {
+      "token": "MED_VIAL",
+      "count": 8537,
+      "category": "brand_combo_or_missing_synonym"
+    },
+    {
+      "token": "MED_POLYETHYLENE_GLYCOL",
+      "count": 7570,
+      "category": "brand_combo_or_missing_synonym"
+    },
+    {
+      "token": "MED_SW",
+      "count": 6933,
+      "category": "brand_combo_or_missing_synonym"
+    },
+    {
+      "token": "MED_NS",
+      "count": 4994,
+      "category": "brand_combo_or_missing_synonym"
+    },
+    {
+      "token": "MED_INFLUENZA_VACCINE_QUADRIVALENT",
+      "count": 4833,
+      "category": "biologic_vaccine"
+    }
+  ],
+  "skipped_ambiguous_examples": [
+    "MED_INSULIN (no bare RxNorm insulin IN; only specific insulins)",
+    "MED_5_DEXTROSE (RxNorm uses GLUCOSE; no DEXTROSE IN)"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "phase": "2b-fix",
+  "generated_from": "real UMLS 2026AA / SNOMED CT US 20260301 / RxNorm full current",
+  "enrichment": [
+    "MRMAP SNOMED->ICD-10",
+    "ICD-9->ICD-10(CUI)->SNOMED bridge",
+    "RxNorm IN/PIN ingredient index"
+  ],
+  "files": {
+    "snomed_hierarchy.json": {
+      "size_bytes": 34509714,
+      "sha1_head16": "cf27112d34e67744",
+      "entries": 2
+    },
+    "snomed_terms.json": {
+      "size_bytes": 20542084,
+      "sha1_head16": "e3fd35bb37dd85d0",
+      "entries": 386064
+    },
+    "icd9_to_snomed.json": {
+      "size_bytes": 2040520,
+      "sha1_head16": "3b9634f7654c2ceb",
+      "entries": 10254
+    },
+    "icd10_to_snomed.json": {
+      "size_bytes": 6024425,
+      "sha1_head16": "db297f5a9429ba53",
+      "entries": 30783
+    },
+    "icd_to_snomed_provenance.json": {
+      "size_bytes": 856912,
+      "sha1_head16": "ce85211fffa18d5f",
+      "entries": 2
+    },
+    "drugname_to_rxcui.json": {
+      "size_bytes": 11101477,
+      "sha1_head16": "7f2304837d7ba5fb",
+      "entries": 178692
+    },
+    "rxnorm_terms.json": {
+      "size_bytes": 7607718,
+      "sha1_head16": "0107f5a9d4b9ebd4",
+      "entries": 128678
+    },
+    "rxnorm_classes.json": {
+      "size_bytes": 2,
+      "sha1_head16": "bf21a9e8fbc5a384",
+      "entries": 0
+    },
+    "rxnorm_ingredient_index.json": {
+      "size_bytes": 718340,
+      "sha1_head16": "1cc3fda6efe91d08",
+      "entries": 18278
+    },
+    "snomed_concepts.csv": {
+      "size_bytes": 28233344,
+      "sha1_head16": "910b4323c33cfba4"
+    },
+    "snomed_relationships.csv": {
+      "size_bytes": 13937588,
+      "sha1_head16": "146aaaa4c7cbbf70"
+    }
+  },
+  "rxnorm_classes_status": "unavailable_requires_RXNREL_RXNSAT_or_ATC"
+}

@@ -1,22 +1,24 @@
-﻿from __future__ import annotations
+"""
+src/ontology/types.py
+=====================
+Backward-compatibility shim. The canonical data model now lives in
+``src/ontology/records.py``. This module re-exports the canonical types so that
+existing imports (e.g. ``from .types import ClinicalRecord, OntologyViolation``)
+keep working.
+"""
 
-from dataclasses import dataclass, field
-from typing import Optional
+from __future__ import annotations
 
+from .records import (
+    ClinicalRecord,
+    OntologyConcept,
+    OntologyRuleResult,
+    OntologyViolation,
+)
 
-@dataclass(frozen=True)
-class ClinicalRecord:
-    record_id: str
-    codes: tuple[str, ...]
-    sex: Optional[str] = None
-    age_group: Optional[str] = None
-    metadata: dict[str, object] = field(default_factory=dict)
-
-
-@dataclass(frozen=True)
-class OntologyViolation:
-    rule_id: str
-    kind: str
-    message: str
-    codes: tuple[str, ...] = ()
-    severity: float = 1.0
+__all__ = [
+    "ClinicalRecord",
+    "OntologyConcept",
+    "OntologyViolation",
+    "OntologyRuleResult",
+]

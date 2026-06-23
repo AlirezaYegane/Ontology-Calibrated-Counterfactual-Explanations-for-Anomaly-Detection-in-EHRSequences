@@ -26,7 +26,6 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -79,7 +78,14 @@ def parse_descriptions(snomed_dir: Path) -> pd.DataFrame:
     """Parse sct2_Description_Snapshot and return preferred terms."""
     path = _find_rf2(snomed_dir, "sct2_Description_Snapshot")
     log.info("Loading descriptions from %s", path.name)
-    df = pd.read_csv(path, sep="\t", dtype=str, low_memory=False)
+    _desc_cols = {"active", "typeid", "conceptid", "term"}
+    df = pd.read_csv(
+        path,
+        sep="\t",
+        dtype=str,
+        low_memory=False,
+        usecols=lambda c: c.strip().lower() in _desc_cols,
+    )
     df.columns = df.columns.str.strip().str.lower()
     active = df[df["active"] == "1"].copy()
 
@@ -104,7 +110,14 @@ def parse_relationships(snomed_dir: Path) -> pd.DataFrame:
     """Parse sct2_Relationship_Snapshot and return active IS-A edges."""
     path = _find_rf2(snomed_dir, "sct2_Relationship_Snapshot")
     log.info("Loading relationships from %s", path.name)
-    df = pd.read_csv(path, sep="\t", dtype=str, low_memory=False)
+    _rel_cols = {"active", "typeid", "sourceid", "destinationid"}
+    df = pd.read_csv(
+        path,
+        sep="\t",
+        dtype=str,
+        low_memory=False,
+        usecols=lambda c: c.strip().lower() in _rel_cols,
+    )
     df.columns = df.columns.str.strip().str.lower()
 
     isa = df[(df["active"] == "1") & (df["typeid"] == _IS_A)].copy()
@@ -141,15 +154,20 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument(
-        "--snomed-dir", required=True, type=Path,
+        "--snomed-dir",
+        required=True,
+        type=Path,
         help="Path to SNOMED CT Snapshot directory containing RF2 files",
     )
     p.add_argument(
-        "--output-dir", required=True, type=Path,
+        "--output-dir",
+        required=True,
+        type=Path,
         help="Output directory for processed CSV and JSON files",
     )
     p.add_argument(
-        "--log-level", default="INFO",
+        "--log-level",
+        default="INFO",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
     )
     return p.parse_args(argv)
@@ -185,7 +203,8 @@ def main(argv: list[str] | None = None) -> None:
     hierarchy = build_hierarchy(relationships)
     hierarchy_path = args.output_dir / "snomed_hierarchy.json"
     hierarchy_path.write_text(
-        json.dumps(hierarchy, indent=1, sort_keys=True), encoding="utf-8",
+        json.dumps(hierarchy, indent=1, sort_keys=True),
+        encoding="utf-8",
     )
     log.info(
         "Saved %s (parents: %d, children: %d)",

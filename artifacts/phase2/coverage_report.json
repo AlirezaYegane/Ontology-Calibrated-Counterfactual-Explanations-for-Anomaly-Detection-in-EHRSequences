@@ -1,0 +1,38 @@
+{
+  "phase": 2,
+  "report": "ontology_coverage",
+  "status": "computed_real_coverage",
+  "ontology_dir": "D:\\Article\\ontologies\\processed",
+  "ehr_file": "data\\processed\\mimiciv_val.pkl",
+  "present_ontology_files": [
+    "snomed_hierarchy.json",
+    "snomed_terms.json",
+    "icd9_to_snomed.json",
+    "icd10_to_snomed.json",
+    "drugname_to_rxcui.json"
+  ],
+  "missing_ontology_files": [],
+  "coverage": {
+    "rows_scanned": 30000,
+    "token_totals": {
+      "diagnosis": 348779,
+      "procedure": 47110,
+      "medication": 1109458,
+      "other": 0
+    },
+    "diagnosis_mapped": 279245,
+    "diagnosis_coverage": 0.8006,
+    "medication_mapped": 861671,
+    "medication_coverage": 0.7767,
+    "procedure_coverage": "not_mapped_in_phase2",
+    "unique_unmapped_tokens": 5684
+  },
+  "thresholds": {
+    "diagnosis_target": 0.8,
+    "medication_target": 0.7
+  },
+  "meets_thresholds": {
+    "diagnosis": true,
+    "medication": true
+  }
+}

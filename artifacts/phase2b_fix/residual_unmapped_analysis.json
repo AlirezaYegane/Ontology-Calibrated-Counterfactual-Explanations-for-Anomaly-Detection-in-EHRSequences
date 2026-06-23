@@ -1,0 +1,226 @@
+{
+  "diagnosis_unmapped": {
+    "by_category_weighted": {
+      "icd9_disease_numeric": 39936,
+      "icd9_status_history(V)": 8819,
+      "icd10_status_history_screening": 3336,
+      "icd10_injury_poisoning": 6620,
+      "icd9_external_cause(E)": 5163,
+      "icd10_disease": 2453,
+      "icd10_external_cause": 2725,
+      "icd10_symptoms_signs": 482
+    },
+    "top": [
+      {
+        "token": "DX_9_25000",
+        "count": 2344,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_311",
+        "count": 1961,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_40390",
+        "count": 1197,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_49390",
+        "count": 1061,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_V4582",
+        "count": 891,
+        "category": "icd9_status_history(V)"
+      },
+      {
+        "token": "DX_9_496",
+        "count": 822,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_V4581",
+        "count": 729,
+        "category": "icd9_status_history(V)"
+      },
+      {
+        "token": "DX_9_41400",
+        "count": 676,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_10_Y92230",
+        "count": 590,
+        "category": "icd10_external_cause"
+      },
+      {
+        "token": "DX_9_V1251",
+        "count": 579,
+        "category": "icd9_status_history(V)"
+      },
+      {
+        "token": "DX_9_60000",
+        "count": 568,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_40391",
+        "count": 488,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_E8497",
+        "count": 460,
+        "category": "icd9_external_cause(E)"
+      },
+      {
+        "token": "DX_9_71590",
+        "count": 433,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_4168",
+        "count": 411,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_10_T451X5A",
+        "count": 383,
+        "category": "icd10_injury_poisoning"
+      },
+      {
+        "token": "DX_9_25060",
+        "count": 382,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_34590",
+        "count": 372,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_5715",
+        "count": 366,
+        "category": "icd9_disease_numeric"
+      },
+      {
+        "token": "DX_9_E8490",
+        "count": 349,
+        "category": "icd9_external_cause(E)"
+      }
+    ]
+  },
+  "medication_unmapped": {
+    "by_category_weighted": {
+      "biologic_vaccine": 15048,
+      "iv_fluid_electrolyte": 96790,
+      "brand_combo_or_missing_synonym": 86867,
+      "insulin_class_ambiguous": 49082
+    },
+    "top": [
+      {
+        "token": "MED_INSULIN",
+        "count": 46651,
+        "category": "insulin_class_ambiguous"
+      },
+      {
+        "token": "MED_5_DEXTROSE",
+        "count": 20275,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_BAG",
+        "count": 19418,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_SENNA",
+        "count": 18840,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_ISO_OSMOTIC_DEXTROSE",
+        "count": 16759,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_LACTATED_RINGERS",
+        "count": 13953,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_DEXTROSE_50",
+        "count": 8850,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_VIAL",
+        "count": 8537,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_POLYETHYLENE_GLYCOL",
+        "count": 7570,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_SW",
+        "count": 6933,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_NS",
+        "count": 4994,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_INFLUENZA_VACCINE_QUADRIVALENT",
+        "count": 4833,
+        "category": "biologic_vaccine"
+      },
+      {
+        "token": "MED_NEUTRA_PHOS",
+        "count": 4696,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_D5_1_2NS",
+        "count": 4282,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_MULTIVITAMINS",
+        "count": 4161,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_D5W",
+        "count": 3797,
+        "category": "iv_fluid_electrolyte"
+      },
+      {
+        "token": "MED_INFLUENZA_VIRUS_VACCINE",
+        "count": 3430,
+        "category": "biologic_vaccine"
+      },
+      {
+        "token": "MED_MILK_OF_MAGNESIA",
+        "count": 3197,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_SOLN",
+        "count": 2615,
+        "category": "brand_combo_or_missing_synonym"
+      },
+      {
+        "token": "MED_LR",
+        "count": 2347,
+        "category": "brand_combo_or_missing_synonym"
+      }
+    ]
+  }
+}

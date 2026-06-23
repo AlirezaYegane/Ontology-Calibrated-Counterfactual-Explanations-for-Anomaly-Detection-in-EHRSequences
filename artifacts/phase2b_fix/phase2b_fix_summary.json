@@ -1,0 +1,54 @@
+{
+  "phase": "2b-fix",
+  "title": "Close Real Ontology Coverage Gaps",
+  "status": "A_phase2_fully_closed",
+  "coverage_before": {
+    "diagnosis": 0.5052,
+    "medication": 0.54
+  },
+  "coverage_after": {
+    "diagnosis": 0.8006,
+    "medication": 0.7767
+  },
+  "targets": {
+    "diagnosis": 0.8,
+    "medication": 0.7
+  },
+  "targets_met": {
+    "diagnosis": true,
+    "medication": true
+  },
+  "diagnosis_breakdown": {
+    "icd10_coverage": 0.92,
+    "icd9_coverage_after_bridge": "~0.60",
+    "note": "ICD-10 via authoritative SNOMED->ICD-10-CM MRMAP; ICD-9 via shared-CUI + ICD-9->ICD-10(CUI)->SNOMED bridge."
+  },
+  "map_counts": {
+    "icd9_before": 8818,
+    "icd9_after": 10254,
+    "icd10_before": 11339,
+    "icd10_after": 30783,
+    "rxnorm_ingredient_index": 18278
+  },
+  "methods_used": [
+    "UMLS MRMAP SNOMEDCT_US->ICD-10-CM (TOTYPE=SDUI, excl REL=XR) inverted to ICD-10->SNOMED",
+    "ICD-9->ICD-10 via shared UMLS CUI (MRCONSO synonymy) then ICD-10->SNOMED via MRMAP",
+    "RxNorm IN/PIN ingredient index + conservative longest-span matching with electrolyte-fragment guard"
+  ],
+  "anti_inflation_safeguards": [
+    "No ICD title-string matches counted as SNOMED mappings.",
+    "No fuzzy string similarity used; only authoritative UMLS CUI/MRMAP links.",
+    "Bare INSULIN and DEXTROSE left UNMAPPED (ambiguous; no clean RxNorm ingredient).",
+    "Single-word electrolyte fragments (SODIUM, CHLORIDE...) never matched alone.",
+    "Targets unchanged (0.80 / 0.70)."
+  ],
+  "residual": {
+    "diagnosis": "Dominated by remaining ICD-9 disease codes (no SNOMED CUI / no bridgeable ICD-10) + V/Z status-history + E/V-Y external-cause codes (no SNOMED disease concept).",
+    "medication": "Dominated by IV fluids/electrolytes, vaccines/biologics, brand/combo strings, and correctly-skipped ambiguous INSULIN."
+  },
+  "tests_added": [
+    "tests/test_phase2b_mrmap_mapping.py",
+    "tests/test_phase2b_rxnorm_matching.py"
+  ],
+  "next_step": "Phase 2 closed (Status A). Proceed to Phase 1b: implement ontology-backed anomaly-v2 injectors using the real engine + maps."
+}

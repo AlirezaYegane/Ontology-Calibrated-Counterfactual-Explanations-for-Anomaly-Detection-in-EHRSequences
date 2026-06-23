@@ -1,0 +1,70 @@
+{
+  "phase": 1,
+  "title": "Benchmark Validity Repair (1a diagnostic) + Non-Circular Skeleton (1b)",
+  "status": "phase_1a_complete; phase_1b_skeleton_complete",
+  "phase_1a_diagnostic": {
+    "input_file": "data/processed/mimiciv_val_synth_anomaly.pkl",
+    "n_records": 71602,
+    "n_normal": 55061,
+    "n_anomaly": 16541,
+    "detector_reference_roc_auc": 0.8002188893877784,
+    "strongest_trivial_signal_overall": "contains_pregnancy_or_sex_specific_token",
+    "strongest_trivial_discriminative_power_overall": 0.7023350810941856,
+    "per_type_best_trivial": {
+      "demographic_conflict": {
+        "best_signal": "contains_pregnancy_or_sex_specific_token",
+        "discriminative_power": 0.9372
+      },
+      "medication_mismatch": {
+        "best_signal": "sequence_length",
+        "discriminative_power": 0.7187
+      },
+      "missing_diagnosis": {
+        "best_signal": "diagnosis_token_count",
+        "discriminative_power": 0.5591
+      }
+    },
+    "artifact_severity": "high",
+    "labels_likely_artifact_driven": true,
+    "benchmark_redesign_mandatory": true,
+    "interpretation": "Per-type circularity is severe: demographic_conflict (largest anomaly class) is 0.94-recoverable by a single sex-specific-token indicator (the same token family the ontology rule flags), and medication_mismatch is 0.72-recoverable by sequence length. Only missing_diagnosis (0.56) is mildly trivial. Any detection/ontology result on this benchmark is not A*-defensible.",
+    "artifacts": [
+      "artifacts/diagnostics/rf2_triviality.json",
+      "artifacts/diagnostics/rf2_triviality.md"
+    ]
+  },
+  "phase_1b_skeleton": {
+    "modules": [
+      "src/evaluation/protocol.py",
+      "src/preprocessing/anomaly_injection_v2.py"
+    ],
+    "protocol_functions": [
+      "assert_no_subject_overlap",
+      "summarize_split_overlap",
+      "find_forbidden_columns",
+      "validate_no_forbidden_columns",
+      "make_leave_anomaly_type_out_splits",
+      "summarize_label_distribution"
+    ],
+    "forbidden_leakage_columns": [
+      "bad_code", "expected_code", "replacement_code", "original_code",
+      "injected_code", "removed_code", "repair_code", "ground_truth_repair",
+      "repair_target", "source_anomaly_id", "source_row_id",
+      "codes_original", "codes_corrupted", "corruption_note"
+    ],
+    "anomaly_v2_types": [
+      "medication_indication_mismatch",
+      "demographic_incompatibility",
+      "forbidden_cooccurrence",
+      "temporal_inconsistency"
+    ],
+    "ontology_logic_status": "not_implemented_by_design; guarded with NotImplementedError until Phase 2 (real SNOMED/RxNorm). No fake medical logic added.",
+    "field_separation": ["model_visible", "audit", "hidden_eval"],
+    "tests": [
+      "tests/test_phase1_protocol.py",
+      "tests/test_anomaly_injection_v2.py"
+    ],
+    "tests_passing": 17
+  },
+  "next_phase": "Phase 2 — Real Ontology Integration (acquire UMLS/SNOMED/RxNorm, run existing parsers, consolidate the two ontology subsystems, wire real ontology into scoring, produce coverage report). Phase 1b ontology-backed anomaly v2 injectors are then implemented on top of that ontology."
+}

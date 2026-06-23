@@ -1,0 +1,10 @@
+{
+  "file": "ontologies\\raw\\umls\\2026AA\\umls_extract\\MRMAP.RRF",
+  "exists": true,
+  "size_bytes": 148524896,
+  "size_mb": 148.52,
+  "is_html": false,
+  "readable": true,
+  "used_mapset": "SNOMEDCT_US -> ICD-10-CM (TOTYPE=SDUI, excl REL=XR)",
+  "status": "valid"
+}

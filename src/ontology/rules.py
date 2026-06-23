@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from typing import Any, Mapping
@@ -158,7 +158,9 @@ def infer_sequence_column(df: Any) -> str:
         if len(sample) and any(isinstance(x, (list, tuple)) for x in sample):
             return col
 
-    raise ValueError(f"Could not infer sequence column. Available columns: {list(df.columns)}")
+    raise ValueError(
+        f"Could not infer sequence column. Available columns: {list(df.columns)}"
+    )
 
 
 def extract_tokens_from_row(row: Mapping[str, Any] | Any) -> list[str]:
@@ -208,7 +210,9 @@ def token_role(token: str) -> str:
     return "other"
 
 
-def has_supporting_diagnosis(diag_tokens: list[str], diag_prefixes: tuple[str, ...]) -> bool:
+def has_supporting_diagnosis(
+    diag_tokens: list[str], diag_prefixes: tuple[str, ...]
+) -> bool:
     return any(has_any_prefix(token, diag_prefixes) for token in diag_tokens)
 
 
@@ -219,7 +223,11 @@ def compute_s_ont(record_or_tokens: Mapping[str, Any] | list[str]) -> dict[str, 
     elif isinstance(record_or_tokens, Mapping):
         row = dict(record_or_tokens)
 
-    tokens = extract_tokens_from_row(record_or_tokens) if row else normalize_tokens(record_or_tokens)
+    tokens = (
+        extract_tokens_from_row(record_or_tokens)
+        if row
+        else normalize_tokens(record_or_tokens)
+    )
 
     if not tokens:
         return {"sont": 0.0, "violations": [], "token_weights": {}}
@@ -228,8 +236,12 @@ def compute_s_ont(record_or_tokens: Mapping[str, Any] | list[str]) -> dict[str, 
     proc_tokens = [tok for tok in tokens if token_role(tok) == "procedure"]
     med_tokens = [tok for tok in tokens if token_role(tok) == "medication"]
 
-    female_only_tokens = [tok for tok in tokens if has_any_prefix(tok, FEMALE_ONLY_PREFIXES)]
-    male_only_tokens = [tok for tok in tokens if has_any_prefix(tok, MALE_ONLY_PREFIXES)]
+    female_only_tokens = [
+        tok for tok in tokens if has_any_prefix(tok, FEMALE_ONLY_PREFIXES)
+    ]
+    male_only_tokens = [
+        tok for tok in tokens if has_any_prefix(tok, MALE_ONLY_PREFIXES)
+    ]
 
     gender = normalize_gender(row.get("gender") or row.get("sex"))
 
@@ -289,8 +301,12 @@ def compute_s_ont(record_or_tokens: Mapping[str, Any] | list[str]) -> dict[str, 
     # These only fire when diagnosis codes exist, but the relevant support context is missing.
     if diag_tokens:
         for rule in MEDICATION_SUPPORT_RULES:
-            matched_meds = [tok for tok in med_tokens if token_contains_any(tok, rule["med_terms"])]
-            if matched_meds and not has_supporting_diagnosis(diag_tokens, rule["diag_prefixes"]):
+            matched_meds = [
+                tok for tok in med_tokens if token_contains_any(tok, rule["med_terms"])
+            ]
+            if matched_meds and not has_supporting_diagnosis(
+                diag_tokens, rule["diag_prefixes"]
+            ):
                 violations.append(
                     OntologyViolation(
                         name=rule["name"],

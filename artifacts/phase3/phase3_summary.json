@@ -1,0 +1,76 @@
+{
+  "phase": 3,
+  "title": "Detector and Scoring Rebuild",
+  "status": "fully_closed_with_valid_benchmark_v2",
+  "closure_justification": "benchmark-v2 exists (Phase 1b) and passes the non-circularity triviality gate (strongest trivial signal 0.6127 < 0.80); the real-ontology scorer + unsupervised detector + calibration + stats all run end-to-end on it producing valid, non-circular test-set detection metrics with bootstrap CIs (threshold selected on val, applied to test); the full test suite passes (200). Full-SCALE detector training is explicitly deferred to a later experiment phase; smoke-scale results are preliminary, not final paper SOTA.",
+  "benchmark_v2_exists": true,
+  "evidence_level": "smoke_scale_valid_non_circular",
+  "final_paper_evidence_claimable": false,
+  "eval": {
+    "script": "scripts/run_phase3_scoring_eval.py",
+    "command": "./.venv/Scripts/python.exe scripts/run_phase3_scoring_eval.py --detector-epochs 2 --train-cap 4000",
+    "artifacts": [
+      "artifacts/phase3/phase3_scoring_eval.json",
+      "artifacts/phase3/phase3_scoring_eval.md",
+      "artifacts/phase3/score_variant_table.csv",
+      "artifacts/phase3/ontology_rule_coverage_v2.json"
+    ],
+    "benchmark": "v2 (non-circular)",
+    "n_test": 6307,
+    "test_anomaly_rate": 0.2182,
+    "threshold_protocol": "selected on val (best-F1), applied to test; no test-set tuning",
+    "detector": "unsupervised_next_token_gru (SMOKE-SCALE: embed/hidden 64, 1 layer, 2 epochs, 4000 train normals)",
+    "variant_metrics": {
+      "detector_only":          {"roc_auc": 0.4247, "roc_auc_ci": [0.4074, 0.4401], "ap": 0.1803},
+      "ontology_only_real":     {"roc_auc": 0.5013, "roc_auc_ci": [0.4999, 0.5031], "ap": 0.2192},
+      "combined_real_ontology": {"roc_auc": 0.4255, "roc_auc_ci": [0.4082, 0.4408], "ap": 0.1812, "test_f1_val_thr": 0.3582},
+      "combined_legacy_ontology": {"roc_auc": 0.6625, "roc_auc_ci": [0.6440, 0.6791], "ap": 0.4464}
+    },
+    "honest_reading": [
+      "SMOKE-SCALE detector is at/below chance (ROC-AUC 0.4247): a 2-epoch tiny GRU on 4000 normals has not learned the normal distribution; many v2 anomalies (gender-flip = identical sequence; indication-removal = shorter/more-predictable sequence) carry no next-token-NLL signal. Expected for smoke scale; NOT a final result.",
+      "Real-ontology scoring is at chance (ROC-AUC 0.5013). Diagnostic (ontology_rule_coverage_v2.json): the engine's default ruleset fires on only ~1.5% of demographic anomalies, 0% of forbidden-cooccurrence, 0.11% of medication-indication-mismatch -- barely above the 0.10% normal rate. Token->SNOMED/RxNorm mapping works (222-446 codes/record); the gap is RULESET COVERAGE, not data or wiring. No ontology ranking gain on v2.",
+      "combined_real_ontology (0.4255) ~= detector_only (0.4247): with S_ont ~= 0, the calibrated score is dominated by the weak detector. Its val-selected threshold collapses to ~0 (recall 1.0, precision = base rate), confirming near-zero score spread.",
+      "combined_legacy_ontology (0.6625) is the only above-chance variant, but it is the LEGACY handcrafted ICD-prefix scorer (over-fires; documented circular). It is NOT claimable as clean evidence; it is retained only as the historical comparison."
+    ]
+  },
+  "part_a_real_ontology_scoring": {
+    "implemented": true,
+    "module": "src/scoring/ontology_aware.py",
+    "wired_into_eval": true,
+    "real_mode_no_silent_fallback": true,
+    "explicit_equation": "S_cal = (w_det*S_det + w_ont*S_ont' + w_gen*S_gen') / sum(active weights)",
+    "weights": {"w_det": 0.7, "w_ont": 0.3, "w_gen": 0.0},
+    "sgen_policy": "diagnostic-only; w_gen=0 (Sgen ROC-AUC was 0.475; Phase 5 gate pending)",
+    "v2_finding": "Phase 3 (sparse default rules): real scorer at-chance (0.50). Phase 3b (artifacts/phase3b/): after curated rule packs, ontology_only_real ROC-AUC 0.7881 (CI [0.7743,0.8016]) -- a credible standalone ranking signal. See artifacts/phase3b/phase3b_summary.json."
+  },
+  "part_b_unsupervised_detector": {
+    "implemented": true,
+    "primary_label": "unsupervised_next_token_gru",
+    "trains_on": "normal_sequences_only (benchmark-v2 train split is clean-normal-only)",
+    "ran_on_v2": true,
+    "scale": "smoke (full-scale training deferred to a later experiment phase)",
+    "oom_fix": "anomaly_scores now mini-batches (was building a [N, max_len, vocab] ~59GB logits tensor over the whole split); per-record scores are batch-invariant (padding masked, normalised by non-pad length)."
+  },
+  "part_c_calibration": {"implemented": true, "module": "src/evaluation/calibration.py", "val_only_selection": true, "exercised_on_v2": true},
+  "part_d_stats": {"implemented": true, "module": "src/evaluation/stats.py", "bootstrap_cis_reported": true, "exercised_on_v2": true},
+  "part_e_eval_script": {"implemented": true, "script": "scripts/run_phase3_scoring_eval.py", "run_status": "valid_v2_benchmark", "final_paper_evidence_claimable": false},
+  "tests": {
+    "phase1b_v2": ["tests/test_phase1b_anomaly_v2.py", "tests/test_phase1b_benchmark_v2_build.py", "tests/test_phase1b_leakage_guards.py", "tests/test_anomaly_injection_v2.py"],
+    "phase3": ["tests/test_phase3_scoring.py", "tests/test_phase3_unsup_detector.py", "tests/test_phase3_calibration.py", "tests/test_phase3_stats.py"],
+    "full_suite": "200 passed (was 187 before this session)"
+  },
+  "claim_impact": {
+    "C2b_non_circular_benchmark": "cut_unless_fixed -> supported_now (scoped, synthetic): benchmark-v2 passes triviality gate, subject-level splits, leakage guards.",
+    "C4_ontology_ranking_gain": "UPGRADED to partially_supported in Phase 3b: after auditable rule authoring, ontology_only_real AUC 0.7881 (CI clears chance), combined_real (0.658) > detector_only (0.425). Caveat: combined_real < ontology_only because the smoke detector dilutes it; the calibrated-combination-beats-strong-detector claim awaits full-scale training.",
+    "C6_scoring_formulation": "partially_supported (reframed): explicit configurable calibrated score now exercised on a non-circular benchmark with CIs.",
+    "C13_demographic_metadata": "partially_supported -> supported_now (scoped): v2 demographic anomalies flip the REAL gender field (no token inference)."
+  },
+  "hard_constraints_restated": [
+    "Ontology-backed SYNTHETIC benchmark, NOT real-world external validation.",
+    "Smoke-scale detector -> preliminary non-circular evidence, NOT final SOTA; final_paper_evidence_claimable=False.",
+    "Threshold selected on val, applied to test (no test tuning).",
+    "w_gen=0 (Sgen diagnostic-only).",
+    "Legacy ICD-prefix scoring is historical-comparison-only, documented circular; not claimable evidence."
+  ],
+  "next_step": "Phase 4 -- leakage-free counterfactual repair (rewrite src/explanations/counterfactual.py to generate edits from ontology neighborhoods via src/ontology/distance.py, never reading injection metadata; validate with the independent unsup detector). Separately, the next EXPERIMENT phase must (a) train the unsupervised detector at full scale and (b) author ontology rules covering the v2 anomaly families so the real scorer can actually fire. Do NOT proceed to Phase 4/5/H200 until this closure is confirmed by the user."
+}
