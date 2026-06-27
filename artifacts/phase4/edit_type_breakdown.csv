@@ -1,0 +1,8 @@
+edit_operation,count
+add,3
+remove,23
+
+anomaly_type,n,success,rate
+demographic_incompatibility,5,1,0.2
+forbidden_cooccurrence,10,10,1.0
+medication_indication_mismatch,15,9,0.6

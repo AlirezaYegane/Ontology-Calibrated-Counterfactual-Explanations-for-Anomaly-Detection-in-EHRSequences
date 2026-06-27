@@ -245,7 +245,11 @@ def map_tokens_to_ontology_codes(tokens: list[str], index: Any) -> dict[str, lis
     unmapped: list[str] = []
     for tok in tokens:
         up = tok.upper()
-        if any(up.startswith(p) for p in _DIAG_PREFIXES):
+        if up.startswith(("SNOMED:", "RXNORM:")):
+            # already-canonical ontology code (e.g. a counterfactual replace edit
+            # that inserts an ontology-neighbor concept directly); pass through.
+            mapped_codes.append(tok)
+        elif any(up.startswith(p) for p in _DIAG_PREFIXES):
             hit = None
             for cand in normalize_diagnosis_token(tok):
                 snomed = index.map_icd_to_snomed(cand)

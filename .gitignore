@@ -70,6 +70,9 @@ outputs/
 # Regenerable smoke-detector training outputs (incl. MIMIC-derived vocab) — not committed
 artifacts/phase3/detector_unsup_v2/
 
+# Phase 5: per-record MIMIC-derived scores (s_gen/s_ont/s_det per record) — not committed
+artifacts/phase5/per_record_scores.csv
+
 # Large generated evaluation artifacts
 artifacts/day36/counterfactuals.csv
 artifacts/day36_repair_ready/repair_ready_scores.csv

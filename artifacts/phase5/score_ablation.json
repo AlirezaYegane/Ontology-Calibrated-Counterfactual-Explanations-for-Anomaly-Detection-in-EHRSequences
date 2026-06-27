@@ -1,0 +1,69 @@
+{
+  "phase": 5,
+  "status": "ablation_complete_sgen_diagnostic_only",
+  "split": "test",
+  "n": 3000,
+  "variants": [
+    {
+      "variant": "ontology_only_real",
+      "roc_auc": 0.807,
+      "roc_auc_ci": [
+        0.7913,
+        0.8266
+      ],
+      "average_precision": 0.5614
+    },
+    {
+      "variant": "detector_only",
+      "roc_auc": 0.4271,
+      "roc_auc_ci": [
+        0.4019,
+        0.4532
+      ],
+      "average_precision": 0.1779
+    },
+    {
+      "variant": "combined_real_without_sgen",
+      "roc_auc": 0.6545,
+      "roc_auc_ci": [
+        0.6294,
+        0.6837
+      ],
+      "average_precision": 0.3792
+    },
+    {
+      "variant": "combined_real_with_sgen",
+      "roc_auc": 0.637,
+      "roc_auc_ci": [
+        0.6134,
+        0.6622
+      ],
+      "average_precision": 0.3161
+    },
+    {
+      "variant": "legacy_baseline",
+      "roc_auc": 0.6367,
+      "roc_auc_ci": [
+        0.6135,
+        0.6617
+      ],
+      "average_precision": 0.3466
+    }
+  ],
+  "sgen_delta_roc_auc_with_minus_without": -0.0175,
+  "paired_bootstrap_with_minus_without": {
+    "observed_diff": -0.0175,
+    "ci": [
+      -0.0266,
+      -0.0087
+    ],
+    "p_value": 0.0
+  },
+  "answers": {
+    "sgen_improves_roc_auc": false,
+    "sgen_improves_ap": false,
+    "sgen_harms_combined": true,
+    "improvement_statistically_credible": false
+  },
+  "note": "Sgen is DIAGNOSTIC-only (old-data, mode-collapsed checkpoint). w_gen stays 0.0 in the core."
+}

@@ -1,0 +1,77 @@
+{
+  "phase": 4,
+  "split": "test",
+  "benchmark": "v2 (non-circular)",
+  "generator": "leakage_free_ontology_counterfactual",
+  "detector_status": "disabled",
+  "config": {
+    "max_records": 30,
+    "seed": 42,
+    "max_edits": 3,
+    "beam_size": 20
+  },
+  "repair_attempted_count": 30,
+  "repair_success_count": 20,
+  "repair_success_rate": 0.6667,
+  "validity_rate": 0.6667,
+  "ontology_flagged_count": 24,
+  "repair_success_rate_among_flagged": 0.8333,
+  "unflagged_count": 6,
+  "unflagged_note": "records with S_ont_before==0 are NOT flagged by the ontology (Phase 3b coverage gap, e.g. uncovered medication anomalies); they are detection gaps, not Phase 4 repair failures.",
+  "mean_delta_s_ont": 0.55,
+  "mean_delta_s_cal": 0.1252,
+  "mean_delta_s_det": null,
+  "mean_num_edits": 1.25,
+  "median_num_edits": 1.0,
+  "mean_ontology_distance": 0.0,
+  "edit_operation_counts": {
+    "remove": 23,
+    "add": 3
+  },
+  "failure_reason_counts": {
+    "no_ontology_violation_to_repair": 6,
+    "no_score_reducing_edit_found": 3,
+    "empty_record": 1
+  },
+  "success_by_anomaly_type": {
+    "demographic_incompatibility": {
+      "n": 5,
+      "success": 1,
+      "rate": 0.2
+    },
+    "forbidden_cooccurrence": {
+      "n": 10,
+      "success": 10,
+      "rate": 1.0
+    },
+    "medication_indication_mismatch": {
+      "n": 15,
+      "success": 9,
+      "rate": 0.6
+    }
+  },
+  "success_by_rule_type": {
+    "demographic_mismatch": {
+      "n": 5,
+      "success": 1,
+      "rate": 0.2
+    },
+    "missing_required_code": {
+      "n": 8,
+      "success": 8,
+      "rate": 1.0
+    },
+    "mutual_exclusion": {
+      "n": 11,
+      "success": 11,
+      "rate": 1.0
+    },
+    "none": {
+      "n": 6,
+      "success": 0,
+      "rate": 0.0
+    }
+  },
+  "detector_caveat": "S_det is smoke-scale and diagnostic-only; it does NOT drive repair and \u0394S_det must not be read as repair success.",
+  "leakage_note": "Generator received model-visible rows only; label/anomaly_type used for selection+bucketing only."
+}

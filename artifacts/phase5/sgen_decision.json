@@ -1,0 +1,29 @@
+{
+  "phase": 5,
+  "decision": "remove_from_core",
+  "reasons": [
+    "Sgen ROC-AUC 0.4868 is near-random or worse (<= 0.52).",
+    "generation is mode-collapsed.",
+    "keeping Sgen would weaken the paper's clarity/strength."
+  ],
+  "criteria": {
+    "auc_meaningfully_above_chance": false,
+    "ci_clears_chance": false,
+    "adds_signal_beyond_ont_det": false,
+    "combined_with_sgen_improves": false,
+    "no_leakage": true,
+    "protocol_valid": false,
+    "mode_collapse": true
+  },
+  "evidence": {
+    "sgen_roc_auc": 0.4868,
+    "sgen_roc_auc_ci": [
+      0.4633,
+      0.5109
+    ],
+    "auc_combined_without_sgen": 0.6545,
+    "auc_combined_with_sgen": 0.637
+  },
+  "w_gen_default": 0.0,
+  "sgen_in_core_score": false
+}

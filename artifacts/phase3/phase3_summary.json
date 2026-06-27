@@ -40,7 +40,7 @@
     "real_mode_no_silent_fallback": true,
     "explicit_equation": "S_cal = (w_det*S_det + w_ont*S_ont' + w_gen*S_gen') / sum(active weights)",
     "weights": {"w_det": 0.7, "w_ont": 0.3, "w_gen": 0.0},
-    "sgen_policy": "diagnostic-only; w_gen=0 (Sgen ROC-AUC was 0.475; Phase 5 gate pending)",
+    "sgen_policy": "removed from core (Phase 5 gate = remove_from_core); w_gen=0. On benchmark-v2 Sgen ROC-AUC 0.4868 (below chance) and harms the combined score. See artifacts/phase5/.",
     "v2_finding": "Phase 3 (sparse default rules): real scorer at-chance (0.50). Phase 3b (artifacts/phase3b/): after curated rule packs, ontology_only_real ROC-AUC 0.7881 (CI [0.7743,0.8016]) -- a credible standalone ranking signal. See artifacts/phase3b/phase3b_summary.json."
   },
   "part_b_unsupervised_detector": {

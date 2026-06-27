@@ -1,0 +1,45 @@
+{
+  "phase": 5,
+  "status": "evaluated_diagnostic_only",
+  "split": "test",
+  "n": 3000,
+  "n_anomaly": 642,
+  "checkpoint_status": "loaded_via_compat_shim (real token/transformer/output weights; time-MLP NOT loaded due to arch drift; learned_missing=0, unexpected=0). DIAGNOSTIC-ONLY: old-data, mode-collapsed.",
+  "evidence_level": "diagnostic_only_old_data_modecollapsed",
+  "final_paper_evidence_claimable": false,
+  "sgen_roc_auc": 0.4868,
+  "sgen_roc_auc_ci": [
+    0.4633,
+    0.5109
+  ],
+  "sgen_average_precision": 0.1983,
+  "sgen_score_std": 0.0404,
+  "sgen_mean_normal": 0.5915,
+  "sgen_mean_anomaly": 0.5876,
+  "sgen_per_family": {
+    "demographic_incompatibility": {
+      "n_anom": 133,
+      "sgen_roc_auc": 0.4686
+    },
+    "medication_indication_mismatch": {
+      "n_anom": 399,
+      "sgen_roc_auc": 0.4786
+    },
+    "forbidden_cooccurrence": {
+      "n_anom": 110,
+      "sgen_roc_auc": 0.5388
+    }
+  },
+  "corr_sgen_sont": -0.0715,
+  "corr_sgen_sdet": 0.3512,
+  "auc_detector_only": 0.4271,
+  "auc_ontology_only_real": 0.807,
+  "auc_combined_without_sgen": 0.6545,
+  "auc_combined_with_sgen": 0.637,
+  "sgen_adds_signal_beyond_ont_det": false,
+  "combined_with_sgen_improves": false,
+  "warnings": [
+    "DIAGNOSTIC-ONLY: checkpoint trained on OLD circular-era data + mode-collapsed; time-embedding MLP not loaded (architecture drift). NOT paper evidence."
+  ],
+  "gate_decision": "remove_from_core"
+}
