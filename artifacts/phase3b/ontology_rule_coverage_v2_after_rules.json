@@ -1,0 +1,198 @@
+{
+  "split": "test",
+  "n_records": 6307,
+  "rule_manifest": [
+    {
+      "rule_id": "sex_restricted_concepts",
+      "rule_type": "sex_restriction",
+      "kind": "demographic_mismatch",
+      "severity": 1.0,
+      "n_female_icd_families": 82,
+      "n_male_icd_families": 31,
+      "n_female_clean_snomed_concepts": 110,
+      "n_male_clean_snomed_concepts": 0,
+      "rationale": "Pregnancy/childbirth/puerperium and female reproductive-organ diagnoses are anatomically impossible in male patients; prostate and male-genital diagnoses are impossible in female patients.",
+      "source": "Anchored on the SOURCE ICD diagnosis-code family (ICD-10 chapter XV O*, Z33/Z34/Z3A/Z37, female/male genital neoplasms; ICD-9 630-679, V22-V28, 179-184, 218-221 / 600-608, 185-187, 222) -- standard clinical knowledge -- plus a clean SNOMED pregnancy subtree (root 77386006) for hierarchy-expressed records.",
+      "limitations": "Fires on the presence of an opposite-sex diagnosis-code FAMILY in the source tokens; this deliberately avoids the lossy many-to-many ICD->SNOMED crosswalk (generic codes cross-map to obstetric variants). Sex is read from the model-visible gender field only."
+    },
+    {
+      "rule_id": "medication_required_context",
+      "rule_type": "required_context",
+      "kind": "missing_required_code",
+      "severity": 0.5,
+      "n_drugs": 9,
+      "n_anticoag_context_concepts": 1693,
+      "n_hypothyroid_context_concepts": 196,
+      "n_diabetes_context_concepts": 732,
+      "rationale": "Anticoagulants imply a thromboembolic/atrial-fibrillation indication; levothyroxine implies hypothyroidism; insulin implies a diabetes/hyperglycaemia context. Absence of any supporting diagnosis is a (weak) implausibility signal.",
+      "source": "RxCUIs verified against benchmark-v2 token->RxNorm mappings; context diagnosis families mapped via the ICD->SNOMED crosswalk.",
+      "limitations": "WEAK signal (severity 0.5): drugs have secondary/off-label uses and coding is incomplete, so a missing diagnosis is not proof of mismatch. Bare 'MED_INSULIN' is UNMAPPED by the drug->RxCUI map, so insulin-indication anomalies on benchmark-v2 cannot fire (token->RxNorm mapping gap)."
+    },
+    {
+      "rule_id": "diabetes_type_exclusion",
+      "rule_type": "group_mutual_exclusion",
+      "kind": "mutual_exclusion",
+      "severity": 0.5,
+      "n_type1_concepts": 24,
+      "n_type2_concepts": 16,
+      "rationale": "Type 1 and type 2 diabetes are distinct etiologies; concurrent coding of both is implausible for a single encounter.",
+      "source": "ICD-10 E10* (type 1) vs E11* (type 2) mapped via crosswalk; seeded with SNOMED 46635009 / 44054006. ICD-9 250 (type-ambiguous) deliberately excluded.",
+      "limitations": "MEDIUM severity (0.5): real EHRs sometimes co-code both types during diagnostic transition or uncertainty, so this is not a hard contradiction."
+    }
+  ],
+  "per_class": {
+    "demographic_incompatibility": {
+      "n": 272,
+      "violation_rate": 1.0,
+      "mean_s_ont": 1.0662,
+      "rule_fire_counts": {
+        "sex_restricted_concepts": 272,
+        "medication_required_context": 18,
+        "diabetes_type_exclusion": 18
+      }
+    },
+    "forbidden_cooccurrence": {
+      "n": 229,
+      "violation_rate": 1.0,
+      "mean_s_ont": 0.5066,
+      "rule_fire_counts": {
+        "diabetes_type_exclusion": 229,
+        "medication_required_context": 3
+      }
+    },
+    "medication_indication_mismatch": {
+      "n": 875,
+      "violation_rate": 0.5006,
+      "mean_s_ont": 0.2731,
+      "rule_fire_counts": {
+        "medication_required_context": 284,
+        "diabetes_type_exclusion": 190,
+        "sex_restricted_concepts": 2
+      }
+    },
+    "normal": {
+      "n": 4931,
+      "violation_rate": 0.1304,
+      "mean_s_ont": 0.0695,
+      "rule_fire_counts": {
+        "medication_required_context": 338,
+        "diabetes_type_exclusion": 331,
+        "sex_restricted_concepts": 8
+      }
+    }
+  },
+  "normal_false_positive_rate": 0.1304,
+  "anomaly_families_still_uncovered_lt_5pct": [],
+  "examples_model_visible_only": {
+    "medication_required_context": [
+      {
+        "bucket": "medication_indication_mismatch",
+        "gender": "F",
+        "age_group": "80+",
+        "evidence_codes": [
+          "RXNORM:40144"
+        ],
+        "kind": "missing_required_code",
+        "n_tokens": 58
+      },
+      {
+        "bucket": "medication_indication_mismatch",
+        "gender": "F",
+        "age_group": "80+",
+        "evidence_codes": [
+          "RXNORM:40144"
+        ],
+        "kind": "missing_required_code",
+        "n_tokens": 34
+      },
+      {
+        "bucket": "normal",
+        "gender": "F",
+        "age_group": "45-64",
+        "evidence_codes": [
+          "DRUGNAME:INSULIN"
+        ],
+        "kind": "missing_required_code",
+        "n_tokens": 91
+      }
+    ],
+    "diabetes_type_exclusion": [
+      {
+        "bucket": "normal",
+        "gender": "F",
+        "age_group": "65-79",
+        "evidence_codes": [
+          "SNOMED:28032008",
+          "SNOMED:237599002"
+        ],
+        "kind": "mutual_exclusion",
+        "n_tokens": 33
+      },
+      {
+        "bucket": "forbidden_cooccurrence",
+        "gender": "M",
+        "age_group": "80+",
+        "evidence_codes": [
+          "E10_9",
+          "SNOMED:1217044000",
+          "SNOMED:1481000119100",
+          "SNOMED:164971000119101"
+        ],
+        "kind": "mutual_exclusion",
+        "n_tokens": 8
+      },
+      {
+        "bucket": "forbidden_cooccurrence",
+        "gender": "F",
+        "age_group": "30-44",
+        "evidence_codes": [
+          "E10_9",
+          "SNOMED:1217044000",
+          "SNOMED:1481000119100",
+          "SNOMED:164971000119101"
+        ],
+        "kind": "mutual_exclusion",
+        "n_tokens": 35
+      }
+    ],
+    "sex_restricted_concepts": [
+      {
+        "bucket": "demographic_incompatibility",
+        "gender": "M",
+        "age_group": "30-44",
+        "evidence_codes": [
+          "DX_10_O42013",
+          "DX_10_O9852",
+          "DX_10_Z3A31",
+          "DX_10_Z370",
+          "DX_10_O321XX0"
+        ],
+        "kind": "demographic_mismatch",
+        "n_tokens": 54
+      },
+      {
+        "bucket": "demographic_incompatibility",
+        "gender": "M",
+        "age_group": "18-29",
+        "evidence_codes": [
+          "DX_10_O99824",
+          "DX_10_O76",
+          "DX_10_Z3A39",
+          "DX_10_Z370"
+        ],
+        "kind": "demographic_mismatch",
+        "n_tokens": 25
+      },
+      {
+        "bucket": "demographic_incompatibility",
+        "gender": "M",
+        "age_group": "18-29",
+        "evidence_codes": [
+          "DX_9_64413"
+        ],
+        "kind": "demographic_mismatch",
+        "n_tokens": 1
+      }
+    ]
+  }
+}

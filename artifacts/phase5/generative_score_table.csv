@@ -1,0 +1,6 @@
+variant,roc_auc
+sgen_only,0.4868
+detector_only,0.4271
+ontology_only_real,0.807
+combined_without_sgen,0.6545
+combined_with_sgen,0.637

@@ -1,0 +1,69 @@
+{
+  "phase": "2b",
+  "title": "Real Ontology Asset Population, Parsing, and Coverage",
+  "status": "B_partially_complete_real_ontology_integration",
+  "raw_assets": {
+    "valid_zips": [
+      "ICD-9-CM master descriptions",
+      "ICD-10-CM descriptions",
+      "ICD-10-CM tabular/index",
+      "RxNorm_full_current",
+      "SNOMED CT US edition",
+      "UMLS 2026AA metathesaurus-full"
+    ],
+    "invalid_or_stray": [
+      "ontologies/raw/umls/2026AA/login.html (4.6 KB HTML, ignored)"
+    ],
+    "icd10cm_folder_fix": "moved stray ontologies/raw/icd10cm/*.zip into ontologies/raw/icd/icd10cm/"
+  },
+  "extracted_working_files": [
+    "snomed_extract/sct2_Concept|Description|Relationship_Snapshot",
+    "umls_extract/MRCONSO.RRF (2.34 GB; MRREL/MRMAP NOT extracted)",
+    "rxnorm_extract/RXNCONSO.RRF (131 MB; RXNREL/RXNSAT NOT extracted)"
+  ],
+  "parsers_run": [
+    "build_umls_maps (chunked MRCONSO)",
+    "parse_snomed (usecols)",
+    "build_rxnorm_maps",
+    "+ rxnorm_terms/manifest step"
+  ],
+  "processed_files": {
+    "snomed_hierarchy.json": "641,727 IS-A edges (parents 386,109 / children 135,836)",
+    "snomed_terms.json": "386,064 terms (from MRCONSO SNOMEDCT_US)",
+    "icd9_to_snomed.json": "8,818 codes",
+    "icd10_to_snomed.json": "11,339 codes",
+    "drugname_to_rxcui.json": "178,692 entries",
+    "rxnorm_terms.json": "128,678 entries",
+    "rxnorm_classes.json": "EMPTY - unavailable (requires RXNREL/RXNSAT/ATC, not extracted)",
+    "ontology_asset_manifest.json": "provenance + counts + sha1 heads"
+  },
+  "coverage": {
+    "rows_scanned": 30000,
+    "token_totals": {
+      "diagnosis": 348779,
+      "procedure": 47110,
+      "medication": 1109458,
+      "other": 0
+    },
+    "diagnosis_mapped": 176193,
+    "diagnosis_coverage": 0.5052,
+    "medication_mapped": 599142,
+    "medication_coverage": 0.54,
+    "procedure_coverage": "not_mapped_in_phase2",
+    "unique_unmapped_tokens": 9941
+  },
+  "coverage_targets": {
+    "diagnosis": 0.8,
+    "medication": 0.7
+  },
+  "meets_targets": {
+    "diagnosis": false,
+    "medication": false
+  },
+  "coverage_gap_root_causes": {
+    "diagnosis": "UMLS shared-CUI crosswalk is incomplete (8.8k ICD9 + 11.3k ICD10 linked); many top-unmapped tokens are Z/V/E/F administrative & history codes (e.g. Z87891, Z20822, V1582, F17210) that legitimately lack SNOMED disease concepts. Normalization verified correct (E78.5, I50.9 map). Improvement: add UMLS MRMAP (SNOMED->ICD map, 148 MB, present in zip) and/or MRREL.",
+    "medication": "MIMIC medication tokens are formulation/brand/descriptor strings (MED_0_9_SODIUM_CHLORIDE, MED_HYDROMORPHONE_DILAUDID, MED_OXYCODONE_IMMEDIATE_RELEASE) and bare MED_INSULIN, not clean RxNorm ingredient names. Improvement: ingredient-level (IN/PIN) longest-match + concentration/form descriptor stripping."
+  },
+  "normalization_hardening": "src/preprocessing/code_normalization.py (ICD-9/10 dotting incl V/E codes; drug-name keys) + tests.",
+  "next_step": "Status B -> improve crosswalk completeness (MRMAP) and medication ingredient matching to lift coverage toward targets BEFORE Phase 1b ontology-backed anomaly-v2."
+}

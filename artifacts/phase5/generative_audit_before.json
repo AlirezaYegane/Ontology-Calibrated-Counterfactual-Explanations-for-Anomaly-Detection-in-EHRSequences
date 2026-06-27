@@ -1,0 +1,43 @@
+{
+  "phase": 5,
+  "component": "diffusion_generative_sgen",
+  "verdict": "broken_modecollapsed_belowchance_not_claimable",
+  "code": {
+    "model": ["src/models/diffusion.py", "src/models/diffusion_legacy_day33.py"],
+    "training": ["src/training/train_diffusion.py", "src/training/diffusion_data_utils.py", "src/training/diffusion_training_utils.py", "src/training/build_diffusion_data.py"],
+    "evaluation": ["src/evaluation/evaluate_day34_generative.py"],
+    "scripts": ["scripts/day34_sgen_timestep_sweep.py", "scripts/smoke_day29_diffusion.py", "scripts/summarize_day31_diffusion.py", "scripts/summarize_day32_diffusion.py", "scripts/summarize_day34_generative.py"]
+  },
+  "checkpoint": {
+    "path": "outputs/diffusion/day33_ontology_regularized_fixed/last.pt",
+    "trained_on": "artifacts/day27/mimiciv_val_diffusion.pt (old circular-era mimiciv_val.pkl, 12k records)",
+    "vocab": "outputs/detector/day20_supervised/run_luxury/vocab.json (47010, old)",
+    "arch": {"d_model": 128, "n_layers": 4, "n_heads": 4, "ff_dim": 512, "diffusion_steps": 64, "max_len": 256},
+    "loads_into_current_code": false,
+    "load_issue": "architecture drift: encoder.->denoiser., pos_embedding->position_embedding, norm/out->output_head.0/.1 (renames), AND time-embedding MLP shape change 128-wide (ckpt) vs 512-wide (current). Compat-shim loads all token/transformer/output weights; time-MLP cannot be loaded."
+  },
+  "score_output": "per-record scalar Sgen = midpoint non-pad denoising MSE (DiffusionModel.surprise_score), stochastic.",
+  "sgen_used_in_pipeline": false,
+  "w_gen_nonzero_anywhere": false,
+  "prior_metrics": {"old_benchmark_sgen_roc_auc": 0.4749, "source": "artifacts/day34/day34_assessment.json"},
+  "mode_collapse": {
+    "present": true,
+    "generated_unique_tokens": 127,
+    "real_unique_tokens": 4587,
+    "generated_length_mean": 254.2,
+    "real_length_mean": 47.2,
+    "marginal_js_divergence": 0.2726,
+    "top1000_token_jaccard": 0.127
+  },
+  "leakage": "no answer-key leakage in scoring (surprise is unsupervised); but provenance invalid for benchmark-v2 (trained/evaluated on old circular-era data).",
+  "fresh_benchmark_v2_diagnostic": {
+    "note": "compat-shim load (real trained weights minus un-loadable time-MLP); DIAGNOSTIC-only.",
+    "split": "test", "n": 6307, "n_anomaly": 1376,
+    "sgen_roc_auc": 0.4866, "sgen_average_precision": 0.2018,
+    "score_std": 0.0393, "mean_normal": 0.5964, "mean_anomaly": 0.5926,
+    "reading": "below chance; near-constant scores; anomalies score lower than normals (wrong direction)."
+  },
+  "feasible_to_repair_now": "no (real fix = retrain on benchmark-v2 clean-normal-only + anti-collapse = large training, out of Phase-5 scope). Only a minimal compat-shim load for diagnostic scoring is in scope.",
+  "defensible_claim_requirements": "retrain on benchmark-v2 clean-normal-only; fix mode collapse; Sgen ROC-AUC > 0.50 with CI clearing chance AND ablation showing combined_real improvement.",
+  "expected_decision": "remove_from_core"
+}

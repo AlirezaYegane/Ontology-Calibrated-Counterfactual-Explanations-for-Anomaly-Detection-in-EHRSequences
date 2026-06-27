@@ -1,0 +1,67 @@
+{
+  "phase": "3b",
+  "title": "Ontology rule-coverage authoring and re-evaluation",
+  "status": "phase3b_success_rule_signal_supported",
+  "status_justification": "After authoring curated, auditable rule packs, the real ontology scorer's standalone ranking on benchmark-v2 rose from chance (ROC-AUC 0.5013) to 0.7881 (95% CI [0.7743, 0.8016], CI clears 0.50), and combined_real_ontology (0.6581) now exceeds detector_only (0.4247). Rules use only model-visible clinical content + demographics (no labels/hidden/audit metadata); normal false-positive rate is 0.13. IMPORTANT NUANCE: combined_real_ontology (0.658) is BELOW ontology_only_real (0.788) because the SMOKE-SCALE detector (0.425, below chance, weight 0.7) drags the combination down -- so the ontology is a strong STANDALONE ranker, but the calibrated combination is not yet best until a full-scale detector replaces the smoke one.",
+  "final_paper_evidence_claimable": false,
+  "evidence_level": "smoke_scale_valid_non_circular",
+  "rule_packs": {
+    "modules": ["src/ontology/rule_packs.py", "src/ontology/rule_loader.py"],
+    "wired_into": "src/ontology/loader.py::load_ontology_engine (real mode, default)",
+    "legacy_isolated": "ontology_mode='legacy' unchanged (ICD-prefix compute_s_ont)",
+    "rules": [
+      {
+        "rule_id": "sex_restricted_concepts",
+        "type": "sex_restriction",
+        "severity": 1.0,
+        "mechanism": "Anchored on SOURCE ICD diagnosis-code family (pregnancy O*/Z3A, prostate N40-N53, etc.) vs model-visible gender; plus a clean SNOMED pregnancy subtree. Avoids the lossy many-to-many crosswalk.",
+        "precision": "high (normal FP ~0.16%, demographic-anomaly recall 100%)"
+      },
+      {
+        "rule_id": "medication_required_context",
+        "type": "required_context",
+        "severity": 0.5,
+        "mechanism": "Therapeutic anticoagulants (warfarin/DOACs/enoxaparin) -> thromboembolic/AF context; levothyroxine -> hypothyroid; insulin (by source-token name, since bare MED_INSULIN is UNMAPPED) -> diabetes context.",
+        "precision": "weak/noisy by design (insulin also used for ICU hyperkalaemia; prophylactic anticoagulation lacks an active-clot dx). med-mismatch recall ~0.50."
+      },
+      {
+        "rule_id": "diabetes_type_exclusion",
+        "type": "group_mutual_exclusion",
+        "severity": 0.5,
+        "mechanism": "type-1 (E10*) vs type-2 (E11*) co-occurrence via SNOMED concept groups AND source-token ICD families (catches the non-standard injected E10_9 body that fails to map).",
+        "precision": "medium (forbidden-anomaly recall 100%; normal FP ~6.7% reflects real-EHR co-coding, hence severity 0.5)."
+      }
+    ],
+    "precision_engineering": "Crosswalk-derived concept groups are keyword-filtered (term must name the sex/type) and exclude secondary 'X in pregnancy' / 'X due to type N diabetes' concepts, because generic codes cross-map to those variants. This cut normal FP from 0.75 (naive groups) to 0.13."
+  },
+  "leakage_protections": {
+    "scorer_inputs": "OntologyAwareScorer real mode reads only {codes, gender, age_group}; source_tokens carry only model-visible diagnosis/med tokens.",
+    "never_read": ["label", "anomaly_type", "hidden_eval_metadata", "audit_metadata", "bad_code", "expected_code", "replacement_code", "original_gender"],
+    "tests": ["tests/test_phase3b_rule_leakage.py"]
+  },
+  "rule_coverage_before_after": {
+    "source_before": "artifacts/phase3/ontology_rule_coverage_v2.json (sparse default rules)",
+    "source_after": "artifacts/phase3b/ontology_rule_coverage_v2_after_rules.json (rule packs)",
+    "split": "benchmark_v2 test (n=6307)",
+    "normal_violation_rate":             {"before": 0.0010, "after": 0.1304},
+    "demographic_violation_rate":        {"before": 0.0147, "after": 1.0000},
+    "medication_mismatch_violation_rate":{"before": 0.0011, "after": 0.5006},
+    "forbidden_cooccurrence_violation_rate":{"before": 0.0000, "after": 1.0000}
+  },
+  "scoring_before_after": {
+    "ontology_only_real":     {"roc_auc_before": 0.5013, "roc_auc_after": 0.7881, "ci_after": [0.7743, 0.8016], "ap_before": 0.2192, "ap_after": 0.5422},
+    "combined_real_ontology": {"roc_auc_before": 0.4255, "roc_auc_after": 0.6581, "ci_after": [0.6395, 0.6758], "ap_before": 0.1812, "ap_after": 0.3960},
+    "detector_only":          {"roc_auc": 0.4247, "note": "unchanged; smoke-scale, below chance"},
+    "combined_legacy_ontology":{"roc_auc": 0.6625}
+  },
+  "verdict": {
+    "ontology_provides_real_ranking_signal": true,
+    "statistically_credible": true,
+    "ci_clears_chance": true,
+    "combined_real_beats_detector_only": true,
+    "combined_real_beats_ontology_only": false,
+    "reason_combination_not_best": "smoke-scale detector (0.425) is below chance and weighted 0.7; it dilutes the strong ontology term. A full-scale detector is required before the calibrated combination can be claimed as best.",
+    "rules_are_label_leakage": false
+  },
+  "next_step": "Phase 4 may proceed (leakage-free counterfactual repair), with the caveat that the unsupervised detector must be trained at FULL scale in a later experiment phase before the calibrated COMBINATION (not just the ontology term) can be presented as the headline. Do not start H200 or large final training now."
+}

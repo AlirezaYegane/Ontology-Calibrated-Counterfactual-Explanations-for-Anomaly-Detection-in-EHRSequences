@@ -1,10 +1,10 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 
 from .index import OntologyIndex
-from .rules import OntologyRule
-from .types import ClinicalRecord, OntologyViolation
+from .records import ClinicalRecord, OntologyViolation
+from .rule_engine import OntologyRule
 
 
 @dataclass
@@ -18,14 +18,20 @@ class OntologyEngine:
 
         for rule in self.rules:
             for violation in rule.check(record, self.index):
-                key = (violation.rule_id, violation.kind, tuple(sorted(violation.codes)))
+                key = (
+                    violation.rule_id,
+                    violation.kind,
+                    tuple(sorted(violation.codes)),
+                )
                 if key not in seen:
                     seen.add(key)
                     all_violations.append(violation)
 
         return all_violations
 
-    def score_violations(self, record: ClinicalRecord, alpha: float = 1.0) -> tuple[float, list[OntologyViolation]]:
+    def score_violations(
+        self, record: ClinicalRecord, alpha: float = 1.0
+    ) -> tuple[float, list[OntologyViolation]]:
         violations = self.ontology_check(record)
         score = alpha * sum(item.severity for item in violations)
         return score, violations

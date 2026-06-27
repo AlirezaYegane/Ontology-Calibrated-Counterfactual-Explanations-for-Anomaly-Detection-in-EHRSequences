@@ -1,0 +1,5 @@
+variant,test_roc_auc,test_roc_auc_ci,test_average_precision,test_ap_ci,test_precision,test_recall,test_f1
+detector_only,0.4247,"[0.4074, 0.4401]",0.1803,"[0.1702, 0.1918]",,,
+ontology_only_real,0.7881,"[0.7743, 0.8016]",0.5422,"[0.5178, 0.5667]",,,
+combined_real_ontology,0.6581,"[0.6395, 0.6758]",0.396,"[0.3707, 0.4248]",0.38,0.4658,0.4185
+combined_legacy_ontology,0.6625,"[0.644, 0.6791]",0.4464,"[0.4177, 0.4774]",,,

@@ -16,35 +16,13 @@ from __future__ import annotations
 
 import json
 import logging
-from collections import deque
 from pathlib import Path
 from typing import Any
 
 from .engine import OntologyEngine
 from .index import OntologyIndex
-from .rules import DemographicRule, MutualExclusionRule, RequiredCodesRule
 
 log = logging.getLogger(__name__)
-
-# ---------------------------------------------------------------------------
-# Well-known SNOMED CT concept IDs
-# ---------------------------------------------------------------------------
-
-# Pregnancy, childbirth, and the puerperium (parent concept)
-_PREGNANCY_ROOT = "77386006"
-
-# Diabetes mellitus
-_DIABETES_ROOTS = ["73211009", "44054006", "46635009"]  # DM, DM type 2, DM type 1
-
-# Malignant neoplastic disease (cancer)
-_CANCER_ROOTS = ["363346000", "55342001", "86049000"]  # malignant neoplasm (various)
-
-# Atrial fibrillation and coagulation disorders
-_AF_AND_COAG = ["49436004", "64779008", "439127006"]  # AF, coag disorder, disorder of coag
-
-# Type 1 diabetes (for mutual exclusion with type 2)
-_DM_TYPE1 = "46635009"
-_DM_TYPE2 = "44054006"
 
 
 # ---------------------------------------------------------------------------
@@ -57,27 +35,6 @@ def _prefix(concept_id: str) -> str:
     if concept_id.startswith("SNOMED:"):
         return concept_id
     return f"SNOMED:{concept_id}"
-
-
-def _collect_descendants(
-    concept_id: str,
-    children_map: dict[str, list[str]],
-    max_depth: int = 5,
-) -> set[str]:
-    """BFS to collect descendants up to *max_depth* levels deep."""
-    descendants: set[str] = set()
-    queue: deque[tuple[str, int]] = deque([(concept_id, 0)])
-
-    while queue:
-        current, depth = queue.popleft()
-        if depth > max_depth:
-            continue
-        for child in children_map.get(current, []):
-            if child not in descendants:
-                descendants.add(child)
-                queue.append((child, depth + 1))
-
-    return descendants
 
 
 # ---------------------------------------------------------------------------
@@ -118,12 +75,10 @@ def load_ontology_index(
 
     # Prefix all keys and values with SNOMED:
     prefixed_parents: dict[str, list[str]] = {
-        _prefix(k): [_prefix(v) for v in vs]
-        for k, vs in raw_parents.items()
+        _prefix(k): [_prefix(v) for v in vs] for k, vs in raw_parents.items()
     }
     prefixed_children: dict[str, list[str]] = {
-        _prefix(k): [_prefix(v) for v in vs]
-        for k, vs in raw_children.items()
+        _prefix(k): [_prefix(v) for v in vs] for k, vs in raw_children.items()
     }
 
     # --- terms ---
@@ -137,15 +92,44 @@ def load_ontology_index(
     else:
         log.warning("Terms file not found: %s", terms_path)
 
+    # --- optional crosswalk maps (loaded only if present) ---
+    icd_to_snomed: dict[str, list[str]] = {}
+    for fname in ("icd9_to_snomed.json", "icd10_to_snomed.json"):
+        fpath = data_dir / fname
+        if fpath.exists():
+            raw_map: dict[str, list[str]] = json.loads(
+                fpath.read_text(encoding="utf-8")
+            )
+            for icd, snomed_ids in raw_map.items():
+                icd_to_snomed.setdefault(icd, [])
+                for sid in snomed_ids:
+                    icd_to_snomed[icd].append(_prefix(sid))
+        else:
+            log.warning("Crosswalk file not found: %s", fpath)
+
+    drug_to_rxcui: dict[str, str] = {}
+    drug_path = data_dir / "drugname_to_rxcui.json"
+    if drug_path.exists():
+        raw_drug: dict[str, Any] = json.loads(drug_path.read_text(encoding="utf-8"))
+        drug_to_rxcui = {str(k): str(v) for k, v in raw_drug.items()}
+    else:
+        log.warning("Drug map file not found: %s", drug_path)
+
     log.info(
-        "OntologyIndex: %d parents, %d children, %d terms",
-        len(prefixed_parents), len(prefixed_children), len(prefixed_terms),
+        "OntologyIndex: %d parents, %d children, %d terms, %d icd-maps, %d drug-maps",
+        len(prefixed_parents),
+        len(prefixed_children),
+        len(prefixed_terms),
+        len(icd_to_snomed),
+        len(drug_to_rxcui),
     )
 
     return OntologyIndex(
         preferred_terms=prefixed_terms,
         parents=prefixed_parents,
         children=prefixed_children,
+        icd_to_snomed=icd_to_snomed,
+        drug_to_rxcui=drug_to_rxcui,
     )
 
 
@@ -155,78 +139,34 @@ def load_ontology_engine(
     hierarchy_filename: str = "snomed_hierarchy.json",
     terms_filename: str = "snomed_terms.json",
 ) -> OntologyEngine:
-    """Load a fully populated :class:`OntologyEngine` with real clinical rules.
+    """Load an :class:`OntologyEngine` with the Phase 3b curated rule packs.
+
+    The rule packs (:mod:`src.ontology.rule_packs` /
+    :mod:`src.ontology.rule_loader`) provide high-precision, auditable
+    demographic, medication-required-context, and diabetes-type mutual-exclusion
+    rules built from the ICD->SNOMED crosswalk in the loaded index. When the
+    crosswalk/hierarchy is absent (e.g. tests on empty dirs), each concept group
+    degrades gracefully to its seeded SNOMED roots only.
 
     Parameters
     ----------
     data_dir:
-        Directory containing the JSON files.
+        Directory containing the ontology JSON files.
     """
+    from .rule_loader import build_real_ontology_rules
+
     index = load_ontology_index(
         data_dir,
         hierarchy_filename=hierarchy_filename,
         terms_filename=terms_filename,
     )
 
-    # --- Collect pregnancy-related codes for demographic rule ---
-    # Use raw (unprefixed) children map for descendant collection,
-    # then prefix the results.
-    hierarchy_path = data_dir / hierarchy_filename
-    raw_children: dict[str, list[str]] = {}
-    if hierarchy_path.exists():
-        hierarchy = json.loads(hierarchy_path.read_text(encoding="utf-8"))
-        raw_children = hierarchy.get("children", {})
-
-    pregnancy_descendants = _collect_descendants(_PREGNANCY_ROOT, raw_children)
-    pregnancy_descendants.add(_PREGNANCY_ROOT)
-    pregnancy_codes = {_prefix(c) for c in pregnancy_descendants}
-
-    log.info("Pregnancy-related codes for demographic rule: %d", len(pregnancy_codes))
-
-    # --- Demographic rule: pregnancy codes forbidden for male patients ---
-    demographic_rule = DemographicRule(
-        rule_id="sex_pregnancy_check",
-        sex_to_forbidden_codes={
-            "M": pregnancy_codes,
-        },
-    )
-
-    # --- Required-diagnosis rules ---
-    # These encode real clinical constraints:
-    # 1. Insulin requires a diabetes diagnosis
-    # 2. Antineoplastic agents require a cancer diagnosis
-    # 3. Anticoagulants require AF or coagulation disorder
-    diabetes_codes = [_prefix(c) for c in _DIABETES_ROOTS]
-    cancer_codes = [_prefix(c) for c in _CANCER_ROOTS]
-    af_coag_codes = [_prefix(c) for c in _AF_AND_COAG]
-
-    index.required_diagnoses_for_code.update({
-        "RXNORM:5856":   diabetes_codes,    # insulin (RxCUI 5856)
-        "RXNORM:6809":   diabetes_codes,    # metformin (RxCUI 6809)
-        "RXNORM:224905": cancer_codes,      # cyclophosphamide (RxCUI 224905)
-        "RXNORM:11289":  af_coag_codes,     # warfarin (RxCUI 11289)
-        "RXNORM:67108":  af_coag_codes,     # enoxaparin (RxCUI 67108)
-    })
-
-    required_rule = RequiredCodesRule(rule_id="required_diagnosis_support")
-
-    # --- Mutual exclusion: type-1 and type-2 diabetes ---
-    index.mutually_exclusive_pairs.add(
-        (_prefix(_DM_TYPE1), _prefix(_DM_TYPE2))
-    )
-
-    exclusion_rule = MutualExclusionRule(rule_id="mutual_exclusion")
-
-    engine = OntologyEngine(
-        index=index,
-        rules=[demographic_rule, required_rule, exclusion_rule],
-    )
+    rules, manifest = build_real_ontology_rules(index)
+    engine = OntologyEngine(index=index, rules=rules)
 
     log.info(
-        "OntologyEngine loaded: %d rules, %d required-diagnosis entries, "
-        "%d mutual-exclusion pairs",
-        len(engine.rules),
-        len(index.required_diagnoses_for_code),
-        len(index.mutually_exclusive_pairs),
+        "OntologyEngine loaded with %d curated rule packs: %s",
+        len(rules),
+        ", ".join(m["rule_id"] for m in manifest),
     )
     return engine

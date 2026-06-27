@@ -1,0 +1,21 @@
+{
+  "diagnostic": "real_ontology_rule_coverage_on_benchmark_v2_test",
+  "purpose": "Explain why ontology_only_real ROC-AUC = 0.5013 (chance) on benchmark-v2.",
+  "scorer": "OntologyAwareScorer.from_processed_dir(ontologies/processed, ontology_mode='real')",
+  "input": "data/processed/benchmark_v2/test.pkl",
+  "s_ont_threshold_for_violation": "> 0",
+  "per_type": {
+    "normal":                         {"n": 4931, "violation_rate": 0.0010, "mean_s_ont": 0.0010, "mean_mapped_codes": 237.59},
+    "demographic_incompatibility":    {"n": 272,  "violation_rate": 0.0147, "mean_s_ont": 0.0147, "mean_mapped_codes": 222.76},
+    "forbidden_cooccurrence":         {"n": 229,  "violation_rate": 0.0000, "mean_s_ont": 0.0000, "mean_mapped_codes": 446.48},
+    "medication_indication_mismatch": {"n": 875,  "violation_rate": 0.0011, "mean_s_ont": 0.0011, "mean_mapped_codes": 338.51}
+  },
+  "interpretation": [
+    "Token->SNOMED/RxNorm mapping WORKS (222-446 codes mapped per record); the data integration is real.",
+    "The engine's DEFAULT ruleset has only a narrow demographic sex-restriction rule (fires on ~1.5% of gender-flip anomalies) and essentially NO rule that fires on the medication-indication-mismatch (0.11%) or forbidden-cooccurrence/diabetes-type mutual-exclusion (0.00%) families.",
+    "Because the anomaly violation rate (0-1.5%) is barely above the normal violation rate (0.10%), there is no ranking signal -> ROC-AUC ~= 0.50.",
+    "This is a RULESET-COVERAGE gap, not a benchmark or wiring defect: the scoring rules needed to catch the v2 anomaly RELATIONSHIPS (drug->required indication; type-1 vs type-2 diabetes mutual exclusion; broader sex-restricted concept coverage) are not encoded in the canonical engine's default ruleset."
+  ],
+  "implication_for_claims": "C4 (ontology improves ranking) is NOT supported by benchmark-v2: real-ontology scoring is at chance. C5 (real ontology data integration) remains supported (mapping + coverage are real). Closing the gap = author/curate ontology rules for the v2 anomaly families and re-evaluate; that is a later experiment-phase task, not Phase 3 closure.",
+  "note": "Reproduce by scoring test.pkl rows {codes, gender, age_group} with the real scorer and bucketing s_ont>0 by anomaly_type."
+}

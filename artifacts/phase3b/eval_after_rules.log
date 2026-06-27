@@ -1,0 +1,6 @@
+[phase3] status=valid_v2_benchmark triviality_pass=True
+[phase3] detector_only: ROC-AUC=0.4247 CI=[0.4074, 0.4401] AP=0.1803
+[phase3] ontology_only_real: ROC-AUC=0.7881 CI=[0.7743, 0.8016] AP=0.5422
+[phase3] combined_real_ontology: ROC-AUC=0.6581 CI=[0.6395, 0.6758] AP=0.396
+[phase3] combined_legacy_ontology: ROC-AUC=0.6625 CI=[0.644, 0.6791] AP=0.4464
+[phase3] wrote D:\Article\artifacts\phase3\phase3_scoring_eval.json

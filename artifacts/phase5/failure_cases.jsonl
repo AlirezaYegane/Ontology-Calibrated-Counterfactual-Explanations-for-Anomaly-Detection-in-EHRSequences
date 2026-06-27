@@ -1,0 +1,1 @@
+{"failure": "sgen_below_or_near_chance_modecollapsed", "sgen_roc_auc": 0.4868, "mean_normal": 0.5915, "mean_anomaly": 0.5876, "note": "anomalies do not have higher surprise than normals; mode-collapsed model."}

@@ -18,6 +18,17 @@ ontology_cf_anomaly/ontologies/**
 ontologies/processed/*.gpickle
 ontologies/processed/*.csv
 
+# Raw licensed ontology downloads + extracted RF2/RRF (UMLS/SNOMED/RxNorm/ICD).
+# License-restricted: must NOT be committed or redistributed.
+ontologies/raw/
+
+# Derived ontology maps embed licensed SNOMED/UMLS/RxNorm content -> do not commit.
+# (The small provenance manifest is allowed; it contains only counts + hashes.)
+ontologies/processed/*.json
+ontologies/processed/*.txt
+!ontologies/processed/ontology_asset_manifest.json
+!ontologies/processed/.gitkeep
+
 # Training outputs
 checkpoints/
 logs/
@@ -55,6 +66,12 @@ outputs/
 *.pt
 *.pth
 *.ckpt
+
+# Regenerable smoke-detector training outputs (incl. MIMIC-derived vocab) — not committed
+artifacts/phase3/detector_unsup_v2/
+
+# Phase 5: per-record MIMIC-derived scores (s_gen/s_ont/s_det per record) — not committed
+artifacts/phase5/per_record_scores.csv
 
 # Large generated evaluation artifacts
 artifacts/day36/counterfactuals.csv

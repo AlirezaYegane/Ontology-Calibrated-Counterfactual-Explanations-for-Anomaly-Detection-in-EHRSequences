@@ -1,0 +1,158 @@
+{
+  "phase": "2b",
+  "scanned_dir": "ontologies\\raw",
+  "n_files": 12,
+  "n_valid_zips": 6,
+  "n_invalid_or_html": 1,
+  "extracted_working_files": {
+    "snomed_concept": true,
+    "umls_mrconso": true,
+    "rxnorm_rxnconso": true
+  },
+  "assets": [
+    {
+      "path": "ontologies\\raw\\icd\\icd10cm\\april-1-2026-code-descriptions-in-tabular-order.zip",
+      "size_bytes": 2242530,
+      "size_mb": 2.24,
+      "extension": ".zip",
+      "expected_type": "ICD-10-CM",
+      "is_html_or_login": false,
+      "is_valid_zip": true,
+      "zip_entries": 7,
+      "extracted": null,
+      "status": "valid_zip"
+    },
+    {
+      "path": "ontologies\\raw\\icd\\icd10cm\\april-1-2026-code-tables-tabular-and-index.zip",
+      "size_bytes": 22755010,
+      "size_mb": 22.76,
+      "extension": ".zip",
+      "expected_type": "ICD-10-CM",
+      "is_html_or_login": false,
+      "is_valid_zip": true,
+      "zip_entries": 14,
+      "extracted": null,
+      "status": "valid_zip"
+    },
+    {
+      "path": "ontologies\\raw\\icd\\icd9cm\\ICD-9-CM-v32-master-descriptions.zip",
+      "size_bytes": 1079497,
+      "size_mb": 1.08,
+      "extension": ".zip",
+      "expected_type": "ICD-9-CM",
+      "is_html_or_login": false,
+      "is_valid_zip": true,
+      "zip_entries": 6,
+      "extracted": null,
+      "status": "valid_zip"
+    },
+    {
+      "path": "ontologies\\raw\\rxnorm\\rxnorm_extract\\RXNCONSO.RRF",
+      "size_bytes": 131417470,
+      "size_mb": 131.42,
+      "extension": ".rrf",
+      "expected_type": "RxNorm",
+      "is_html_or_login": false,
+      "is_valid_zip": false,
+      "zip_entries": null,
+      "extracted": null,
+      "status": "non_zip_file"
+    },
+    {
+      "path": "ontologies\\raw\\rxnorm\\RxNorm_full_current.zip",
+      "size_bytes": 258348279,
+      "size_mb": 258.35,
+      "extension": ".zip",
+      "expected_type": "RxNorm",
+      "is_html_or_login": false,
+      "is_valid_zip": true,
+      "zip_entries": 44,
+      "extracted": null,
+      "status": "valid_zip"
+    },
+    {
+      "path": "ontologies\\raw\\snomed\\us_edition\\snomed_extract\\sct2_Concept_Snapshot_US1000124_20260301.txt",
+      "size_bytes": 32364443,
+      "size_mb": 32.36,
+      "extension": ".txt",
+      "expected_type": "SNOMED CT",
+      "is_html_or_login": false,
+      "is_valid_zip": false,
+      "zip_entries": null,
+      "extracted": null,
+      "status": "non_zip_file"
+    },
+    {
+      "path": "ontologies\\raw\\snomed\\us_edition\\snomed_extract\\sct2_Description_Snapshot-en_US1000124_20260301.txt",
+      "size_bytes": 230306454,
+      "size_mb": 230.31,
+      "extension": ".txt",
+      "expected_type": "SNOMED CT",
+      "is_html_or_login": false,
+      "is_valid_zip": false,
+      "zip_entries": null,
+      "extracted": null,
+      "status": "non_zip_file"
+    },
+    {
+      "path": "ontologies\\raw\\snomed\\us_edition\\snomed_extract\\sct2_Relationship_Snapshot_US1000124_20260301.txt",
+      "size_bytes": 404359782,
+      "size_mb": 404.36,
+      "extension": ".txt",
+      "expected_type": "SNOMED CT",
+      "is_html_or_login": false,
+      "is_valid_zip": false,
+      "zip_entries": null,
+      "extracted": null,
+      "status": "non_zip_file"
+    },
+    {
+      "path": "ontologies\\raw\\snomed\\us_edition\\SnomedCT_ManagedServiceUS_PRODUCTION_US1000124_20260301T120000Z.zip",
+      "size_bytes": 652337146,
+      "size_mb": 652.34,
+      "extension": ".zip",
+      "expected_type": "SNOMED CT",
+      "is_html_or_login": false,
+      "is_valid_zip": true,
+      "zip_entries": 63,
+      "extracted": null,
+      "status": "valid_zip"
+    },
+    {
+      "path": "ontologies\\raw\\umls\\2026AA\\login.html",
+      "size_bytes": 4596,
+      "size_mb": 0.0,
+      "extension": ".html",
+      "expected_type": "UMLS Metathesaurus",
+      "is_html_or_login": true,
+      "is_valid_zip": false,
+      "zip_entries": null,
+      "extracted": null,
+      "status": "invalid_html_or_login_page"
+    },
+    {
+      "path": "ontologies\\raw\\umls\\2026AA\\umls-2026AA-metathesaurus-full.zip",
+      "size_bytes": 5816418280,
+      "size_mb": 5816.42,
+      "extension": ".zip",
+      "expected_type": "UMLS Metathesaurus",
+      "is_html_or_login": false,
+      "is_valid_zip": true,
+      "zip_entries": 131,
+      "extracted": null,
+      "status": "valid_zip"
+    },
+    {
+      "path": "ontologies\\raw\\umls\\2026AA\\umls_extract\\MRCONSO.RRF",
+      "size_bytes": 2340511941,
+      "size_mb": 2340.51,
+      "extension": ".rrf",
+      "expected_type": "UMLS Metathesaurus",
+      "is_html_or_login": false,
+      "is_valid_zip": false,
+      "zip_entries": null,
+      "extracted": null,
+      "status": "non_zip_file"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "phase": 4,
+  "title": "Leakage-free counterfactual repair",
+  "status": "phase4_success_leakage_free_repairs_supported",
+  "status_justification": "The rewritten generator passes all leakage tests (reads only model-visible sequence + demographics + real ontology + scorer feedback; never label/anomaly_type/hidden/audit/bad_code/expected_code/replacement_code). Evaluation ran on benchmark-v2 test (1000 anomalies). Among the 686 anomalies the real ontology actually flags, repair success (valid) is 90.5%; mean ΔS_ont 0.644; edits are sparse (median 1, mean 1.23). All four success criteria met.",
+  "final_paper_evidence_claimable": false,
+  "evidence_level": "smoke_scale_valid_non_circular",
+  "old_code_audit": {
+    "verdict": "leaky_circular",
+    "detail": "old src/explanations/counterfactual.py read injection answer keys (bad_code/expected_code/replacement_code/anomaly_type) to undo the synthetic anomaly; never used the real ontology engine/scorer/distance. See artifacts/phase4/counterfactual_audit_before.md.",
+    "legacy_removed": [
+      "tests/test_counterfactual_generator.py (validated leaky behavior)",
+      "scripts/evaluate_day36_counterfactuals.py (legacy leaky eval, read answer keys)"
+    ],
+    "silent_leaky_fallback": "none (leaky functions deleted, not retained)"
+  },
+  "api": {
+    "module": "src/explanations/counterfactual.py",
+    "entry": "generate_counterfactual(record, scorer, ontology_index, *, detector=None, max_edits=3, beam_size=20, mode='ontology', seed=42, min_delta=0.05)",
+    "result_type": "CounterfactualResult (status, validity, original/repaired codes, edits, s_ont/s_cal/s_det before/after, rule_violations_before/after, sparsity, failure_reason, metadata)",
+    "edit_type": "CounterfactualEdit (operation remove|replace|add, token_before, token_after, ontology_source, distance, clinical_risk, rationale)",
+    "determinism": "deterministic (no randomness; seed accepted for reproducibility)",
+    "leakage_guard": "extract_model_visible reads only {model_visible_sequence/codes, gender/sex, age_group/age}"
+  },
+  "repair_strategies": {
+    "demographic_mismatch": "remove the sex-incompatible diagnosis token (primary); ontology-neighbor replace candidates generated but rarely selected (neighbors stay sex-restricted).",
+    "missing_required_code": "remove the unsupported medication (preferred, lower clinical risk) OR add a curated required-context diagnosis from the rule's allowed group (higher risk; used when removal does not resolve).",
+    "mutual_exclusion": "remove (or generalize) ONE side of the conflicting pair, chosen by score reduction + ontology distance -- never by knowing which side was injected."
+  },
+  "repair_objective": "minimize residual S_ont, then prefer fewer edits, smaller ontology distance, lower clinical risk: cost = S_ont + 0.05*n_edits + 0.02*distance + 0.10*risk (beam search, beam_size 20).",
+  "validity_definition": [
+    "reduces S_ont by >= min_delta (0.05) OR resolves all violations,",
+    "introduces no NEW violation of higher severity than the worst original,",
+    "respects the edit budget (1..max_edits),",
+    "yields a non-empty model-visible record,",
+    "generated without any hidden metadata (structural guarantee)."
+  ],
+  "evaluation": {
+    "dataset": "benchmark_v2 test (non-circular)",
+    "anomalies_attempted": 1000,
+    "ontology_flagged_count": 686,
+    "unflagged_count": 314,
+    "unflagged_note": "S_ont_before==0 -> not flagged by the ontology (Phase 3b coverage gap, mostly uncovered medication anomalies). These are DETECTION gaps, not Phase 4 repair failures.",
+    "repair_success_count": 621,
+    "repair_success_rate_overall": 0.621,
+    "repair_success_rate_among_flagged": 0.9052,
+    "mean_delta_s_ont": 0.6441,
+    "mean_delta_s_cal": 0.1701,
+    "mean_delta_s_det": 0.0473,
+    "mean_num_edits": 1.23,
+    "median_num_edits": 1,
+    "mean_ontology_distance": 0.0,
+    "edit_operation_counts": {"remove": 682, "add": 84},
+    "success_by_anomaly_type": {
+      "demographic_incompatibility": {"n": 199, "success": 134, "rate": 0.6734},
+      "forbidden_cooccurrence": {"n": 168, "success": 168, "rate": 1.0},
+      "medication_indication_mismatch": {"n": 633, "success": 319, "rate": 0.5039}
+    },
+    "success_by_rule_type_when_flagged": {
+      "demographic_mismatch": {"n": 200, "success": 135, "rate": 0.675},
+      "missing_required_code": {"n": 204, "success": 204, "rate": 1.0},
+      "mutual_exclusion": {"n": 323, "success": 323, "rate": 1.0}
+    },
+    "failure_reason_counts": {
+      "no_ontology_violation_to_repair": 314,
+      "no_score_reducing_edit_found": 63,
+      "empty_record": 2
+    },
+    "detector": "smoke-scale unsupervised GRU; ΔS_det reported as DIAGNOSTIC-only (mean 0.047), NOT a repair-success signal.",
+    "artifacts": [
+      "artifacts/phase4/counterfactual_results.jsonl",
+      "artifacts/phase4/counterfactual_summary.{json,md}",
+      "artifacts/phase4/edit_type_breakdown.csv",
+      "artifacts/phase4/failure_cases.jsonl"
+    ]
+  },
+  "failures_remaining": [
+    "Demographic gender-flips with MANY obstetric codes exceed the 3-edit budget (no_score_reducing_edit_found: 63) -- the clinically minimal repair (correct the sex) is outside the token-edit vocabulary specified for this phase.",
+    "Records the ontology does not flag (314/1000) cannot be repaired -- these are Phase 3b medication coverage gaps, not Phase 4 failures.",
+    "2 records reduce to empty after removing the only (conflicting) token -> rejected as invalid.",
+    "Validity = ontology-violation resolution, NOT clinician-verified clinical correctness (clinician review is C11/Phase 7)."
+  ],
+  "leakage_protections": {
+    "structural": "generate_counterfactual reads only model-visible fields via extract_model_visible.",
+    "behavioral_tests": "tests/test_phase4_counterfactual_leakage.py: adding every answer key leaves the repair byte-identical; misleading answer keys are ignored; works with zero hidden metadata; outputs contain no hidden fields; static dict-access guard.",
+    "result": "all leakage tests pass."
+  },
+  "sanitized_examples": [
+    {"family": "demographic", "record": "gender=M, codes=[DX_10_O80(pregnancy), DX_10_I10]", "edit": "remove DX_10_O80", "s_ont": "1.0 -> 0.0", "edits": 1},
+    {"family": "forbidden", "record": "codes=[DX_10_E119(type2 DM), DX_10_E10_9(type1 DM)]", "edit": "remove DX_10_E10_9", "s_ont": "0.5 -> 0.0", "edits": 1},
+    {"family": "medication", "record": "gender=F, codes=[MED_INSULIN, DX_10_I10] (no diabetes dx)", "edit": "remove MED_INSULIN (or add SNOMED:73211009 diabetes context)", "s_ont": "0.5 -> 0.0", "edits": 1}
+  ],
+  "tests": {
+    "phase4": ["tests/test_phase4_counterfactual_leakage.py", "tests/test_phase4_counterfactual_generation.py", "tests/test_phase4_counterfactual_eval.py"],
+    "phase4_count": 19,
+    "full_suite": "236 passed"
+  },
+  "claim_impact": {
+    "C10_ontology_counterfactual_repair": "cut_unless_fixed -> supported_now (scoped): leakage-free, ontology-grounded, minimal-edit repair validated by an independent scorer on the non-circular benchmark.",
+    "C9_diffusion_counterfactual": "remains unsupported: the counterfactual is ONTOLOGY/edit-based, not diffusion-based (diffusion is a Phase 5 decision)."
+  },
+  "anti_cheating_compliance": [
+    "no original-normal-record lookup", "no injection reversal via audit logs",
+    "no hidden metadata", "anomaly_type NOT used as a rule selector",
+    "no bad_code/replacement_code", "no optimization against test labels",
+    "no test-split tuning", "no silent legacy fallback (leaky code deleted)",
+    "no clinical-validity claim beyond rule-based plausibility"
+  ],
+  "next_step": "Phase 5 (generative/diffusion gate) is DONE = remove_from_core: on benchmark-v2 Sgen ROC-AUC 0.4868 (below chance) and harms the combined score; w_gen stays 0. Next is Phase 6 (full-scale training + experiment infrastructure) WITHOUT Sgen in the core. Full-scale detector training is part of Phase 6. Do NOT start H200 or large final training until Phase 6 requires it. See artifacts/phase5/."
+}

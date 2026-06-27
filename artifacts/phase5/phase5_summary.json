@@ -1,0 +1,53 @@
+{
+  "phase": 5,
+  "title": "Generative / diffusion / Sgen decision gate",
+  "status": "phase5_remove_sgen_from_core",
+  "decision": "remove_from_core",
+  "decision_justification": "On the non-circular benchmark-v2, the diffusion surprise Sgen scores BELOW chance (ROC-AUC 0.4868, CI [0.4633, 0.5109]), is near-constant (std 0.04), and anomalies score lower than normals (wrong direction). It does not correlate positively with S_ont (corr -0.07). Adding Sgen to the combined score HARMS it, statistically credibly (combined 0.6545 -> 0.637; paired diff -0.0175, CI [-0.0266, -0.0087], p~0). The generator is mode-collapsed (127/4587 unique tokens; generated length 254 vs real 47). Sgen is removed from the core method; w_gen stays 0.0.",
+  "final_paper_evidence_claimable": false,
+  "evidence_level": "diagnostic_only_old_data_modecollapsed",
+  "generative_model_state": {
+    "checkpoint": "outputs/diffusion/day33_ontology_regularized_fixed/last.pt",
+    "trained_on": "old circular-era mimiciv_val.pkl (NOT benchmark-v2, NOT clean-normal-only)",
+    "loads_into_current_code": "only via a compatibility shim (architecture drift: module renames + time-embedding MLP width changed 128->512). Token/transformer/output weights load; the time-MLP cannot.",
+    "mode_collapse": {"generated_unique_tokens": 127, "real_unique_tokens": 4587, "generated_length_mean": 254.2, "real_length_mean": 47.2, "marginal_js": 0.2726}
+  },
+  "generative_eval_benchmark_v2": {
+    "split": "test", "n": 3000,
+    "sgen_roc_auc": 0.4868, "sgen_roc_auc_ci": [0.4633, 0.5109], "sgen_average_precision": 0.1983,
+    "sgen_score_std": 0.0404, "sgen_mean_normal": 0.5915, "sgen_mean_anomaly": 0.5876,
+    "per_family_roc_auc": {"demographic_incompatibility": 0.4686, "medication_indication_mismatch": 0.4786, "forbidden_cooccurrence": 0.5388},
+    "corr_sgen_sont": -0.0715, "corr_sgen_sdet": 0.3512,
+    "note": "DIAGNOSTIC-only (old-data, mode-collapsed checkpoint via compat shim); not paper evidence."
+  },
+  "score_ablation_benchmark_v2": {
+    "ontology_only_real": {"roc_auc": 0.807, "ci": [0.7913, 0.8266]},
+    "detector_only": {"roc_auc": 0.4271, "ci": [0.4019, 0.4532]},
+    "combined_real_without_sgen": {"roc_auc": 0.6545, "ci": [0.6294, 0.6837]},
+    "combined_real_with_sgen": {"roc_auc": 0.637, "ci": [0.6134, 0.6622]},
+    "legacy_baseline": {"roc_auc": 0.6367, "ci": [0.6135, 0.6617]},
+    "sgen_delta_with_minus_without": -0.0175,
+    "paired_bootstrap": {"observed_diff": -0.0175, "ci": [-0.0266, -0.0087], "p_value": 0.0},
+    "answers": {"sgen_improves_roc_auc": false, "sgen_improves_ap": false, "sgen_harms_combined": true, "improvement_statistically_credible": false}
+  },
+  "scoring_defaults": {
+    "w_gen_default": 0.0,
+    "core_equation": "S_cal = (w_det*S_det + w_ont*S_ont') / (w_det + w_ont), with w_gen = 0",
+    "sgen_in_core": false,
+    "sgen_status": "diagnostic/appendix-only; only enters S_cal if an s_gen is supplied AND w_gen>0 (never by default)"
+  },
+  "minimal_repair_done": "compatibility-shim checkpoint loader (key remap + skip drifted time-MLP) + deterministic multi-noise-sample scoring + min-max normalization. NO retraining, NO architecture redesign.",
+  "code_disposition": "diffusion/generative code retained but NOT in the core scoring path; isolated as diagnostic/legacy. No deletion (Phase-2/3 tests still exercise the model module).",
+  "modules": {
+    "gate": "src/evaluation/generative_gate.py",
+    "eval": "scripts/run_phase5_generative_eval.py",
+    "ablation": "scripts/run_phase5_score_ablation.py",
+    "tests": ["tests/test_phase5_generative_gate.py", "tests/test_phase5_sgen_scoring_defaults.py", "tests/test_phase5_generative_eval.py"]
+  },
+  "claim_impact": {
+    "C7_sgen_separates_anomalies": "remains cut_unless_fixed -> now CONFIRMED removed from core: Sgen below chance on benchmark-v2 and harms the combined score. Reframe as future work / negative result.",
+    "C8_diffusion_realistic_generation": "remains cut_unless_fixed: severe mode collapse (127/4587 tokens). Future work (discrete/latent diffusion) or cut."
+  },
+  "tests": {"phase5_count": 16, "full_suite": "252 passed"},
+  "next_step": "Phase 6 (full-scale training + experiment infrastructure) MAY proceed WITHOUT Sgen in the core method. Generative retraining (benchmark-v2 clean-normal-only + anti-collapse) is a separate optional future phase; only revisit Sgen if it later passes the gate. Do NOT move to H200 unless Phase 6 explicitly requires it."
+}
