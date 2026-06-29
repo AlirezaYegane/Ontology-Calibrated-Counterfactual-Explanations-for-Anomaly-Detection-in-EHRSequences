@@ -1,0 +1,67 @@
+{
+  "phase": 6,
+  "title": "Full-scale training and experiment infrastructure",
+  "status": "phase6_infrastructure_complete_full_run_available",
+  "status_justification": "Config system + reproducible/resumable training + detector & combined evaluation pipelines + experiment tracking all exist; smoke validated; the full test suite passes; and ONE full GPU detector training+eval run completed (run_id phase6_detector_full_gpu).",
+  "final_paper_evidence_claimable": false,
+  "evidence_level": "full_gpu",
+  "infrastructure": {
+    "config": ["src/experiments/config.py", "configs/phase6_detector_smoke.yaml", "configs/phase6_detector_full.yaml", "configs/phase6_detector_h200.yaml"],
+    "training": ["src/training/train_detector_unsup.py::train_detector_full", "scripts/run_phase6_train_detector.py"],
+    "evaluation": ["scripts/run_phase6_evaluate_detector.py", "scripts/run_phase6_combined_eval.py", "src/experiments/eval_common.py"],
+    "tracking": ["src/experiments/tracking.py", "artifacts/phase6/experiment_index.json"],
+    "pipelines": ["scripts/run_phase6_smoke.py", "scripts/run_phase6_full_local.py", "scripts/run_phase6_full_gpu.py"],
+    "features": ["resume from checkpoint", "val-based early stopping", "per-epoch metrics", "best+last checkpoints", "config snapshot", "deterministic seeds", "mini-batched scoring (no OOM)", "Sgen disabled invariant (w_gen=0)"]
+  },
+  "full_gpu_run": {
+    "run_id": "phase6_detector_full_gpu",
+    "device": "cuda",
+    "n_train_normal": 20570,
+    "n_val": 3123,
+    "n_test": 6307,
+    "vocab_size": 17867,
+    "epochs_planned": 25,
+    "epochs_run": 25,
+    "best_epoch": 19,
+    "best_val_roc_auc": 0.4698,
+    "config": "configs/phase6_detector_full.yaml (embed/hidden 128, batch 64, lr 1e-3, wd 1e-5)"
+  },
+  "detector_eval_full_gpu": {
+    "test_roc_auc": 0.4525,
+    "test_roc_auc_ci": [0.4353, 0.4693],
+    "test_average_precision": 0.1904,
+    "test_f1_val_threshold": 0.3608,
+    "verdict": "BELOW CHANCE even at full scale. The v2 anomalies are relational (gender-flip, indication-removal, mutual-exclusion) and carry little next-token surprise, so an unsupervised next-token language model cannot separate them."
+  },
+  "combined_eval_full_gpu": {
+    "sgen_included": false,
+    "w_gen": 0.0,
+    "variants": {
+      "detector_only": {"roc_auc": 0.4525, "ci": [0.4353, 0.4693], "ap": 0.1904},
+      "ontology_only_real": {"roc_auc": 0.7881, "ci": [0.7743, 0.8016], "ap": 0.5422},
+      "combined_real_without_sgen": {"roc_auc": 0.7036, "ci": [0.6873, 0.7202], "ap": 0.4039},
+      "legacy_baseline": {"roc_auc": 0.6989, "ci": [0.681, 0.715], "ap": 0.4269}
+    },
+    "paired_bootstrap_roc_auc": {
+      "combined_vs_ontology_only": {"observed_diff": -0.0845, "ci": [-0.0965, -0.074], "p_value": 0.0},
+      "combined_vs_detector_only": {"observed_diff": 0.2511, "ci": [0.2365, 0.2664], "p_value": 0.0},
+      "ontology_only_vs_legacy": {"observed_diff": 0.0892, "ci": [0.0692, 0.109], "p_value": 0.0},
+      "detector_vs_ontology_only": {"observed_diff": -0.3356, "ci": [-0.3578, -0.315], "p_value": 0.0}
+    }
+  },
+  "answers": {
+    "detector_improves_over_ontology_only": false,
+    "combined_improves_over_ontology_only": false,
+    "combined_improves_over_detector_only": true,
+    "interpretation": "A full-scale detector is below chance; adding it to the score SIGNIFICANTLY HURTS vs ontology-only (paired ΔAUC -0.0845, CI excludes 0, p~0). The real ontology significantly beats the legacy baseline (+0.0892, p~0). The method is ontology-centered; the detector is a (currently non-additive) secondary signal."
+  },
+  "sgen_disabled": true,
+  "score_equation": "S_cal = (w_det*S_det + w_ont*S_ont') / (w_det + w_ont), w_gen = 0",
+  "data_safety": {
+    "committed": ["per-run train_metrics.jsonl / train_summary.json / detector_eval.* / combined_eval.* / config.json", "experiment_index.{json,md}", "phase6_summary.json", "README"],
+    "git_ignored": ["runs/*/checkpoints/ (*.pt + MIMIC-derived vocab.json)", "runs/*/vocab/", "runs/*/ignored/ (per-record scores)", "any *.pt|*.pkl|*.parquet|per_record* under artifacts/phase6"]
+  },
+  "tests": {"phase6_count": 27, "full_suite": "279 passed"},
+  "claim_after_phase6": "The project now has reproducible full-scale training + evaluation infrastructure for the Sgen-free ontology-calibrated system. NOT claimed: detector improves over ontology-only (it does not), combined is SOTA, or external validation.",
+  "next_step": "Phase 7 (final evaluation + ablations). The honest headline for Phase 7: the ontology carries the discriminative signal (ontology_only_real ~0.79, CI clears chance, beats legacy); the unsupervised detector is below chance and non-additive; counterfactual repair is leakage-free; Sgen is excluded. H200 is NOT required (the bottleneck is the anomaly type, not compute)."
+}

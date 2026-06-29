@@ -1,0 +1,11 @@
+[phase6][full-gpu] device=cuda; full-scale training; Sgen disabled (w_gen=0).
+[phase6][train] run_id=phase6_detector_full_gpu device=cuda best_epoch=19 best_val_roc_auc=0.469833 epochs_run=25
+[phase6][train] checkpoints (ignored): D:\Article\artifacts\phase6\runs\phase6_detector_full_gpu\checkpoints
+[phase6][eval] run_id=phase6_detector_full_gpu evidence=full_gpu test_roc_auc=0.4525 CI=[0.4353, 0.4693] AP=0.1904 F1=0.3608
+[phase6][combined] run_id=phase6_detector_full_gpu
+[phase6][combined]   detector_only: ROC-AUC=0.4525 CI=[0.4353, 0.4693] AP=0.1904
+[phase6][combined]   ontology_only_real: ROC-AUC=0.7881 CI=[0.7743, 0.8016] AP=0.5422
+[phase6][combined]   combined_real_without_sgen: ROC-AUC=0.7036 CI=[0.6873, 0.7202] AP=0.4039
+[phase6][combined]   legacy_baseline: ROC-AUC=0.6989 CI=[0.681, 0.715] AP=0.4269
+[phase6][combined] answers={'detector_improves_over_ontology_only': False, 'combined_improves_over_ontology_only': False, 'combined_improves_over_detector_only': True}
+[phase6][full-gpu] detector test ROC-AUC=0.4525 | combined={'detector_only': 0.4525, 'ontology_only_real': 0.7881, 'combined_real_without_sgen': 0.7036, 'legacy_baseline': 0.6989}

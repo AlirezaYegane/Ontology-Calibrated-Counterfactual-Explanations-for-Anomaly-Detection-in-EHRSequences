@@ -1,0 +1,35 @@
+# Phase 6 -- SMOKE detector config (runs quickly on CPU; used by tests/CI).
+# Sgen is disabled (w_gen = 0) -- this is enforced by ExperimentConfig.
+experiment_name: phase6_detector_smoke
+seed: 42
+data_dir: data/processed/benchmark_v2
+train_split: train.pkl
+val_split: val.pkl
+test_split: test.pkl
+sequence_key: model_visible_sequence
+label_key: label
+model_type: unsupervised_next_token_gru
+embed_dim: 64
+hidden_dim: 64
+num_layers: 1
+dropout: 0.2
+max_len: 256
+batch_size: 32
+epochs: 2
+lr: 0.001
+weight_decay: 0.0
+early_stopping_patience: 2
+early_stopping_metric: val_roc_auc
+train_cap: 4000
+device: cpu
+num_workers: 0
+output_dir: artifacts/phase6/runs
+checkpoint_policy: best_and_last
+calibration_policy: val_best_f1
+resume: true
+sgen_enabled: false
+evidence_level: smoke
+scoring_weights:
+  w_det: 0.70
+  w_ont: 0.30
+  w_gen: 0.0
