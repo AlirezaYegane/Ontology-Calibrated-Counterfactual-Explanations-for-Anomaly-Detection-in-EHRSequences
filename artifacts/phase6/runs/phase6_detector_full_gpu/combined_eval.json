@@ -1,0 +1,103 @@
+{
+  "phase": 6,
+  "run_id": "phase6_detector_full_gpu",
+  "evidence_level": "full_gpu",
+  "sgen_included": false,
+  "w_gen": 0.0,
+  "n_test": 6307,
+  "threshold_protocol": "detector normalized on val, applied to test; no test tuning",
+  "variant_metrics": [
+    {
+      "variant": "detector_only",
+      "roc_auc": 0.4525,
+      "roc_auc_ci": [
+        0.4353,
+        0.4693
+      ],
+      "average_precision": 0.1904,
+      "ap_ci": [
+        0.1792,
+        0.2035
+      ]
+    },
+    {
+      "variant": "ontology_only_real",
+      "roc_auc": 0.7881,
+      "roc_auc_ci": [
+        0.7743,
+        0.8016
+      ],
+      "average_precision": 0.5422,
+      "ap_ci": [
+        0.5178,
+        0.5667
+      ]
+    },
+    {
+      "variant": "combined_real_without_sgen",
+      "roc_auc": 0.7036,
+      "roc_auc_ci": [
+        0.6873,
+        0.7202
+      ],
+      "average_precision": 0.4039,
+      "ap_ci": [
+        0.3778,
+        0.4339
+      ]
+    },
+    {
+      "variant": "legacy_baseline",
+      "roc_auc": 0.6989,
+      "roc_auc_ci": [
+        0.681,
+        0.715
+      ],
+      "average_precision": 0.4269,
+      "ap_ci": [
+        0.3983,
+        0.4555
+      ]
+    }
+  ],
+  "paired_bootstrap_roc_auc": {
+    "combined_vs_detector_only": {
+      "observed_diff": 0.2511,
+      "ci": [
+        0.2365,
+        0.2664
+      ],
+      "p_value": 0.0
+    },
+    "combined_vs_ontology_only": {
+      "observed_diff": -0.0845,
+      "ci": [
+        -0.0965,
+        -0.074
+      ],
+      "p_value": 0.0
+    },
+    "ontology_only_vs_legacy": {
+      "observed_diff": 0.0892,
+      "ci": [
+        0.0692,
+        0.109
+      ],
+      "p_value": 0.0
+    },
+    "detector_vs_ontology_only": {
+      "observed_diff": -0.3356,
+      "ci": [
+        -0.3578,
+        -0.315
+      ],
+      "p_value": 0.0
+    }
+  },
+  "answers": {
+    "detector_improves_over_ontology_only": false,
+    "combined_improves_over_ontology_only": false,
+    "combined_improves_over_detector_only": true
+  },
+  "note": "Sgen excluded (w_gen=0). If the detector underperforms, the main claim stays ontology-centered (ontology_only_real is the strongest variant)."
+}

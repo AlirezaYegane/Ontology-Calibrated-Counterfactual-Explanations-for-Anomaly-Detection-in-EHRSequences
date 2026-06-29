@@ -1,0 +1,2 @@
+{"epoch": 0, "train_loss": 7.134139, "n_train": 4000, "val_normal_mean_nll": 6.633431, "val_roc_auc": 0.437932, "val_average_precision": 0.170561}
+{"epoch": 1, "train_loss": 6.098242, "n_train": 4000, "val_normal_mean_nll": 6.283028, "val_roc_auc": 0.462756, "val_average_precision": 0.176876}

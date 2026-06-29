@@ -1,0 +1,4 @@
+metric,value,ci_low,ci_high
+roc_auc,0.4525,0.4353,0.4693
+average_precision,0.1904,0.1792,0.2035
+f1,0.3608,,

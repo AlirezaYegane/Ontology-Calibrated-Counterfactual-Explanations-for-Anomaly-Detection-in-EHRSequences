@@ -1,0 +1,36 @@
+# Phase 6 -- H200 detector config (large GPU; provided for reproducibility ONLY).
+# H200 is NOT assumed available; this config is a documented target, not a hard
+# dependency. Sgen is disabled (w_gen = 0).
+experiment_name: phase6_detector_h200
+seed: 42
+data_dir: data/processed/benchmark_v2
+train_split: train.pkl
+val_split: val.pkl
+test_split: test.pkl
+sequence_key: model_visible_sequence
+label_key: label
+model_type: unsupervised_next_token_gru
+embed_dim: 256
+hidden_dim: 256
+num_layers: 2
+dropout: 0.2
+max_len: 512
+batch_size: 256
+epochs: 50
+lr: 0.0005
+weight_decay: 0.00001
+early_stopping_patience: 8
+early_stopping_metric: val_roc_auc
+train_cap: 0
+device: cuda
+num_workers: 4
+output_dir: artifacts/phase6/runs
+checkpoint_policy: best_and_last
+calibration_policy: val_best_f1
+resume: true
+sgen_enabled: false
+evidence_level: h200
+scoring_weights:
+  w_det: 0.70
+  w_ont: 0.30
+  w_gen: 0.0

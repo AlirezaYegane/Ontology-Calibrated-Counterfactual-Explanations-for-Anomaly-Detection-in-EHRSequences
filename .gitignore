@@ -73,6 +73,17 @@ artifacts/phase3/detector_unsup_v2/
 # Phase 5: per-record MIMIC-derived scores (s_gen/s_ont/s_det per record) — not committed
 artifacts/phase5/per_record_scores.csv
 
+# Phase 6: training runs — checkpoints / vocab / per-record scores are MIMIC-derived.
+# Aggregate run JSON/MD/CSV summaries ARE committed; the heavy/PHI-derived parts are not.
+artifacts/phase6/runs/*/checkpoints/
+artifacts/phase6/runs/*/vocab/
+artifacts/phase6/runs/*/ignored/
+artifacts/phase6/**/*.pt
+artifacts/phase6/**/*.pth
+artifacts/phase6/**/*.pkl
+artifacts/phase6/**/*.parquet
+artifacts/phase6/**/per_record*
+
 # Large generated evaluation artifacts
 artifacts/day36/counterfactuals.csv
 artifacts/day36_repair_ready/repair_ready_scores.csv

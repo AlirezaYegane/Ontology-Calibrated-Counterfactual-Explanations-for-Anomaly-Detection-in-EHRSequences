@@ -125,6 +125,196 @@ def run_training(
     return summary
 
 
+def _val_metrics(
+    detector: UnsupervisedSequenceDetector,
+    val_seqs: list[list[str]],
+    val_labels: list[int],
+    batch_size: int,
+) -> dict[str, float]:
+    """Validation metrics for model selection (val-only; never test)."""
+    from src.evaluation.stats import average_precision, roc_auc
+
+    scores = detector.anomaly_scores(val_seqs, batch_size=batch_size)
+    normal_losses = [s for s, y in zip(scores, val_labels) if int(y) == 0]
+    out = {
+        "val_normal_mean_nll": float(sum(normal_losses) / max(len(normal_losses), 1)),
+    }
+    n_pos = sum(1 for y in val_labels if int(y) == 1)
+    if n_pos and n_pos < len(val_labels):
+        import numpy as np
+
+        y = np.asarray([int(v) for v in val_labels])
+        s = np.asarray(scores, dtype=float)
+        out["val_roc_auc"] = float(roc_auc(y, s))
+        out["val_average_precision"] = float(average_precision(y, s))
+    else:
+        out["val_roc_auc"] = float("nan")
+        out["val_average_precision"] = float("nan")
+    return out
+
+
+def train_detector_full(
+    train_normals: list[list[str]],
+    val_seqs: list[list[str]],
+    val_labels: list[int],
+    *,
+    out_dir: str | Path,
+    epochs: int = 20,
+    batch_size: int = 64,
+    lr: float = 1e-3,
+    weight_decay: float = 0.0,
+    seed: int = 42,
+    embed_dim: int = 128,
+    hidden_dim: int = 128,
+    num_layers: int = 1,
+    dropout: float = 0.2,
+    max_len: int = 256,
+    device: str = "cpu",
+    early_stopping_patience: int = 4,
+    early_stopping_metric: str = "val_roc_auc",
+    resume: bool = True,
+    config_snapshot: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Full-scale unsupervised detector training with val-based early stopping +
+    resume. Trains ONLY on normal sequences; model selection / thresholds use the
+    validation split only (test is never touched here)."""
+    if not train_normals:
+        raise ValueError("No normal training sequences provided.")
+
+    import random as _random
+
+    set_seed(seed)
+    out_dir = Path(out_dir)
+    ckpt_dir = out_dir / "checkpoints"
+    vocab_dir = out_dir / "vocab"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+    vocab_dir.mkdir(parents=True, exist_ok=True)
+
+    vocab = build_vocab(train_normals)
+    cfg = UnsupDetectorConfig(
+        vocab_size=len(vocab),
+        embed_dim=embed_dim,
+        hidden_dim=hidden_dim,
+        num_layers=num_layers,
+        dropout=dropout,
+        max_len=max_len,
+    )
+    det = UnsupervisedSequenceDetector(cfg, vocab, device=device)
+    optimizer = torch.optim.Adam(
+        det.model.parameters(), lr=lr, weight_decay=weight_decay
+    )
+
+    start_epoch = 0
+    best_metric = -float("inf")
+    best_epoch = -1
+    last_path = ckpt_dir / "last.pt"
+    higher_is_better = early_stopping_metric != "val_normal_mean_nll"
+    if not higher_is_better:
+        best_metric = float("inf")
+
+    if resume and last_path.exists():
+        state = torch.load(last_path, map_location=det.device)
+        det.model.load_state_dict(state["model_state"])
+        optimizer.load_state_dict(state["optimizer_state"])
+        start_epoch = int(state["epoch"]) + 1
+        best_metric = float(state["best_metric"])
+        best_epoch = int(state["best_epoch"])
+        log.info("resumed from epoch %d (best=%s)", start_epoch, best_metric)
+
+    metrics_path = out_dir / "train_metrics.jsonl"
+    n = len(train_normals)
+    rng = _random.Random(seed)
+    history: list[dict[str, Any]] = []
+    mode = "a" if (resume and metrics_path.exists()) else "w"
+
+    def _is_better(cur: float, best: float) -> bool:
+        return cur > best if higher_is_better else cur < best
+
+    with metrics_path.open(mode, encoding="utf-8") as fh:
+        for epoch in range(start_epoch, epochs):
+            order = list(range(n))
+            rng.shuffle(order)
+            shuffled = [train_normals[i] for i in order]
+            epoch_loss, n_batches = 0.0, 0
+            for start in range(0, n, batch_size):
+                batch = shuffled[start : start + batch_size]
+                epoch_loss += det.train_step(batch, optimizer)
+                n_batches += 1
+            train_loss = epoch_loss / max(n_batches, 1)
+
+            vm = _val_metrics(det, val_seqs, val_labels, batch_size)
+            row = {
+                "epoch": epoch,
+                "train_loss": round(train_loss, 6),
+                "n_train": n,
+                **{k: (round(v, 6) if v == v else None) for k, v in vm.items()},
+            }
+            history.append(row)
+            fh.write(json.dumps(row) + "\n")
+            fh.flush()
+            log.info("epoch %d train_loss %.4f %s", epoch, train_loss, vm)
+
+            cur = vm.get(early_stopping_metric, float("nan"))
+            improved = cur == cur and _is_better(cur, best_metric)
+            if improved:
+                best_metric, best_epoch = float(cur), epoch
+                det.save(ckpt_dir)  # best checkpoint (model + vocab)
+            torch.save(
+                {
+                    "model_state": det.model.state_dict(),
+                    "optimizer_state": optimizer.state_dict(),
+                    "epoch": epoch,
+                    "best_metric": best_metric,
+                    "best_epoch": best_epoch,
+                },
+                last_path,
+            )
+            if best_epoch >= 0 and (epoch - best_epoch) >= early_stopping_patience:
+                log.info(
+                    "early stopping at epoch %d (best epoch %d)", epoch, best_epoch
+                )
+                break
+
+    # vocab metadata (size only; the vocab.json itself lives under the ignored
+    # checkpoints/ dir as it is MIMIC-derived).
+    (vocab_dir / "vocab_meta.json").write_text(
+        json.dumps({"vocab_size": len(vocab)}, indent=2), encoding="utf-8"
+    )
+
+    summary = {
+        "detector": "unsupervised_next_token_gru",
+        "trained_on": "normal_sequences_only",
+        "n_train_normal": n,
+        "n_val": len(val_seqs),
+        "vocab_size": len(vocab),
+        "epochs_planned": epochs,
+        "epochs_run": (history[-1]["epoch"] + 1) if history else start_epoch,
+        "best_epoch": best_epoch,
+        "best_metric_name": early_stopping_metric,
+        "best_metric_value": (
+            None
+            if best_metric in (float("inf"), -float("inf"))
+            else round(best_metric, 6)
+        ),
+        "final_val_metrics": history[-1] if history else None,
+        "seed": seed,
+        "device": str(det.device),
+        "weight_decay": weight_decay,
+        "lr": lr,
+        "best_checkpoint": str(ckpt_dir),
+        "config_snapshot": config_snapshot or {},
+    }
+    (out_dir / "train_summary.json").write_text(
+        json.dumps(summary, indent=2), encoding="utf-8"
+    )
+    if config_snapshot is not None:
+        (out_dir / "config.json").write_text(
+            json.dumps(config_snapshot, indent=2), encoding="utf-8"
+        )
+    return summary
+
+
 def _load_rows(path: Path, limit: int | None) -> list[dict[str, Any]]:
     import pandas as pd
 

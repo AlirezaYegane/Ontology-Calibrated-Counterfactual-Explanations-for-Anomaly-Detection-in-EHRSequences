@@ -1,0 +1,64 @@
+{
+  "phase": 6,
+  "n_runs": 2,
+  "runs": [
+    {
+      "run_id": "phase6_detector_smoke_seed42",
+      "timestamp": "2026-06-29T05:59:42Z",
+      "git_commit": "9e6a6e2",
+      "config_path": "configs/phase6_detector_smoke.yaml",
+      "seed": 42,
+      "dataset": "data/processed/benchmark_v2",
+      "n_train": 4000,
+      "n_val": 3123,
+      "n_test": 6307,
+      "device": "cpu",
+      "epochs_completed": 2,
+      "best_epoch": 1,
+      "checkpoint_path": "D:\\Article\\artifacts\\phase6\\runs\\phase6_detector_smoke_seed42\\checkpoints",
+      "evidence_level": "smoke",
+      "detector_metrics": {
+        "roc_auc": 0.426,
+        "average_precision": 0.181,
+        "f1": 0.3582
+      },
+      "combined_metrics": {
+        "detector_only": 0.426,
+        "ontology_only_real": 0.7881,
+        "combined_real_without_sgen": 0.6587,
+        "legacy_baseline": 0.6637
+      },
+      "status": "evaluated",
+      "notes": "Sgen disabled (w_gen=0); val-only calibration; ontology-centered."
+    },
+    {
+      "run_id": "phase6_detector_full_gpu",
+      "timestamp": "2026-06-29T06:12:47Z",
+      "git_commit": "9e6a6e2",
+      "config_path": "configs/phase6_detector_full.yaml",
+      "seed": 42,
+      "dataset": "data/processed/benchmark_v2",
+      "n_train": 20570,
+      "n_val": 3123,
+      "n_test": 6307,
+      "device": "cuda",
+      "epochs_completed": 25,
+      "best_epoch": 19,
+      "checkpoint_path": "D:\\Article\\artifacts\\phase6\\runs\\phase6_detector_full_gpu\\checkpoints",
+      "evidence_level": "full_gpu",
+      "detector_metrics": {
+        "roc_auc": 0.4525,
+        "average_precision": 0.1904,
+        "f1": 0.3608
+      },
+      "combined_metrics": {
+        "detector_only": 0.4525,
+        "ontology_only_real": 0.7881,
+        "combined_real_without_sgen": 0.7036,
+        "legacy_baseline": 0.6989
+      },
+      "status": "evaluated",
+      "notes": "Sgen disabled (w_gen=0); val-only calibration; ontology-centered."
+    }
+  ]
+}
