@@ -1,0 +1,5 @@
+variant,roc_auc,ci_low,ci_high
+ontology_only_real,0.7881,0.7743,0.8015
+legacy_baseline,0.7358,0.7197,0.7511
+detector_only_full,0.4525,0.4357,0.4702
+combined_real_without_sgen,0.7036,0.6866,0.7201

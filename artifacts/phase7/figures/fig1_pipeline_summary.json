@@ -1,0 +1,9 @@
+{
+  "benchmark": "benchmark-v2 (non-circular)",
+  "main_method": "ontology-only (S_main = S_ont)",
+  "score_equation": "S_cal = (w_det*S_det + w_ont*S_ont') / (w_det + w_ont), w_gen=0",
+  "strongest_variant": "ontology_only_real",
+  "sgen_in_core": false,
+  "detector_below_chance": true,
+  "external_validation": "external_validation_blocked_schema_mismatch"
+}

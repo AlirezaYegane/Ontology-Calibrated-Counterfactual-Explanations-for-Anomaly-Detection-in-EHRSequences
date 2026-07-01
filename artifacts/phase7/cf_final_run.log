@@ -1,0 +1,5 @@
+[phase7][cf] attempted=1376 flagged=939 success_among_flagged=0.8999 mean_edits=1.243787
+[phase7][cf][ablation] remove_only: success=0.8933 mean_edits=1.328
+[phase7][cf][ablation] replace_only: success=0.47 mean_edits=1.284
+[phase7][cf][ablation] add_context_allowed: success=0.9133 mean_edits=1.212
+[phase7][cf][ablation] full_policy: success=0.9133 mean_edits=1.212

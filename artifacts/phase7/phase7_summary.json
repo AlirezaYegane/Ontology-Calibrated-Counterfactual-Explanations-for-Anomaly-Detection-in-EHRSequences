@@ -1,0 +1,60 @@
+{
+  "phase": 7,
+  "title": "Final evaluation, ablations, statistical evidence, and result tables",
+  "status": "phase7_partial_external_validation_blocked",
+  "status_justification": "All final aggregate metrics, ablations, statistical tests, counterfactual results, tables/figures, and claim decisions are complete on benchmark-v2 (the FINAL benchmark). External validation is the only blocked item: eICU exists but its APACHE/body-system tokens do not map to the ICD/SNOMED/RxNorm ontology (0/500 records fire), so external validation is honestly blocked (schema mismatch) and documented as future work.",
+  "final_paper_evidence_claimable": true,
+  "benchmark": "benchmark-v2 (non-circular, MIMIC-IV)",
+  "old_circular_benchmark_as_final_evidence": false,
+  "final_main_method": "ontology-centered: S_main = S_ont (real Phase 3b rule packs). Detector reported as a diagnostic/negative result; Sgen excluded.",
+  "final_score_equation": "S_cal = (w_det*S_det + w_ont*S_ont')/(w_det+w_ont) with w_gen=0; recommended main = S_ont (detector non-additive).",
+  "main_results_benchmark_v2_test": {
+    "ontology_only_real": {"roc_auc": 0.7881, "ci": [0.7743, 0.8015], "ap": 0.5422, "f1": 0.6349},
+    "legacy_baseline_pure": {"roc_auc": 0.7358, "ci": [0.7197, 0.7511], "ap": 0.5429, "f1": 0.5928},
+    "detector_only_full": {"roc_auc": 0.4525, "ci": [0.4357, 0.4702], "ap": 0.1904, "f1": 0.3608},
+    "combined_real_without_sgen": {"roc_auc": 0.7036, "ci": [0.6866, 0.7201], "ap": 0.4039, "f1": 0.4596},
+    "sgen_diagnostic_excluded": {"roc_auc": 0.4868, "note": "Phase 5 removed_from_core; NOT in core"}
+  },
+  "statistical_tests_paired_bootstrap_roc_auc": {
+    "ontology_only_real_vs_legacy": {"diff": 0.0524, "ci": [0.0325, 0.0718], "p": 0.0, "significant": true},
+    "ontology_only_real_vs_detector": {"diff": 0.3356, "ci": [0.3141, 0.3581], "p": 0.0, "significant": true},
+    "combined_vs_ontology_only": {"diff": -0.0845, "ci": [-0.0963, -0.0732], "p": 0.0, "significant": true},
+    "combined_vs_detector": {"diff": 0.2511, "ci": [0.2364, 0.2665], "p": 0.0, "significant": true},
+    "combined_vs_legacy": {"diff": -0.0322, "ci": [-0.0567, -0.0103], "p": 0.004, "significant": true}
+  },
+  "ontology_rule_ablation": {
+    "real_ontology_rules_full": 0.7881,
+    "legacy_icd_prefix_rules": 0.7358,
+    "demographic_rules_only": 0.5988,
+    "medication_rules_only": 0.5711,
+    "forbidden_cooccurrence_rules_only": 0.6252,
+    "ontology_disabled": "degenerate (chance)",
+    "interpretation": "No single rule family reaches the full 0.7881; the three families synergize. Normal FP: full 0.13, demographic 0.16%, medication 6.4%, forbidden 6.7%."
+  },
+  "counterfactual_final": {
+    "attempted": 1376, "ontology_flagged": 939,
+    "repair_success_rate_among_flagged": 0.8999,
+    "repair_success_rate_overall": 0.6141,
+    "mean_delta_s_ont": 0.6438, "mean_num_edits": 1.244, "median_num_edits": 1,
+    "edit_type_distribution": {"remove": 936, "add": 119},
+    "by_rule_type": {"demographic_mismatch": 0.6569, "missing_required_code": 1.0, "mutual_exclusion": 1.0},
+    "edit_strategy_ablation": {"remove_only": 0.8933, "replace_only": 0.47, "add_context_allowed": 0.9133, "full_policy": 0.9133}
+  },
+  "external_validation": {
+    "status": "external_validation_blocked_schema_mismatch",
+    "detail": "eICU uses APACHE/body-system tokens; 0/500 records map to the ICD/SNOMED/RxNorm ontology. Needs an APACHE->ICD/SNOMED crosswalk + eICU anomaly injection (future work).",
+    "recommended_scope": "MIMIC-IV-only paper; external validation = future work."
+  },
+  "answers": {
+    "final_main_method": "ontology-only (S_ont)",
+    "component_carrying_signal": "real ontology rule packs",
+    "real_ontology_beats_legacy": true,
+    "detector_adds_value_after_full_training": false,
+    "removing_sgen_improves_clarity_and_performance": true,
+    "counterfactual_leakage_free_and_effective": true
+  },
+  "tables_for_phase8": ["table1_dataset_summary", "table2_main_results", "table3_ablation_results", "table4_counterfactual_results", "table5_statistical_tests"],
+  "figures_for_phase8": ["fig1_pipeline_summary.json", "fig2_main_auc_bar.{csv,png}", "fig3_ablation_auc_bar.{csv,png}", "fig4_counterfactual_delta_box_summary.csv"],
+  "tests": {"phase7_count": null, "note": "see tests/test_phase7_*.py; full suite reported in the run"},
+  "next_step": "Phase 8 (paper writing + reproducibility package) may proceed as a MIMIC-IV-only, ontology-centered paper. Do NOT overclaim detector value, Sgen, external validation, or clinical validity. External validation on eICU requires an APACHE->ICD/SNOMED crosswalk (separate future phase)."
+}

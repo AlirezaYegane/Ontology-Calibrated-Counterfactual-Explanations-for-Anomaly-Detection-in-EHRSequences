@@ -1,0 +1,7 @@
+ontology_variant,demographic,medication,forbidden
+real_ontology_rules_full,0.9963,0.6858,0.9318
+legacy_icd_prefix_rules,0.9969,0.737,0.4206
+demographic_rules_only,0.9992,0.5003,0.4992
+medication_rules_only,0.4995,0.6186,0.4748
+forbidden_cooccurrence_rules_only,0.4995,0.575,0.9664
+ontology_disabled,,,

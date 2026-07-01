@@ -1,0 +1,8 @@
+metric,value
+attempted,1376
+ontology_flagged,939
+success_among_flagged,0.8999
+success_overall,0.6141
+mean_delta_s_ont,0.643787
+mean_num_edits,1.243787
+median_num_edits,1

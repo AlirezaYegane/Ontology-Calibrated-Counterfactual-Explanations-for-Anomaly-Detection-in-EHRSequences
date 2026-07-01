@@ -1,0 +1,92 @@
+{
+  "phase": 7,
+  "benchmark": "benchmark-v2 test anomalies",
+  "generator": "leakage_free_ontology_counterfactual (Phase 4)",
+  "repair_attempted_count": 1376,
+  "ontology_flagged_count": 939,
+  "repair_success_count": 845,
+  "repair_success_rate_overall": 0.6141,
+  "repair_success_rate_among_flagged": 0.8999,
+  "validity_rate": 0.6141,
+  "mean_delta_s_ont": 0.643787,
+  "mean_delta_s_cal": 0.136871,
+  "mean_delta_s_det": null,
+  "mean_num_edits": 1.243787,
+  "median_num_edits": 1,
+  "edit_type_distribution": {
+    "remove": 936,
+    "add": 119
+  },
+  "failure_reason_counts": {
+    "no_ontology_violation_to_repair": 437,
+    "no_score_reducing_edit_found": 91,
+    "empty_record": 3
+  },
+  "success_by_anomaly_type": {
+    "demographic_incompatibility": {
+      "n": 272,
+      "success": 178,
+      "rate": 0.6544
+    },
+    "forbidden_cooccurrence": {
+      "n": 229,
+      "success": 229,
+      "rate": 1.0
+    },
+    "medication_indication_mismatch": {
+      "n": 875,
+      "success": 438,
+      "rate": 0.5006
+    }
+  },
+  "success_by_rule_type": {
+    "demographic_mismatch": {
+      "n": 274,
+      "success": 180,
+      "rate": 0.6569
+    },
+    "missing_required_code": {
+      "n": 283,
+      "success": 283,
+      "rate": 1.0
+    },
+    "mutual_exclusion": {
+      "n": 437,
+      "success": 437,
+      "rate": 1.0
+    },
+    "none": {
+      "n": 437,
+      "success": 0,
+      "rate": 0.0
+    }
+  },
+  "edit_strategy_ablation": {
+    "remove_only": {
+      "n": 300,
+      "valid": 268,
+      "success_rate": 0.8933,
+      "mean_edits": 1.328
+    },
+    "replace_only": {
+      "n": 300,
+      "valid": 141,
+      "success_rate": 0.47,
+      "mean_edits": 1.284
+    },
+    "add_context_allowed": {
+      "n": 300,
+      "valid": 274,
+      "success_rate": 0.9133,
+      "mean_edits": 1.212
+    },
+    "full_policy": {
+      "n": 300,
+      "valid": 274,
+      "success_rate": 0.9133,
+      "mean_edits": 1.212
+    }
+  },
+  "edit_strategy_ablation_note": "on a capped sample of 300 ontology-flagged anomalies",
+  "leakage_note": "generator read model-visible rows only; no hidden/audit metadata."
+}

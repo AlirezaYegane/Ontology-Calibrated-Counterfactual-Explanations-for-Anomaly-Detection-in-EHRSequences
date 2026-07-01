@@ -1,0 +1,15 @@
+metric,value
+repair_attempted_count,1376
+ontology_flagged_count,939
+repair_success_count,845
+repair_success_rate_overall,0.6141
+repair_success_rate_among_flagged,0.8999
+mean_delta_s_ont,0.643787
+mean_num_edits,1.243787
+median_num_edits,1
+
+edit_strategy,success_rate,mean_edits
+remove_only,0.8933,1.328
+replace_only,0.47,1.284
+add_context_allowed,0.9133,1.212
+full_policy,0.9133,1.212

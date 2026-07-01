@@ -1,0 +1,95 @@
+{
+  "phase": 7,
+  "benchmark": "benchmark-v2 (non-circular; FINAL benchmark)",
+  "old_circular_benchmark_used_as_final_evidence": false,
+  "detector_run": "phase6_detector_full_gpu",
+  "detector_available": true,
+  "sgen_included_in_core": false,
+  "w_gen": 0.0,
+  "score_equation": "S_cal = (w_det*S_det + w_ont*S_ont') / (w_det + w_ont), w_gen=0",
+  "n_val": 3123,
+  "n_test": 6307,
+  "test_anomaly_rate": 0.2182,
+  "threshold_protocol": "best-F1 threshold selected on VAL, applied to TEST; no test tuning",
+  "variant_metrics": [
+    {
+      "variant": "ontology_only_real",
+      "roc_auc": 0.7881,
+      "roc_auc_ci": [
+        0.7743,
+        0.8015
+      ],
+      "average_precision": 0.5422,
+      "ap_ci": [
+        0.5169,
+        0.5665
+      ],
+      "val_threshold": 0.25,
+      "test_precision": 0.5936,
+      "test_recall": 0.6824,
+      "test_f1": 0.6349
+    },
+    {
+      "variant": "legacy_baseline",
+      "roc_auc": 0.7358,
+      "roc_auc_ci": [
+        0.7197,
+        0.7511
+      ],
+      "average_precision": 0.5429,
+      "ap_ci": [
+        0.5175,
+        0.5651
+      ],
+      "val_threshold": 0.875,
+      "test_precision": 0.6294,
+      "test_recall": 0.5603,
+      "test_f1": 0.5928
+    },
+    {
+      "variant": "detector_only_full",
+      "roc_auc": 0.4525,
+      "roc_auc_ci": [
+        0.4357,
+        0.4702
+      ],
+      "average_precision": 0.1904,
+      "ap_ci": [
+        0.1791,
+        0.2029
+      ],
+      "val_threshold": 0.15699,
+      "test_precision": 0.2205,
+      "test_recall": 0.9927,
+      "test_f1": 0.3608
+    },
+    {
+      "variant": "combined_real_without_sgen",
+      "roc_auc": 0.7036,
+      "roc_auc_ci": [
+        0.6866,
+        0.7201
+      ],
+      "average_precision": 0.4039,
+      "ap_ci": [
+        0.3771,
+        0.4304
+      ],
+      "val_threshold": 0.333293,
+      "test_precision": 0.3909,
+      "test_recall": 0.5574,
+      "test_f1": 0.4596
+    }
+  ],
+  "strongest_variant": "ontology_only_real",
+  "sgen_diagnostic_reference": {
+    "status": "excluded_from_core (Phase 5 remove_from_core)",
+    "diagnostic_roc_auc": 0.4868,
+    "source": "artifacts/phase5/phase5_summary.json"
+  },
+  "answers": {
+    "real_ontology_beats_legacy": true,
+    "detector_improves_over_ontology_only": false,
+    "combined_improves_over_ontology_only": false
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "phase": 7,
+  "benchmark": "benchmark-v2",
+  "n_test": 6307,
+  "ontology_rule_ablation": [
+    {
+      "variant": "real_ontology_rules_full",
+      "roc_auc": 0.7881,
+      "roc_auc_ci": [
+        0.7743,
+        0.8015
+      ],
+      "average_precision": 0.5422,
+      "normal_fp_rate": 0.1304,
+      "n_records_fired": 1582,
+      "per_anomaly_family_roc_auc": {
+        "demographic_incompatibility": 0.9963,
+        "medication_indication_mismatch": 0.6858,
+        "forbidden_cooccurrence": 0.9318
+      }
+    },
+    {
+      "variant": "legacy_icd_prefix_rules",
+      "roc_auc": 0.7358,
+      "roc_auc_ci": [
+        0.7197,
+        0.7511
+      ],
+      "average_precision": 0.5429,
+      "normal_fp_rate": null,
+      "n_records_fired": 2014,
+      "per_anomaly_family_roc_auc": {
+        "demographic_incompatibility": 0.9969,
+        "medication_indication_mismatch": 0.737,
+        "forbidden_cooccurrence": 0.4206
+      }
+    },
+    {
+      "variant": "demographic_rules_only",
+      "roc_auc": 0.5988,
+      "roc_auc_ci": [
+        0.5875,
+        0.6092
+      ],
+      "average_precision": 0.3682,
+      "normal_fp_rate": 0.0016,
+      "n_records_fired": 282,
+      "per_anomaly_family_roc_auc": {
+        "demographic_incompatibility": 0.9992,
+        "medication_indication_mismatch": 0.5003,
+        "forbidden_cooccurrence": 0.4992
+      }
+    },
+    {
+      "variant": "medication_rules_only",
+      "roc_auc": 0.5711,
+      "roc_auc_ci": [
+        0.5607,
+        0.5823
+      ],
+      "average_precision": 0.271,
+      "normal_fp_rate": 0.0635,
+      "n_records_fired": 596,
+      "per_anomaly_family_roc_auc": {
+        "demographic_incompatibility": 0.4995,
+        "medication_indication_mismatch": 0.6186,
+        "forbidden_cooccurrence": 0.4748
+      }
+    },
+    {
+      "variant": "forbidden_cooccurrence_rules_only",
+      "roc_auc": 0.6252,
+      "roc_auc_ci": [
+        0.6124,
+        0.638
+      ],
+      "average_precision": 0.3296,
+      "normal_fp_rate": 0.0671,
+      "n_records_fired": 768,
+      "per_anomaly_family_roc_auc": {
+        "demographic_incompatibility": 0.4995,
+        "medication_indication_mismatch": 0.575,
+        "forbidden_cooccurrence": 0.9664
+      }
+    },
+    {
+      "variant": "ontology_disabled",
+      "roc_auc": null,
+      "roc_auc_ci": [
+        null,
+        null
+      ],
+      "average_precision": 0.2182,
+      "note": "degenerate (all-equal scores)",
+      "normal_fp_rate": null,
+      "n_records_fired": 0,
+      "per_anomaly_family_roc_auc": {
+        "demographic_incompatibility": null,
+        "medication_indication_mismatch": null,
+        "forbidden_cooccurrence": null
+      }
+    }
+  ],
+  "score_component_ablation": [
+    {
+      "variant": "S_ont_only",
+      "roc_auc": 0.7881,
+      "roc_auc_ci": [
+        0.7743,
+        0.8015
+      ],
+      "average_precision": 0.5422
+    },
+    {
+      "variant": "S_det_only",
+      "roc_auc": 0.4525,
+      "roc_auc_ci": [
+        0.4357,
+        0.4702
+      ],
+      "average_precision": 0.1904
+    },
+    {
+      "variant": "S_ont_plus_S_det",
+      "roc_auc": 0.7036,
+      "roc_auc_ci": [
+        0.6866,
+        0.7201
+      ],
+      "average_precision": 0.4039
+    },
+    {
+      "variant": "S_ont_plus_S_det_plus_Sgen",
+      "roc_auc": null,
+      "status": "EXCLUDED_FROM_CORE",
+      "note": "Sgen removed in Phase 5 (diagnostic ROC-AUC 0.4868, harms combined). w_gen=0."
+    }
+  ],
+  "rule_firing_rates_over_test": {
+    "demographic_rules_only": 0.0447,
+    "medication_rules_only": 0.0945,
+    "forbidden_cooccurrence_rules_only": 0.1218
+  },
+  "counterfactual_ablation_ref": "artifacts/phase7/counterfactual_final.json (edit-strategy ablation)",
+  "note": "Sgen excluded from all core variants (w_gen=0)."
+}

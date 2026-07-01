@@ -1,0 +1,69 @@
+{
+  "phase": 7,
+  "benchmark": "benchmark-v2 (non-circular, MIMIC-IV)",
+  "note": "Blunt, evidence-based final claim decisions. Unsupported claims are NOT upgraded.",
+  "claims": {
+    "benchmark_v2_non_circular": {
+      "status": "supported_now",
+      "evidence": "Strongest label-free trivial signal 0.6127 < 0.80 (artifacts/diagnostics/rf2_triviality_v2.json); subject-level splits (overlap 0); model_visible/audit/hidden_eval separation. Scoped: ontology-backed SYNTHETIC benchmark, not real-world.",
+      "phase": "1b"
+    },
+    "real_ontology_integration": {
+      "status": "supported_now",
+      "evidence": "Real UMLS 2026AA / SNOMED CT / RxNorm parsed; MIMIC coverage diagnosis 0.80 / medication 0.78 (artifacts/phase2b_fix/). Canonical engine wired into scoring.",
+      "phase": "2/2b/3b"
+    },
+    "real_ontology_beats_legacy": {
+      "status": "supported_now",
+      "evidence": "ontology_only_real ROC-AUC 0.7881 vs legacy_baseline 0.7358; paired bootstrap +0.0524, CI [0.0325, 0.0718], p~0 (significant). artifacts/phase7/final_stat_tests.json.",
+      "phase": "7"
+    },
+    "detector_improves_detection": {
+      "status": "unsupported",
+      "evidence": "Full-scale unsupervised detector (Phase 6, 25 epochs, 20,570 normals) test ROC-AUC 0.4525 (BELOW chance). The v2 anomalies are relational, not next-token-surprising.",
+      "phase": "6/7"
+    },
+    "combined_beats_ontology_only": {
+      "status": "unsupported",
+      "evidence": "combined_real_without_sgen 0.7036 < ontology_only_real 0.7881; paired bootstrap -0.0845, CI [-0.0963, -0.0732], p~0 -> adding the detector SIGNIFICANTLY HURTS. Recommended main score = S_ont alone.",
+      "phase": "7"
+    },
+    "sgen_improves_detection": {
+      "status": "removed_from_core",
+      "evidence": "Phase 5 gate = remove_from_core: Sgen ROC-AUC 0.4868 (below chance), harms combined (paired -0.0175, p~0), mode-collapsed. w_gen=0 in the core.",
+      "phase": "5"
+    },
+    "counterfactual_leakage_free": {
+      "status": "supported_now",
+      "evidence": "Generator reads only model-visible sequence+demographics; leakage tests pass (answer keys change nothing; misleading keys ignored). Old circular logic deleted. tests/test_phase4_counterfactual_leakage.py.",
+      "phase": "4"
+    },
+    "counterfactual_effective_for_flagged": {
+      "status": "supported_now",
+      "evidence": "On benchmark-v2 test (1376 anomalies, 939 ontology-flagged): 89.99% valid repair among flagged; mean delta S_ont 0.644; median 1 edit. Per rule: medication 100%, forbidden 100%, demographic 65.7% (budget-limited). Scoped: ontology-violation resolution, not clinician-verified.",
+      "phase": "4/7"
+    },
+    "clinical_validity_external": {
+      "status": "future_work",
+      "evidence": "No clinician validation performed. Validity = rule-based ontology-violation resolution, not clinical ground truth.",
+      "phase": "7 (future)"
+    },
+    "external_dataset_generalization": {
+      "status": "future_work",
+      "evidence": "eICU present but uses APACHE/body-system tokens (0/500 records map to the ICD/SNOMED/RxNorm ontology). external_validation_blocked_schema_mismatch. Needs an APACHE->ICD/SNOMED crosswalk + eICU anomaly injection. artifacts/phase7/external_validation_status.json.",
+      "phase": "7 (blocked)"
+    },
+    "reproducible": {
+      "status": "supported_now",
+      "evidence": "Phase 6 config system + resumable training + experiment index + deterministic seeds; Phase 7 aggregate evaluation scripts. Licensed data / checkpoints git-ignored.",
+      "phase": "6/7"
+    }
+  },
+  "summary": {
+    "supported_now": ["benchmark_v2_non_circular", "real_ontology_integration", "real_ontology_beats_legacy", "counterfactual_leakage_free", "counterfactual_effective_for_flagged", "reproducible"],
+    "unsupported": ["detector_improves_detection", "combined_beats_ontology_only"],
+    "removed_from_core": ["sgen_improves_detection"],
+    "future_work": ["clinical_validity_external", "external_dataset_generalization"]
+  },
+  "headline": "Real ontology rules provide the main anomaly-ranking signal on benchmark-v2 (0.79, significantly > legacy 0.74). The unsupervised detector is below chance and non-additive for relational anomalies. Sgen is removed from the core. Counterfactual repair is leakage-free and effective (~90%) for ontology-flagged anomalies. External validation and clinical validation are future work."
+}

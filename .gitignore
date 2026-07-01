@@ -84,6 +84,14 @@ artifacts/phase6/**/*.pkl
 artifacts/phase6/**/*.parquet
 artifacts/phase6/**/per_record*
 
+# Phase 7: final evaluation — only aggregate tables/JSON/MD/figure-data are committed.
+artifacts/phase7/ignored/
+artifacts/phase7/**/per_record*
+artifacts/phase7/**/*.pkl
+artifacts/phase7/**/*.pt
+artifacts/phase7/**/*.parquet
+artifacts/phase7/**/*.zip
+
 # Large generated evaluation artifacts
 artifacts/day36/counterfactuals.csv
 artifacts/day36_repair_ready/repair_ready_scores.csv
