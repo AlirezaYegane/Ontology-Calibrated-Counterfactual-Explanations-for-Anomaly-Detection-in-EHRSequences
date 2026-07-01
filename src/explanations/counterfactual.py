@@ -478,6 +478,7 @@ def generate_counterfactual(
     mode: str = "ontology",
     seed: int = 42,
     min_delta: float = 0.05,
+    allowed_operations: tuple[str, ...] | None = None,
 ) -> CounterfactualResult:
     """Generate a leakage-free counterfactual repair for one record.
 
@@ -485,6 +486,9 @@ def generate_counterfactual(
     stability). Reads only model-visible fields. Drives the beam search with the
     real ontology S_ont; the optional ``detector`` is scored before/after the final
     repair as a DIAGNOSTIC-only signal and never influences which edits are chosen.
+
+    ``allowed_operations`` (e.g. ``("remove",)``) restricts the candidate edit
+    operations -- used by the Phase 7 edit-strategy ablation. ``None`` allows all.
     """
     tokens, gender, age = extract_model_visible(record)
     before = _score_ont(scorer, tokens, gender, age)
@@ -525,6 +529,11 @@ def generate_counterfactual(
             for edit in _candidate_edits(
                 state["tokens"], state["info"]["violations"], ontology_index
             ):
+                if (
+                    allowed_operations is not None
+                    and edit.operation not in allowed_operations
+                ):
+                    continue
                 new_tokens = _apply_edit(state["tokens"], edit)
                 if new_tokens == state["tokens"]:
                     continue

@@ -1,0 +1,59 @@
+{
+  "paired_bootstrap_roc_auc": [
+    {
+      "a": "ontology_only_real",
+      "b": "legacy_baseline",
+      "observed_diff": 0.0524,
+      "ci": [
+        0.0325,
+        0.0718
+      ],
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "a": "ontology_only_real",
+      "b": "detector_only_full",
+      "observed_diff": 0.3356,
+      "ci": [
+        0.3141,
+        0.3581
+      ],
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "a": "combined_real_without_sgen",
+      "b": "ontology_only_real",
+      "observed_diff": -0.0845,
+      "ci": [
+        -0.0963,
+        -0.0732
+      ],
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "a": "combined_real_without_sgen",
+      "b": "detector_only_full",
+      "observed_diff": 0.2511,
+      "ci": [
+        0.2364,
+        0.2665
+      ],
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "a": "combined_real_without_sgen",
+      "b": "legacy_baseline",
+      "observed_diff": -0.0322,
+      "ci": [
+        -0.0567,
+        -0.0103
+      ],
+      "p_value": 0.004,
+      "significant": true
+    }
+  ]
+}

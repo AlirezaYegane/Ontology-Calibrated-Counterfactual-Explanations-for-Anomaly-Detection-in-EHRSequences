@@ -1,0 +1,7 @@
+variant,roc_auc
+real_ontology_rules_full,0.7881
+legacy_icd_prefix_rules,0.7358
+demographic_rules_only,0.5988
+medication_rules_only,0.5711
+forbidden_cooccurrence_rules_only,0.6252
+ontology_disabled,

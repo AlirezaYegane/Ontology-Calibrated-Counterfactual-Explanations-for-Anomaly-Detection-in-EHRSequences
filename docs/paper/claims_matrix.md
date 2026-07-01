@@ -8,6 +8,20 @@ marketing.
 
 **Generated:** Phase 0 (Day 51 recovery track). **Repo state audited:** Day 50.
 
+## Phase 7 final decisions (authoritative; see `artifacts/phase7/final_claims_decision.json`)
+On benchmark-v2 (final benchmark), with paired-bootstrap significance:
+- **supported_now:** non-circular benchmark (C2b); real ontology integration (C5);
+  **real ontology > legacy** (C4: 0.7881 vs 0.7358, +0.052 p≈0); leakage-free
+  counterfactual (C10); **effective counterfactual repair** (89.99% among flagged);
+  reproducible infrastructure.
+- **unsupported:** detector improves detection (0.4525, below chance); combined >
+  ontology-only (−0.085, p≈0, significantly worse).
+- **removed_from_core:** Sgen (C7).
+- **future_work:** clinical validation (C11); external generalization (eICU schema
+  mismatch — blocked).
+- **Final main method:** ontology-centered `S_main = S_ont`; detector = negative result.
+
+
 ## Status labels
 
 | Label | Meaning |

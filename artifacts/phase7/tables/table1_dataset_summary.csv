@@ -1,0 +1,15 @@
+item,value
+benchmark,"benchmark-v2 (non-circular, MIMIC-IV)"
+n_records,30000
+n_normal,28014
+n_anomaly,1986
+train_n (normal-only),20570
+val_n,3123
+test_n,6307
+subject_overlap,0 (train/val/test)
+strongest_trivial_signal,0.6127 (< 0.80 gate)
+diagnosis_coverage,0.80
+medication_coverage,0.78
+anomaly_demographic,423
+anomaly_medication,1245
+anomaly_forbidden,318

@@ -1,0 +1,18 @@
+{
+  "phase": 7,
+  "external_dataset": "eICU",
+  "path": "data\\processed\\eicu_sequences.parquet",
+  "n_sampled_records": 500,
+  "n_unique_tokens_sampled": 0,
+  "example_tokens": [],
+  "sequence_column": "sequence_tokens",
+  "n_tokens_prefix_mappable": 0,
+  "total_ontology_codes_mapped": 0,
+  "n_records_ontology_fired": 0,
+  "has_gender": true,
+  "has_age_group": true,
+  "schema_compatible_with_ontology": false,
+  "status": "external_validation_blocked_schema_mismatch",
+  "detail": "eICU uses APACHE / body-system tokens (e.g. EICU_APACHE2_DX:*, EICU_BODYSYS:*), NOT ICD-10/ICD-9 or RxNorm. The ontology scorer + Phase 3b rule packs are keyed on ICD->SNOMED / drug->RxNorm mappings, which do not cover APACHE codes -> ~0 tokens map and ~0 rules fire. External validation would require (a) an APACHE->ICD/SNOMED crosswalk and (b) applying the benchmark-v2 anomaly injectors to eICU. Both are out of Phase 7 scope and are documented as future work.",
+  "recommended_paper_scope": "MIMIC-IV benchmark-v2 only; external validation = future work (pending APACHE crosswalk)."
+}

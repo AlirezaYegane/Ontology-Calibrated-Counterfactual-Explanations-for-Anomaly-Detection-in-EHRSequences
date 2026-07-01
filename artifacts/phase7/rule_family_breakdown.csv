@@ -1,0 +1,7 @@
+variant,roc_auc,roc_auc_ci_low,roc_auc_ci_high,average_precision,normal_fp_rate,n_records_fired
+real_ontology_rules_full,0.7881,0.7743,0.8015,0.5422,0.1304,1582
+legacy_icd_prefix_rules,0.7358,0.7197,0.7511,0.5429,,2014
+demographic_rules_only,0.5988,0.5875,0.6092,0.3682,0.0016,282
+medication_rules_only,0.5711,0.5607,0.5823,0.271,0.0635,596
+forbidden_cooccurrence_rules_only,0.6252,0.6124,0.638,0.3296,0.0671,768
+ontology_disabled,,,,0.2182,,0
