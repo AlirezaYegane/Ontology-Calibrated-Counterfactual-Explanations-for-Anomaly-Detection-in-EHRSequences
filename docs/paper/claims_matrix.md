@@ -8,6 +8,12 @@ marketing.
 
 **Generated:** Phase 0 (Day 51 recovery track). **Repo state audited:** Day 50.
 
+> **Phase 8 note.** This is the full historical claim ledger. For the compact, final claim
+> table used by the manuscript, see
+> [`final_claims_matrix.md`](final_claims_matrix.md) (authoritative source:
+> `artifacts/phase7/final_claims_decision.json`). The Phase 7 decisions below remain
+> unchanged in Phase 8.
+
 ## Phase 7 final decisions (authoritative; see `artifacts/phase7/final_claims_decision.json`)
 On benchmark-v2 (final benchmark), with paired-bootstrap significance:
 - **supported_now:** non-circular benchmark (C2b); real ontology integration (C5);

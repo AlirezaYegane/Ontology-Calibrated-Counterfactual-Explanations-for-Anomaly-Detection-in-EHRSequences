@@ -1,5 +1,11 @@
 # Artifact Manifest
 
+> **⚠️ Historical (day-level) — superseded in Phase 8.** This catalogues the old day-level
+> artifacts. The **authoritative** manifest for the final paper is
+> [`../artifacts/phase8/artifact_manifest.md`](../artifacts/phase8/artifact_manifest.md)
+> (machine-readable: `../artifacts/phase8/artifact_manifest.json`), and the paper's evidence
+> base is `../artifacts/phase7/`. Kept for history only.
+
 This document catalogues the experiment artefacts produced across the project roadmap.  Artefacts are organised into day-level directories under `artifacts/`.
 
 > **Note:** Some artefacts contain derived patient-level

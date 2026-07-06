@@ -1,0 +1,72 @@
+{
+  "phase": 8,
+  "title": "Final paper writing, humanized README, reproducibility package, repository finalization",
+  "status": "phase8_complete_external_validation_deferred",
+  "status_justification": "The humanized README, the MIMIC-IV-only ontology-centered paper package, the reproducibility package, the final claim/contribution ledger, the artifact manifest, the paper-asset index, the finalization check script, and the Phase 8 tests are all complete. No new science was run. External validation on eICU remains blocked by a token-schema mismatch and is documented as future work.",
+  "no_new_scientific_phase": true,
+  "benchmark": "benchmark-v2 (non-circular, MIMIC-IV)",
+  "final_main_method": "ontology-centered: S_main = S_ont",
+  "score_equation": "S_cal = (w_det*S_det + w_ont*S_ont) / (w_det + w_ont), w_gen = 0 (detector non-additive; recommended main = S_ont)",
+  "sgen_in_core": false,
+  "main_results_preserved": {
+    "ontology_only_real": {"roc_auc": 0.7881, "ci": [0.7743, 0.8015], "ap": 0.5422, "f1": 0.6349},
+    "legacy_baseline": {"roc_auc": 0.7358, "ci": [0.7197, 0.7511], "ap": 0.5429, "f1": 0.5928},
+    "detector_only_full": {"roc_auc": 0.4525, "ci": [0.4357, 0.4702], "ap": 0.1904, "f1": 0.3608},
+    "combined_real_without_sgen": {"roc_auc": 0.7036, "ci": [0.6866, 0.7201], "ap": 0.4039, "f1": 0.4596},
+    "sgen_diagnostic_excluded": {"roc_auc": 0.4868}
+  },
+  "statistical_conclusions": {
+    "ontology_minus_legacy": {"diff": 0.0524, "ci": [0.0325, 0.0718], "p": 0.0, "significant": true},
+    "combined_minus_ontology": {"diff": -0.0845, "ci": [-0.0963, -0.0732], "p": 0.0, "significant": true}
+  },
+  "counterfactual_results_preserved": {
+    "attempted": 1376,
+    "ontology_flagged": 939,
+    "repair_success_among_flagged": 0.8999,
+    "repair_success_overall": 0.6141,
+    "mean_delta_s_ont": 0.6438,
+    "median_num_edits": 1
+  },
+  "external_validation": {
+    "status": "external_validation_blocked_schema_mismatch",
+    "detail": "eICU uses APACHE/body-system tokens; 0/500 sampled records map to the ICD/SNOMED/RxNorm ontology.",
+    "disposition": "future work (deferred)"
+  },
+  "final_claim_decisions": {
+    "supported": ["benchmark_v2_leakage_controlled", "real_ontology_integration", "real_ontology_beats_legacy", "counterfactual_leakage_free", "counterfactual_effective_for_flagged", "reproducibility"],
+    "unsupported": ["detector_improves_detection", "combined_beats_ontology_only"],
+    "removed_from_core": ["sgen_improves_detection"],
+    "future_work": ["external_validation", "clinical_validity"]
+  },
+  "deliverables": {
+    "readme": "README.md (humanized, final, 20 sections + reviewer note)",
+    "paper_package": [
+      "docs/paper/abstract.md", "docs/paper/introduction.md", "docs/paper/methods.md",
+      "docs/paper/experiments.md", "docs/paper/results.md", "docs/paper/discussion.md",
+      "docs/paper/limitations.md", "docs/paper/reproducibility_statement.md",
+      "docs/paper/ethics_and_data_statement.md", "docs/paper/future_work.md",
+      "docs/paper/manuscript.md", "docs/paper/final_manuscript.md",
+      "docs/paper/references.md", "docs/paper/references_todo.md",
+      "docs/paper/tables_and_figures.md"
+    ],
+    "claims": ["docs/paper/final_claims_matrix.md", "docs/paper/final_contribution_statement.md"],
+    "reproducibility": [
+      "REPRODUCIBILITY.md", "docs/reproducibility/environment.md",
+      "docs/reproducibility/data_access.md", "docs/reproducibility/runbook.md",
+      "docs/reproducibility/artifact_manifest.md",
+      "docs/reproducibility/phase8_reproducibility_guide.md"
+    ],
+    "phase8_artifacts": [
+      "artifacts/phase8/artifact_manifest.json", "artifacts/phase8/artifact_manifest.md",
+      "artifacts/phase8/paper_asset_index.json", "artifacts/phase8/paper_asset_index.md",
+      "artifacts/phase8/phase8_summary.json", "artifacts/phase8/README.md"
+    ],
+    "validation": [
+      "scripts/run_phase8_final_checks.py",
+      "tests/test_phase8_readme.py", "tests/test_phase8_paper_package.py",
+      "tests/test_phase8_reproducibility.py", "tests/test_phase8_final_checks.py"
+    ]
+  },
+  "data_safety": "Only aggregate artifacts committed. No raw/processed clinical data, ontology dumps, vocabularies, checkpoints, .pkl/.pt/.parquet/.zip, or per-record score dumps. .gitignore enforces restricted patterns.",
+  "remaining_work": "External validation requires a future APACHE-to-ICD/SNOMED crosswalk or another compatible external dataset."
+}

@@ -1,5 +1,16 @@
 # Revised Scientific Story (Phase 0)
 
+> **Phase 8 finalization note.** Written at Phase 0, this framing still positioned the
+> counterfactual as the single centerpiece "on top of a sequence anomaly detector." The
+> **final** evidence (Phases 5–7) is more specific: the **real ontology scorer** is the
+> core method and carries the discriminative signal; the detector is a **non-additive,
+> below-chance negative result**; `Sgen` is **removed from the core**; and the
+> leakage-free counterfactual is effective **for ontology-flagged anomalies**. The final
+> story is ontology-centered and MIMIC-IV-only. See
+> [`final_contribution_statement.md`](final_contribution_statement.md),
+> [`final_claims_matrix.md`](final_claims_matrix.md), and the manuscript in
+> [`final_manuscript.md`](final_manuscript.md).
+
 **One-paragraph honest narrative.** Electronic health record (EHR) sequences contain
 documentation errors and clinically inconsistent code combinations that are hard to
 surface and harder to explain. We build a reproducible benchmark for EHR-sequence

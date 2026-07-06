@@ -1,0 +1,33 @@
+{
+  "phase": 8,
+  "title": "Safe aggregate artifact manifest",
+  "generated_for": "Ontology-Calibrated Counterfactual Explanations for Relational Anomaly Detection in EHR Sequences",
+  "benchmark": "benchmark-v2 (non-circular, MIMIC-IV)",
+  "safety_statement": "Every path listed here is aggregate-level (counts, rates, metrics, CIs, small sanitized examples) or code-facing. No raw/processed patient records, ontology dumps, vocabularies, checkpoints, or per-record score dumps are committed. Restricted patterns are git-ignored (see .gitignore).",
+  "excluded_from_git": [
+    "data/processed/ (patient-derived sequences, benchmark-v2 splits *.pkl)",
+    "ontologies/raw/ and ontologies/processed/ (licensed SNOMED/UMLS/RxNorm content)",
+    "*.pt / *.pth / *.ckpt (model checkpoints)",
+    "run vocab/ folders (MIMIC-derived vocabularies)",
+    "artifacts/**/per_record* and artifacts/**/ignored/ (per-record score dumps)",
+    "*.parquet / *.zip"
+  ],
+  "phases": [
+    {"phase": "phase0", "role": "scientific claim reset", "key_artifacts": ["artifacts/phase0/phase0_summary.json", "artifacts/phase0/README.md"], "content": "claim/contribution reset summary; aggregate text/JSON"},
+    {"phase": "phase1", "role": "old-benchmark triviality audit", "key_artifacts": ["artifacts/phase1/phase1_summary.json", "artifacts/phase1/README.md"], "content": "triviality/circularity audit summary"},
+    {"phase": "phase1b", "role": "benchmark-v2 build + validation", "key_artifacts": ["artifacts/phase1b/phase1b_summary.json"], "content": "benchmark-v2 design, split sizes, subject-overlap=0, non-circularity gate 0.6127; counts only"},
+    {"phase": "phase2", "role": "real ontology architecture", "key_artifacts": ["artifacts/phase2/coverage_report.json", "artifacts/phase2/phase2_summary.json", "artifacts/phase2/unmapped_codes.csv"], "content": "coverage counts + crosswalk sanity; unmapped-code list is token strings, no patient data"},
+    {"phase": "phase2b", "role": "UMLS/SNOMED/RxNorm parsing+mapping", "key_artifacts": ["artifacts/phase2b/coverage_report.json", "artifacts/phase2b/raw_asset_inventory.json", "artifacts/phase2b/phase2b_summary.json"], "content": "coverage + asset inventory (counts/hashes)"},
+    {"phase": "phase2b_fix", "role": "ontology coverage repair", "key_artifacts": ["artifacts/phase2b_fix/coverage_report.json", "artifacts/phase2b_fix/phase2b_fix_summary.json"], "content": "final coverage diagnosis 0.80 / medication 0.78; deltas as counts"},
+    {"phase": "phase3", "role": "detector/scoring rebuild", "key_artifacts": ["artifacts/phase3/phase3_scoring_eval.json", "artifacts/phase3/score_variant_table.csv", "artifacts/phase3/phase3_summary.json"], "content": "scoring eval with bootstrap CIs; aggregate"},
+    {"phase": "phase3b", "role": "ontology rule authoring + re-eval", "key_artifacts": ["artifacts/phase3b/phase3b_scoring_eval.json", "artifacts/phase3b/phase3b_summary.json", "artifacts/phase3b/score_variant_table.csv"], "content": "rule-pack coverage + scoring before/after; aggregate"},
+    {"phase": "phase4", "role": "leakage-free counterfactual repair", "key_artifacts": ["artifacts/phase4/counterfactual_summary.json", "artifacts/phase4/phase4_summary.json", "artifacts/phase4/edit_type_breakdown.csv", "artifacts/phase4/counterfactual_results.jsonl"], "content": "repair summary; counterfactual_results.jsonl and failure_cases.jsonl are a small (30-record) illustrative sample of model-visible token edits from SYNTHETIC benchmark-v2 anomalies (no patient identifiers)"},
+    {"phase": "phase5", "role": "generative/Sgen decision gate", "key_artifacts": ["artifacts/phase5/phase5_summary.json", "artifacts/phase5/score_ablation.json", "artifacts/phase5/sgen_decision.json"], "content": "Sgen=remove_from_core evidence; aggregate. Note: per_record_scores.csv is git-ignored"},
+    {"phase": "phase6", "role": "full-scale training + infra", "key_artifacts": ["artifacts/phase6/phase6_summary.json", "artifacts/phase6/experiment_index.json", "artifacts/phase6/runs/phase6_detector_full_gpu/detector_eval.json", "artifacts/phase6/runs/phase6_detector_full_gpu/combined_eval.json", "artifacts/phase6/runs/phase6_detector_full_gpu/train_metrics.jsonl"], "content": "per-run aggregate metrics + per-epoch train_metrics.jsonl (loss/AUC only). Checkpoints, vocab, per-record scores are git-ignored"},
+    {"phase": "phase7", "role": "final evaluation package", "key_artifacts": ["artifacts/phase7/final_evaluation.json", "artifacts/phase7/final_stat_tests.json", "artifacts/phase7/ablation_results.json", "artifacts/phase7/counterfactual_final.json", "artifacts/phase7/external_validation_status.json", "artifacts/phase7/final_claims_decision.json", "artifacts/phase7/tables/", "artifacts/phase7/figures/"], "content": "final aggregate results, tables (table1..5), figures (aggregate CSV + PNG). This is the paper's evidence base"},
+    {"phase": "phase8", "role": "finalization", "key_artifacts": ["artifacts/phase8/phase8_summary.json", "artifacts/phase8/artifact_manifest.json", "artifacts/phase8/paper_asset_index.json", "artifacts/phase8/README.md"], "content": "manifest, paper-asset index, phase8 summary; no data"}
+  ],
+  "authoritative_final_evidence": "artifacts/phase7/",
+  "claim_ledger": "docs/paper/final_claims_matrix.md",
+  "human_manifest": "artifacts/phase8/artifact_manifest.md"
+}

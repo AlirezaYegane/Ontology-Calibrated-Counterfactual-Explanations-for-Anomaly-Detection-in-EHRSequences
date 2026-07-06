@@ -1,5 +1,13 @@
 # Run-from-Scratch Guide
 
+> **⚠️ Historical (Day-48 snapshot) — superseded in Phase 8.** This guide describes the old
+> day-level pipeline (MIMIC-III-oriented, supervised detector as headline). The **current,
+> authoritative** run-from-scratch instructions are the Phase 8 reproducibility package:
+> [`../REPRODUCIBILITY.md`](../REPRODUCIBILITY.md) and
+> [`reproducibility/runbook.md`](reproducibility/runbook.md). The final method is
+> **ontology-only** on **MIMIC-IV benchmark-v2**; the detector and `Sgen` are negative
+> results. This file is kept for history only.
+
 Step-by-step instructions to reproduce the experiments described in
 *"Ontology-Calibrated Counterfactual Explanations for Anomaly Detection
 in EHR Sequences"*.
