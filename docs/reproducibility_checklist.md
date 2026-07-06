@@ -1,5 +1,13 @@
 # Reproducibility Checklist
 
+> **⚠️ Historical (Day-48 snapshot) — superseded in Phase 8.** Item 6 below still calls the
+> *supervised detector* a primary evidence source; that framing is **outdated**. The final
+> evidence is **ontology-only** on **MIMIC-IV benchmark-v2**, and the detector and `Sgen` are
+> transparent **negative results**. See the current package:
+> [`../REPRODUCIBILITY.md`](../REPRODUCIBILITY.md),
+> [`reproducibility/phase8_reproducibility_guide.md`](reproducibility/phase8_reproducibility_guide.md),
+> and the final claim ledger [`paper/final_claims_matrix.md`](paper/final_claims_matrix.md).
+
 This checklist accompanies the manuscript
 *"Ontology-Calibrated Counterfactual Explanations for Anomaly Detection
 in EHR Sequences"* and documents the measures taken to ensure

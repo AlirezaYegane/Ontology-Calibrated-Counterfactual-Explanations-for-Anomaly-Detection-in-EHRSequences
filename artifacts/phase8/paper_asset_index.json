@@ -1,0 +1,73 @@
+{
+  "phase": 8,
+  "title": "Paper asset index (tables and figures)",
+  "benchmark": "benchmark-v2 (non-circular, MIMIC-IV)",
+  "note": "All assets are aggregate-level only. Per-record score dumps are git-ignored.",
+  "tables": [
+    {
+      "paper_label": "Table 1",
+      "name": "dataset_summary",
+      "path": "artifacts/phase7/tables/table1_dataset_summary.csv",
+      "contents": "benchmark-v2 record/anomaly counts, split sizes, subject overlap, trivial-signal gate, coverage"
+    },
+    {
+      "paper_label": "Table 2",
+      "name": "main_results",
+      "path": "artifacts/phase7/tables/table2_main_results.csv",
+      "contents": "ROC-AUC + CI, AP, F1 for ontology_only_real, legacy_baseline, detector_only_full, combined_real_without_sgen"
+    },
+    {
+      "paper_label": "Table 3",
+      "name": "ablation_results",
+      "path": "artifacts/phase7/tables/table3_ablation_results.csv",
+      "contents": "rule-family ablation ROC-AUC / AP / normal false-positive rate"
+    },
+    {
+      "paper_label": "Table 4",
+      "name": "counterfactual_results",
+      "path": "artifacts/phase7/tables/table4_counterfactual_results.csv",
+      "contents": "attempted, ontology-flagged, success rates, mean delta S_ont, edit counts"
+    },
+    {
+      "paper_label": "Table 5",
+      "name": "statistical_tests",
+      "path": "artifacts/phase7/tables/table5_statistical_tests.csv",
+      "contents": "paired-bootstrap ROC-AUC differences, CIs, p-values, significance"
+    }
+  ],
+  "figures": [
+    {
+      "paper_label": "Figure 1",
+      "name": "pipeline_summary",
+      "path": "artifacts/phase7/figures/fig1_pipeline_summary.json",
+      "contents": "method/benchmark/scope summary data for a pipeline schematic"
+    },
+    {
+      "paper_label": "Figure 2",
+      "name": "main_auc_bar",
+      "path": "artifacts/phase7/figures/fig2_main_auc_bar.png",
+      "data_path": "artifacts/phase7/figures/fig2_main_auc_bar.csv",
+      "contents": "main ROC-AUC bar chart with confidence intervals"
+    },
+    {
+      "paper_label": "Figure 3",
+      "name": "ablation_auc_bar",
+      "path": "artifacts/phase7/figures/fig3_ablation_auc_bar.png",
+      "data_path": "artifacts/phase7/figures/fig3_ablation_auc_bar.csv",
+      "contents": "rule-family ablation ROC-AUC bar chart"
+    },
+    {
+      "paper_label": "Figure 4",
+      "name": "counterfactual_delta_box_summary",
+      "path": "artifacts/phase7/figures/fig4_counterfactual_delta_box_summary.csv",
+      "contents": "counterfactual repair delta-S_ont / edits / success summary"
+    }
+  ],
+  "regeneration_scripts": [
+    "scripts/run_phase7_final_evaluation.py",
+    "scripts/run_phase7_ablations.py",
+    "scripts/run_phase7_counterfactual_final.py",
+    "scripts/run_phase7_tables.py"
+  ],
+  "human_index": "docs/paper/tables_and_figures.md"
+}

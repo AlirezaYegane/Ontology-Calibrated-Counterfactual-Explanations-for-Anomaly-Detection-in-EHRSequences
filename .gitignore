@@ -101,3 +101,13 @@ artifacts/day36_probe_v3/
 
 # Profiling binaries
 artifacts/day43/*.prof
+
+# --- Phase 8 hardening: global restricted-data guards ---
+# Belt-and-braces patterns so restricted/derived material can never be committed under
+# any artifacts/phase*/ directory (aggregate JSON/MD/CSV/PNG summaries remain allowed).
+*.zip
+artifacts/**/per_record*
+artifacts/**/checkpoints/
+artifacts/**/vocab/
+artifacts/**/ignored/
+artifacts/phase8/ignored/

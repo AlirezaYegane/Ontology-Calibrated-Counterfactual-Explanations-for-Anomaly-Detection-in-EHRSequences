@@ -1,5 +1,15 @@
 # Contribution Matrix (Phase 0)
 
+> **Phase 8 finalization note.** This is the *original Phase 0* planning matrix, kept for
+> history. The **final, evidence-based** contribution statement is
+> [`final_contribution_statement.md`](final_contribution_statement.md) and the final claim
+> ledger is [`final_claims_matrix.md`](final_claims_matrix.md). Outcome vs. this plan: K1
+> (benchmark) and K2 (ontology triage) **landed and are supported**; K3 (leakage-free
+> ontology counterfactual) **landed and is supported**; K4 (detector backbone) became a
+> **negative result** (below chance, non-additive); K5 (diffusion/`Sgen`) was **removed
+> from the core**; K6 (clinician study) and K7 (eICU external validation) remain **future
+> work** — eICU is blocked by an APACHE↔ICD/SNOMED schema mismatch.
+
 **Purpose.** Map candidate contributions to a realistic paper plan, with current
 readiness and the single biggest blocker for each. Readiness is a blunt estimate, not
 a promise.
