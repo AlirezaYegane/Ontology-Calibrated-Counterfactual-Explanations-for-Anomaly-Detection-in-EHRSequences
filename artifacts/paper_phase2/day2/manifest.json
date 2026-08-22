@@ -1,0 +1,39 @@
+{
+  "timestamp_utc": "2026-08-22T15:49:39+00:00",
+  "git_commit": "1c1fb8dde2866c768889f173039ae89fc483c4d4",
+  "git_dirty_at_run": false,
+  "benchmark_version": "benchmark_v2",
+  "seed": 42,
+  "split_hashes": {
+    "train_sha256": "ffb43f13e87b1f2948ddbcdc33fe54c25d5ef8ada038ac5d228fe2b0bbcc7089",
+    "validation_sha256": "8fa44aa60fab43aae8c1f4c7b17e07fedf111696d4410d4a561713914a3abf8c"
+  },
+  "config": {
+    "path": "config/paper_phase2/day2_b0_b1_selection.yaml",
+    "sha256": "fa7c50dbcf67c3a3ba8666399adf212b05a8087ea0b3d44332f34bc3c4ae8049"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.4.4",
+      "pandas": "3.0.3",
+      "scikit-learn": "1.9.0",
+      "scipy": "1.17.1",
+      "torch": "not-installed",
+      "pyyaml": "6.0.3"
+    }
+  },
+  "data_policy": {
+    "statistics_from_clean_train_only": true,
+    "validation_only_tuning": true,
+    "test_accessed": false,
+    "ontology_used": false,
+    "hidden_answer_keys_used_as_features": false
+  },
+  "artifact_policy": {
+    "aggregate_only": true,
+    "per_record_scores_saved": false,
+    "per_record_scores_committed": false
+  }
+}

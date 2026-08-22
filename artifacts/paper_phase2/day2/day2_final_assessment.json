@@ -1,0 +1,363 @@
+{
+  "day": 2,
+  "status": "complete_with_shortcut_sensitive_baseline_finding",
+  "benchmark": "benchmark_v2",
+  "interpretation": "Performance-selected B0/B1 configurations retain validation discrimination but are strongly sensitive to sequence length and candidate-pair count. Approximately length-neutral quantile aggregation substantially attenuates discrimination; therefore benchmark-v2 does not support a strong claim of length-robust relational anomaly detection.",
+  "validation_prevalence": 0.19532500800512329,
+  "frozen_for_day3": {
+    "b0_performance": {
+      "candidate_id": "b0|surprisal|alpha=0.1|agg=topk3",
+      "model": "B0",
+      "score_family": "token_surprisal",
+      "aggregation": "topk3",
+      "parameters": {
+        "alpha": 0.1
+      },
+      "is_extreme": false,
+      "overall": {
+        "pr_auc": 0.24546089345574376,
+        "roc_auc": 0.5978590020418415
+      },
+      "bias": {
+        "spearman_vs_sequence_length": 0.5202130153583038,
+        "spearman_vs_candidate_pair_count": 0.5332609951265737,
+        "max_abs_spearman": 0.5332609951265737
+      },
+      "length_bins": {
+        "short": {
+          "n": 1141,
+          "n_anomaly": 150,
+          "anomaly_rate": 0.13146362839614373,
+          "pr_auc": 0.21482728412435165,
+          "roc_auc": 0.6669256643121426
+        },
+        "medium": {
+          "n": 975,
+          "n_anomaly": 218,
+          "anomaly_rate": 0.2235897435897436,
+          "pr_auc": 0.23273319280335333,
+          "roc_auc": 0.514203822427981
+        },
+        "long": {
+          "n": 1007,
+          "n_anomaly": 242,
+          "anomaly_rate": 0.24031777557100298,
+          "pr_auc": 0.26785389800481746,
+          "roc_auc": 0.5434451466537027
+        }
+      },
+      "anomaly_family_breakdown": {
+        "demographic_incompatibility": {
+          "n": 151,
+          "n_anomaly": 151,
+          "mean": 11.896273852409092,
+          "median": 11.33572510935509
+        },
+        "forbidden_cooccurrence": {
+          "n": 89,
+          "n_anomaly": 89,
+          "mean": 13.716256348092976,
+          "median": 13.414222867519584
+        },
+        "medication_indication_mismatch": {
+          "n": 370,
+          "n_anomaly": 370,
+          "mean": 11.808283081017011,
+          "median": 11.599361267362632
+        },
+        "normal": {
+          "n": 2513,
+          "n_anomaly": 0,
+          "mean": 11.429894483430692,
+          "median": 11.289125721140273
+        }
+      }
+    },
+    "b0_length_robust": {
+      "candidate_id": "b0|surprisal|alpha=0.1|agg=q95",
+      "model": "B0",
+      "score_family": "token_surprisal",
+      "aggregation": "q95",
+      "parameters": {
+        "alpha": 0.1
+      },
+      "is_extreme": false,
+      "overall": {
+        "pr_auc": 0.21041401324625958,
+        "roc_auc": 0.5308983449994454
+      },
+      "bias": {
+        "spearman_vs_sequence_length": -0.024796746231290117,
+        "spearman_vs_candidate_pair_count": 0.006424286469605817,
+        "max_abs_spearman": 0.024796746231290117
+      },
+      "length_bins": {
+        "short": {
+          "n": 1141,
+          "n_anomaly": 150,
+          "anomaly_rate": 0.13146362839614373,
+          "pr_auc": 0.19709204691147048,
+          "roc_auc": 0.6059132189707367
+        },
+        "medium": {
+          "n": 975,
+          "n_anomaly": 218,
+          "anomaly_rate": 0.2235897435897436,
+          "pr_auc": 0.21720757719384964,
+          "roc_auc": 0.4914134742404228
+        },
+        "long": {
+          "n": 1007,
+          "n_anomaly": 242,
+          "anomaly_rate": 0.24031777557100298,
+          "pr_auc": 0.2479854167231779,
+          "roc_auc": 0.514811213741695
+        }
+      },
+      "anomaly_family_breakdown": {
+        "demographic_incompatibility": {
+          "n": 151,
+          "n_anomaly": 151,
+          "mean": 11.453243295235666,
+          "median": 11.057097883682541
+        },
+        "forbidden_cooccurrence": {
+          "n": 89,
+          "n_anomaly": 89,
+          "mean": 11.792956398691919,
+          "median": 11.198417390305492
+        },
+        "medication_indication_mismatch": {
+          "n": 370,
+          "n_anomaly": 370,
+          "mean": 10.549657566700228,
+          "median": 10.322808955867423
+        },
+        "normal": {
+          "n": 2513,
+          "n_anomaly": 0,
+          "mean": 10.765406515582674,
+          "median": 10.497382421190117
+        }
+      }
+    },
+    "b1_performance": {
+      "candidate_id": "b1|conditional_relation|alpha=0.1|minsup=20|agg=topk10",
+      "model": "B1",
+      "score_family": "conditional_relation",
+      "aggregation": "topk10",
+      "parameters": {
+        "alpha": 0.1,
+        "min_support": 20
+      },
+      "is_extreme": false,
+      "overall": {
+        "pr_auc": 0.25026160505168554,
+        "roc_auc": 0.61074576138506
+      },
+      "bias": {
+        "spearman_vs_sequence_length": 0.6096475731193189,
+        "spearman_vs_candidate_pair_count": 0.6253312195997744,
+        "max_abs_spearman": 0.6253312195997744
+      },
+      "length_bins": {
+        "short": {
+          "n": 1141,
+          "n_anomaly": 150,
+          "anomaly_rate": 0.13146362839614373,
+          "pr_auc": 0.24109813006799008,
+          "roc_auc": 0.7018096199125463
+        },
+        "medium": {
+          "n": 975,
+          "n_anomaly": 218,
+          "anomaly_rate": 0.2235897435897436,
+          "pr_auc": 0.23834706485660787,
+          "roc_auc": 0.5191151697308303
+        },
+        "long": {
+          "n": 1007,
+          "n_anomaly": 242,
+          "anomaly_rate": 0.24031777557100298,
+          "pr_auc": 0.264749364464371,
+          "roc_auc": 0.5458596661805218
+        }
+      },
+      "anomaly_family_breakdown": {
+        "demographic_incompatibility": {
+          "n": 151,
+          "n_anomaly": 151,
+          "mean": 7.53338753498515,
+          "median": 7.045998585367883
+        },
+        "forbidden_cooccurrence": {
+          "n": 89,
+          "n_anomaly": 89,
+          "mean": 9.246324431584158,
+          "median": 9.123842277554413
+        },
+        "medication_indication_mismatch": {
+          "n": 370,
+          "n_anomaly": 370,
+          "mean": 7.613340208694586,
+          "median": 7.32439281612355
+        },
+        "normal": {
+          "n": 2513,
+          "n_anomaly": 0,
+          "mean": 7.12232337113987,
+          "median": 6.9778933979555
+        }
+      }
+    },
+    "b1_length_robust": {
+      "candidate_id": "b1|conditional_relation|alpha=0.1|minsup=20|agg=q90",
+      "model": "B1",
+      "score_family": "conditional_relation",
+      "aggregation": "q90",
+      "parameters": {
+        "alpha": 0.1,
+        "min_support": 20
+      },
+      "is_extreme": false,
+      "overall": {
+        "pr_auc": 0.20660246246064473,
+        "roc_auc": 0.513158135074661
+      },
+      "bias": {
+        "spearman_vs_sequence_length": 0.03499713903030534,
+        "spearman_vs_candidate_pair_count": 0.04385617539389391,
+        "max_abs_spearman": 0.04385617539389391
+      },
+      "length_bins": {
+        "short": {
+          "n": 1141,
+          "n_anomaly": 150,
+          "anomaly_rate": 0.13146362839614373,
+          "pr_auc": 0.18218764360275985,
+          "roc_auc": 0.56447695930037
+        },
+        "medium": {
+          "n": 975,
+          "n_anomaly": 218,
+          "anomaly_rate": 0.2235897435897436,
+          "pr_auc": 0.22096051339507816,
+          "roc_auc": 0.47619466023535684
+        },
+        "long": {
+          "n": 1007,
+          "n_anomaly": 242,
+          "anomaly_rate": 0.24031777557100298,
+          "pr_auc": 0.24951067416043324,
+          "roc_auc": 0.510976070869119
+        }
+      },
+      "anomaly_family_breakdown": {
+        "demographic_incompatibility": {
+          "n": 151,
+          "n_anomaly": 151,
+          "mean": 5.954920422562679,
+          "median": 5.644256875248146
+        },
+        "forbidden_cooccurrence": {
+          "n": 89,
+          "n_anomaly": 89,
+          "mean": 6.286145833145572,
+          "median": 6.152041236530988
+        },
+        "medication_indication_mismatch": {
+          "n": 370,
+          "n_anomaly": 370,
+          "mean": 5.485933712564246,
+          "median": 5.3970895678198865
+        },
+        "normal": {
+          "n": 2513,
+          "n_anomaly": 0,
+          "mean": 5.6404319977791735,
+          "median": 5.51168778871515
+        }
+      }
+    },
+    "b1_intermediate_q95": {
+      "candidate_id": "b1|conditional_relation|alpha=0.1|minsup=20|agg=q95",
+      "model": "B1",
+      "score_family": "conditional_relation",
+      "aggregation": "q95",
+      "parameters": {
+        "alpha": 0.1,
+        "min_support": 20
+      },
+      "is_extreme": false,
+      "overall": {
+        "pr_auc": 0.22088199021664978,
+        "roc_auc": 0.5478195351385908
+      },
+      "bias": {
+        "spearman_vs_sequence_length": 0.14477638997238487,
+        "spearman_vs_candidate_pair_count": 0.15430216140594427,
+        "max_abs_spearman": 0.15430216140594427
+      },
+      "length_bins": {
+        "short": {
+          "n": 1141,
+          "n_anomaly": 150,
+          "anomaly_rate": 0.13146362839614373,
+          "pr_auc": 0.19604859431578736,
+          "roc_auc": 0.6069895728220652
+        },
+        "medium": {
+          "n": 975,
+          "n_anomaly": 218,
+          "anomaly_rate": 0.2235897435897436,
+          "pr_auc": 0.22641256543598687,
+          "roc_auc": 0.5004847720965181
+        },
+        "long": {
+          "n": 1007,
+          "n_anomaly": 242,
+          "anomaly_rate": 0.24031777557100298,
+          "pr_auc": 0.2568234163615367,
+          "roc_auc": 0.5253227461783612
+        }
+      },
+      "anomaly_family_breakdown": {
+        "demographic_incompatibility": {
+          "n": 151,
+          "n_anomaly": 151,
+          "mean": 6.549346017562161,
+          "median": 6.168409949957407
+        },
+        "forbidden_cooccurrence": {
+          "n": 89,
+          "n_anomaly": 89,
+          "mean": 7.244013614910549,
+          "median": 7.118490079977865
+        },
+        "medication_indication_mismatch": {
+          "n": 370,
+          "n_anomaly": 370,
+          "mean": 6.095572594456988,
+          "median": 5.915293755869467
+        },
+        "normal": {
+          "n": 2513,
+          "n_anomaly": 0,
+          "mean": 6.177013057374391,
+          "median": 5.9939498128632795
+        }
+      }
+    }
+  },
+  "claim_policy": {
+    "claim_strong_length_robust_b1_signal": false,
+    "describe_topk_b1_as": "performance-selected but shortcut-sensitive",
+    "describe_q90_b1_as": "approximately length/pair-count neutral but near-chance discrimination",
+    "test_tuning_allowed": false
+  },
+  "day3_policy": {
+    "open_test_once": true,
+    "evaluate_only_frozen_configs": true,
+    "no_hyperparameter_changes_after_test": true
+  }
+}

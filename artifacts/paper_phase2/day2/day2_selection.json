@@ -1,0 +1,321 @@
+{
+  "status": "complete",
+  "experiment": "paper_phase2_day2_b0_b1_selection",
+  "scientific_role": "preliminary benchmark-v2 thesis diagnostic",
+  "selection_policy": {
+    "eligible": "non-extreme aggregations only",
+    "primary": "highest validation PR-AUC",
+    "tie_breaker_1": "lowest max absolute Spearman correlation with sequence length / candidate-pair count",
+    "tie_breaker_2": "highest validation ROC-AUC",
+    "final_tie_breaker": "lexical candidate ID",
+    "numeric_bias_threshold_used": false
+  },
+  "train_derived_length_bins": {
+    "short_max": 26.0,
+    "medium_max": 49.0,
+    "long_above": 49.0
+  },
+  "selected_b0": {
+    "candidate_id": "b0|surprisal|alpha=0.1|agg=topk3",
+    "model": "B0",
+    "score_family": "token_surprisal",
+    "aggregation": "topk3",
+    "parameters": {
+      "alpha": 0.1
+    },
+    "is_extreme": false,
+    "overall": {
+      "pr_auc": 0.24546089345574376,
+      "roc_auc": 0.5978590020418415
+    },
+    "bias": {
+      "spearman_vs_sequence_length": 0.5202130153583038,
+      "spearman_vs_candidate_pair_count": 0.5332609951265737,
+      "max_abs_spearman": 0.5332609951265737
+    },
+    "length_bins": {
+      "short": {
+        "n": 1141,
+        "n_anomaly": 150,
+        "anomaly_rate": 0.13146362839614373,
+        "pr_auc": 0.21482728412435165,
+        "roc_auc": 0.6669256643121426
+      },
+      "medium": {
+        "n": 975,
+        "n_anomaly": 218,
+        "anomaly_rate": 0.2235897435897436,
+        "pr_auc": 0.23273319280335333,
+        "roc_auc": 0.514203822427981
+      },
+      "long": {
+        "n": 1007,
+        "n_anomaly": 242,
+        "anomaly_rate": 0.24031777557100298,
+        "pr_auc": 0.26785389800481746,
+        "roc_auc": 0.5434451466537027
+      }
+    },
+    "anomaly_family_breakdown": {
+      "demographic_incompatibility": {
+        "n": 151,
+        "n_anomaly": 151,
+        "mean": 11.896273852409092,
+        "median": 11.33572510935509
+      },
+      "forbidden_cooccurrence": {
+        "n": 89,
+        "n_anomaly": 89,
+        "mean": 13.716256348092976,
+        "median": 13.414222867519584
+      },
+      "medication_indication_mismatch": {
+        "n": 370,
+        "n_anomaly": 370,
+        "mean": 11.808283081017011,
+        "median": 11.599361267362632
+      },
+      "normal": {
+        "n": 2513,
+        "n_anomaly": 0,
+        "mean": 11.429894483430692,
+        "median": 11.289125721140273
+      }
+    }
+  },
+  "selected_b1": {
+    "candidate_id": "b1|conditional_relation|alpha=0.1|minsup=20|agg=topk10",
+    "model": "B1",
+    "score_family": "conditional_relation",
+    "aggregation": "topk10",
+    "parameters": {
+      "alpha": 0.1,
+      "min_support": 20
+    },
+    "is_extreme": false,
+    "overall": {
+      "pr_auc": 0.25026160505168554,
+      "roc_auc": 0.61074576138506
+    },
+    "bias": {
+      "spearman_vs_sequence_length": 0.6096475731193189,
+      "spearman_vs_candidate_pair_count": 0.6253312195997744,
+      "max_abs_spearman": 0.6253312195997744
+    },
+    "length_bins": {
+      "short": {
+        "n": 1141,
+        "n_anomaly": 150,
+        "anomaly_rate": 0.13146362839614373,
+        "pr_auc": 0.24109813006799008,
+        "roc_auc": 0.7018096199125463
+      },
+      "medium": {
+        "n": 975,
+        "n_anomaly": 218,
+        "anomaly_rate": 0.2235897435897436,
+        "pr_auc": 0.23834706485660787,
+        "roc_auc": 0.5191151697308303
+      },
+      "long": {
+        "n": 1007,
+        "n_anomaly": 242,
+        "anomaly_rate": 0.24031777557100298,
+        "pr_auc": 0.264749364464371,
+        "roc_auc": 0.5458596661805218
+      }
+    },
+    "anomaly_family_breakdown": {
+      "demographic_incompatibility": {
+        "n": 151,
+        "n_anomaly": 151,
+        "mean": 7.53338753498515,
+        "median": 7.045998585367883
+      },
+      "forbidden_cooccurrence": {
+        "n": 89,
+        "n_anomaly": 89,
+        "mean": 9.246324431584158,
+        "median": 9.123842277554413
+      },
+      "medication_indication_mismatch": {
+        "n": 370,
+        "n_anomaly": 370,
+        "mean": 7.613340208694586,
+        "median": 7.32439281612355
+      },
+      "normal": {
+        "n": 2513,
+        "n_anomaly": 0,
+        "mean": 7.12232337113987,
+        "median": 6.9778933979555
+      }
+    }
+  },
+  "best_extreme_b0": {
+    "candidate_id": "b0|surprisal|alpha=0.1|agg=worst",
+    "model": "B0",
+    "score_family": "token_surprisal",
+    "aggregation": "worst",
+    "parameters": {
+      "alpha": 0.1
+    },
+    "is_extreme": true,
+    "overall": {
+      "pr_auc": 0.24906629057360716,
+      "roc_auc": 0.6021318651210427
+    },
+    "bias": {
+      "spearman_vs_sequence_length": 0.4216203768647274,
+      "spearman_vs_candidate_pair_count": 0.4335727014086208,
+      "max_abs_spearman": 0.4335727014086208
+    },
+    "length_bins": {
+      "short": {
+        "n": 1141,
+        "n_anomaly": 150,
+        "anomaly_rate": 0.13146362839614373,
+        "pr_auc": 0.21804680404365406,
+        "roc_auc": 0.6718264379414733
+      },
+      "medium": {
+        "n": 975,
+        "n_anomaly": 218,
+        "anomaly_rate": 0.2235897435897436,
+        "pr_auc": 0.24542460201896232,
+        "roc_auc": 0.5248415401209506
+      },
+      "long": {
+        "n": 1007,
+        "n_anomaly": 242,
+        "anomaly_rate": 0.24031777557100298,
+        "pr_auc": 0.2683139556513901,
+        "roc_auc": 0.5519931939718035
+      }
+    },
+    "anomaly_family_breakdown": {
+      "demographic_incompatibility": {
+        "n": 151,
+        "n_anomaly": 151,
+        "mean": 12.945475766723623,
+        "median": 12.721712854108157
+      },
+      "forbidden_cooccurrence": {
+        "n": 89,
+        "n_anomaly": 89,
+        "mean": 16.155700058593307,
+        "median": 16.155700058593304
+      },
+      "medication_indication_mismatch": {
+        "n": 370,
+        "n_anomaly": 370,
+        "mean": 12.981053646261495,
+        "median": 12.721712854108157
+      },
+      "normal": {
+        "n": 2513,
+        "n_anomaly": 0,
+        "mean": 12.567042325162104,
+        "median": 12.223874425868978
+      }
+    }
+  },
+  "best_extreme_b1": {
+    "candidate_id": "b1|conditional_relation|alpha=0.1|minsup=2|agg=worst",
+    "model": "B1",
+    "score_family": "conditional_relation",
+    "aggregation": "worst",
+    "parameters": {
+      "alpha": 0.1,
+      "min_support": 2
+    },
+    "is_extreme": true,
+    "overall": {
+      "pr_auc": 0.24598239251373066,
+      "roc_auc": 0.6058658908104088
+    },
+    "bias": {
+      "spearman_vs_sequence_length": 0.4863952944376267,
+      "spearman_vs_candidate_pair_count": 0.4982821210298261,
+      "max_abs_spearman": 0.4982821210298261
+    },
+    "length_bins": {
+      "short": {
+        "n": 1141,
+        "n_anomaly": 150,
+        "anomaly_rate": 0.13146362839614373,
+        "pr_auc": 0.22463903878706543,
+        "roc_auc": 0.688250924991591
+      },
+      "medium": {
+        "n": 975,
+        "n_anomaly": 218,
+        "anomaly_rate": 0.2235897435897436,
+        "pr_auc": 0.23545189843930694,
+        "roc_auc": 0.5225722007441252
+      },
+      "long": {
+        "n": 1007,
+        "n_anomaly": 242,
+        "anomaly_rate": 0.24031777557100298,
+        "pr_auc": 0.26417340773294073,
+        "roc_auc": 0.5440609301571869
+      }
+    },
+    "anomaly_family_breakdown": {
+      "demographic_incompatibility": {
+        "n": 151,
+        "n_anomaly": 151,
+        "mean": 8.913117262024462,
+        "median": 8.527162381120336
+      },
+      "forbidden_cooccurrence": {
+        "n": 89,
+        "n_anomaly": 89,
+        "mean": 10.739025973916968,
+        "median": 10.711922579629494
+      },
+      "medication_indication_mismatch": {
+        "n": 370,
+        "n_anomaly": 370,
+        "mean": 8.803703329581316,
+        "median": 8.542181590312602
+      },
+      "normal": {
+        "n": 2513,
+        "n_anomaly": 0,
+        "mean": 8.43222678899725,
+        "median": 8.464916957961973
+      }
+    }
+  },
+  "b0_robust_vs_extreme": {
+    "selected_candidate_id": "b0|surprisal|alpha=0.1|agg=topk3",
+    "extreme_candidate_id": "b0|surprisal|alpha=0.1|agg=worst",
+    "pr_auc_delta_selected_minus_extreme": -0.003605397117863396,
+    "roc_auc_delta_selected_minus_extreme": -0.004272863079201161,
+    "max_abs_bias_selected": 0.5332609951265737,
+    "max_abs_bias_extreme": 0.4335727014086208,
+    "max_abs_bias_delta_selected_minus_extreme": 0.09968829371795285,
+    "bias_reduced": false
+  },
+  "b1_robust_vs_extreme": {
+    "selected_candidate_id": "b1|conditional_relation|alpha=0.1|minsup=20|agg=topk10",
+    "extreme_candidate_id": "b1|conditional_relation|alpha=0.1|minsup=2|agg=worst",
+    "pr_auc_delta_selected_minus_extreme": 0.0042792125379548795,
+    "roc_auc_delta_selected_minus_extreme": 0.004879870574651224,
+    "max_abs_bias_selected": 0.6253312195997744,
+    "max_abs_bias_extreme": 0.4982821210298261,
+    "max_abs_bias_delta_selected_minus_extreme": 0.12704909856994834,
+    "bias_reduced": false
+  },
+  "b1_minus_b0": {
+    "pr_auc": 0.004800711595941781,
+    "roc_auc": 0.012886759343218479
+  },
+  "test_data_accessed": false,
+  "ontology_used": false,
+  "hidden_eval_metadata_used_as_feature": false,
+  "audit_metadata_used_as_feature": false,
+  "per_record_scores_saved": false
+}
