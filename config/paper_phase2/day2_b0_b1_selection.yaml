@@ -1,0 +1,85 @@
+experiment:
+  name: paper_phase2_day2_b0_b1_selection
+  phase: paper_phase2
+  benchmark: benchmark_v2
+  purpose: validation_only_bias_aware_selection
+  seed: 42
+
+data:
+  train: data/processed/benchmark_v2/train.pkl
+  validation: data/processed/benchmark_v2/val.pkl
+  test_access_allowed: false
+
+data_policy:
+  statistics_source: clean_train_only
+  tuning_split: validation_only
+  ontology_allowed: false
+  hidden_answer_keys_allowed_as_features: false
+  per_record_scores_saved: false
+
+b0_grid:
+  alpha:
+    - 0.1
+    - 0.5
+    - 1.0
+    - 2.0
+
+  rare_quantile:
+    - 0.01
+    - 0.05
+    - 0.10
+
+  quantiles:
+    - 0.80
+    - 0.90
+    - 0.95
+
+  top_k:
+    - 3
+    - 5
+    - 10
+
+b1_grid:
+  alpha:
+    - 0.1
+    - 0.5
+    - 1.0
+    - 2.0
+
+  min_support:
+    - 2
+    - 5
+    - 10
+    - 20
+
+  quantiles:
+    - 0.80
+    - 0.90
+    - 0.95
+
+  top_k:
+    - 3
+    - 5
+    - 10
+
+selection:
+  eligibility: non_extreme_aggregations_only
+  primary: highest_validation_pr_auc
+  tie_breaker_1: lowest_max_absolute_length_pair_spearman
+  tie_breaker_2: highest_validation_roc_auc
+  final_tie_breaker: lexical_candidate_id
+
+bias_audit:
+  sequence_length: true
+  candidate_pair_count: true
+  train_derived_length_bins: true
+  compare_selected_robust_to_best_extreme: true
+
+artifact_policy:
+  aggregate_only: true
+  save_per_record_scores: false
+  commit_per_record_scores: false
+
+scientific_scope:
+  preliminary_thesis_diagnostic: true
+  valid_until_benchmark_v3_generator_independent_strata: true
